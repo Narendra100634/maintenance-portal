@@ -9,6 +9,7 @@ use App\Http\Controllers\Redirect;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 
+
 class CommentController extends Controller
 {
     public function save(Request $request, $id)
