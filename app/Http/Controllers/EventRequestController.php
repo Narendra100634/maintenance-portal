@@ -27,6 +27,7 @@ class EventRequestController extends Controller
             return redirect()->route('login');
         }
     }
+    /* all request function */
     public function allrequest(Request $request){
         if(session('userType') != null || session('userType') != ''){   
             if(session('userType') == 'requester'){
