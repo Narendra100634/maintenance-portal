@@ -1,6 +1,5 @@
-@include('layouts.header')
-@include('layouts.sidebar')
-<div class="content-wrapper">
+@extends('layouts.app')
+@section('content')
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">Create New Request</h1></div>
@@ -13,16 +12,19 @@
                 <div class="col-md-9">
                     <div class="box">
                         <div class="box-body">
-                            <form method="POST" action="{{route('storerequest')}}" class="form-submission watermark min-height form-sbmt" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('req.store')}}" class="form-submission watermark min-height form-sbmt" enctype="multipart/form-data">
                                 @csrf
                                     <div class="row">
                                         <div class="col-md-2">  
                                             <label>Priority<span class="required_min">*</span></label>
                                         </div>
-                                        <div class="col-md-6" style="margin-bottom:20px;">
+                                        <div class="col-md-6" style="margin-bottom:20px;" class="form-control @error('priority') is-invalid @enderror">
                                             <label class="radio-inline" style="margin-top: 0px;margin-right: 10px;"><input type="radio" name="priority" value="Low" checked style="margin-left:-36px;"><span class="btn btn-warning">Low</span></label>
                                             <label class="radio-inline" style="margin-right: 10px;"><input type="radio" name="priority" value="Medium" style="margin-left:-40px;"><span class="btn btn-info">Medium</span></label>
                                             <label class="radio-inline" style="margin-right: 10px;"><input type="radio" name="priority" value="High" style="margin-left:-35px;"><span class="btn btn-success">High</span></label>
+                                            @if($errors->has('request_type'))
+                                                <div class="invalid-feedback error-msg">{{$errors->first('priority')}}</div>
+                                            @endif
                                         </div>
                                     </div>   
                                     <div class="row">
@@ -31,30 +33,50 @@
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <select class="form-control" name="request_type" id="request_type" required>
+                                                <select class="form-control @error('request_type') is-invalid @enderror" name="request_type" id="request_type">
                                                     <option value="" selected disabled>Select Request</option>
                                                     @foreach ($requests as $request )                                                            
                                                         <option value="{{$request->id}}">{{$request->name}}</option>
                                                     @endforeach                                                        
                                                 </select>
+                                                @if($errors->has('request_type'))
+                                                    <div class="invalid-feedback error-msg">{{$errors->first('request_type')}}</div>
+                                                @endif
                                             </span>
                                         </div>
                                     </div>    
                                     <div class="row">
                                         <div class="col-md-2"><label>Subject<span class="required_min">*</span></label></div>
-                                        <div class="col-md-6"><span><input type="text" class="form-control" name="subject" placeholder ="Enter Subject"></span></div>
+                                        <div class="col-md-6"><span>
+                                            <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder ="Enter Subject">
+                                            @if($errors->has('subject'))
+                                                <div class="invalid-feedback error-msg">{{$errors->first('subject')}}</div>
+                                            @endif
+                                        </span></div>
                                     </div>    
                                     <div class="row">
                                         <div class="col-md-2">  
                                             <label>Description<span class="required_min">*</span></label>
                                         </div>
-                                        <div class="col-md-6"><span><textarea type="text" class="form-control" row="5" col="10" name="description" placeholder ="Enter Message Here"></textarea></span></div>
+                                        <div class="col-md-6"><span>
+                                            <textarea type="text" class="form-control @error('description') is-invalid @enderror" row="5" col="10" name="description" placeholder ="Enter Message Here"></textarea>
+                                            @if($errors->has('description'))
+                                                <div class="invalid-feedback error-msg">{{$errors->first('description')}}</div>
+                                            @endif
+                                    </span></div>
                                     </div>    
                                     <div class="row">
                                         <div class="col-md-2">  
                                             <label>Attachment<span class="required_min">*</span></label>
                                         </div>
-                                        <div class="col-md-6"><span><input type="file" name ="files" /></span></div>
+                                        <div class="col-md-6">
+                                            <span>
+                                                <input type="file" class="form-control @error('files') is-invalid @enderror" name ="files" />
+                                                @if($errors->has('files'))
+                                                    <div class="invalid-feedback error-msg">{{$errors->first('files')}}</div>
+                                                @endif
+                                            </span>
+                                        </div>
                                     </div> 	                                        	                                      	
                                     <div class="row" class="body-submit">
                                         <div class="col-md-2"> 
@@ -83,5 +105,4 @@
             </div>
         </div>
     </section>    
-</div>
-@include('layouts.footer')
+    @endsection

@@ -47,6 +47,7 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
         route::post('store', [ResolverController::class, 'store'])->name('res.store');
         route::get('usersList/{id}', [ResolverController::class, 'userList'])->name('userList');
         Route::get('changeStatus', [ResolverController::class, 'changeStatus'])->name('changeStatus');
+        Route::get('assignto', [ResolverController::class, 'assignto'])->name('assignto');
     });
     route::post('comment/{id}', [CommentController::class, 'save'])->name('comment');
 

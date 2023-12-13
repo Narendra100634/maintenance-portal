@@ -1,6 +1,5 @@
-@include('layouts.header')
-@include('layouts.sidebar')
-<div class="content-wrapper">
+@extends('layouts.app')
+@section('content')
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">Manage Request Type</h1></div>
@@ -37,6 +36,5 @@
             </div>
         </div>
     </section>    
-</div>
-@include('layouts.footer')
+@endsection
             

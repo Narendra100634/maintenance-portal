@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>KARAM Maintenance Portal Login Page</title>
-    <link rel="icon" href="../img/favicon.ico" type="image/vnd.microsoft.icon">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/clean-blog.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="icon" href="{{asset('/img/favicon.ico')}}" type="image/vnd.microsoft.icon">
+    <link href="{{asset('/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/clean-blog.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
   </head>
@@ -119,9 +119,11 @@
       }
       .profile-img{border-radius:100%;}
     </style>
-    <div class="login-page">  
+    <div class="login-page"> 
+   
       <div class="form">
         <p class="login-box-msg"><img class="profile-img" src="img/photo.png" alt="user"></p>
+        
         @if (Session::has('error'))
          <p class="text-danger">{{Session::get('error') }}</p>
         @endif

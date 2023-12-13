@@ -1,9 +1,8 @@
-@include('layouts.header')
-@include('layouts.sidebar')
-<div class="content-wrapper">
+@extends('layouts.app')
+@section('content')
     <section class="content-header">                   
         <div class="row">
-            <div class="col-md-6"><h1 style="color:#566b75;">My Closed TiCkets</h1></div>
+            <div class="col-md-6"><h1 class="dashboard-heading">My Closed TiCkets</h1></div>
             <div class="col-md-6 text-right"></div>
         </div>   
     </section>
@@ -51,6 +50,5 @@
             </div>
         </div>
     </section>    
-</div>
-@include('layouts.footer')
+@endsection
         
