@@ -8,19 +8,14 @@ use App\Models\EventRequest;
 use App\Http\Controllers\Redirect;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
-
+use Carbon\Carbon;
 
 class CommentController extends Controller
 {
     public function save(Request $request, $id)
     {
         $this->validate($request, [
-            'status' => 'required',
-            'tentative_date' => 'required',
-            'handover_date' =>'required',
-            'rating' => 'required',
-            'comment_text' => 'required',
-            'feedback_text' => 'required',
+            
             'files' => 'mimes:jpeg,jpg,png,pdf,doc,docx|max:2048',
         ]);
 
@@ -28,18 +23,22 @@ class CommentController extends Controller
             $event = EventRequest::find(Crypt::decrypt($id));
             $event->status = $request->status;
             if($request->status != 'Feedback Awaiting'){
-                $event->tentative_date = isset($request->tentative_date) ? $request->tentative_date :'NULL';
+                $date = $request->tentative_date;
+                $newDate = Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+                $event->tentative_date = $newDate ? $newDate :'NULL';
             }
             if($request->status == 'Feedback Awaiting'){
-                $event->handover_date = $request->handover_date ? $request->handover_date :'';
+                $date1 = $request->handover_date;
+                $newDate1 = Carbon::createFromFormat('m/d/Y', $date1)->format('Y-m-d');
+                $event->handover_date = $newDate1 ? $newDate1 :'';
             }
             
             $event->update();
         }elseif(session('userType') == 'requester' &&  $request->status == 'Closed'){
             $event = EventRequest::find(Crypt::decrypt($id));
             $event->status = $request->status;
-            $event->rating = $request->rating ? $request->rating :'';
-            $event->feedback = $request->feedback_text ? $request->feedback_text :'';
+            $event->rating = isset($request->rating) ? $request->rating :'';
+            $event->feedback = isset($request->feedback_text) ? $request->feedback_text :'';
             $event->update();
         }              
 

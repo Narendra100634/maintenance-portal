@@ -92,7 +92,7 @@
                                                     <input type="text" id="td_date" class="form-control @error('rating') is-invalid @enderror" name="tentative_date">
                                                     @if($errors->has('tentative_date'))
                                                        <div class="invalid-feedback error-msg">{{$errors->first('tentative_date')}}</div>
-                                                 @endif
+                                                    @endif
                                                 </span>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
-                                                    <input type="date" id="handover_date" class="form-control @error('handover_date') is-invalid @enderror" name="handover_date">
+                                                    <input type="text" id="handover_date" class="form-control @error('handover_date') is-invalid @enderror" name="handover_date">
                                                     @if($errors->has('handover_date'))
                                                        <div class="invalid-feedback error-msg">{{$errors->first('handover_date')}}</div>
                                                    @endif
@@ -123,10 +123,8 @@
                                                 <span class="fa fa-star-o" data-rating="3"></span>
                                                 <span class="fa fa-star-o" data-rating="4"></span>
                                                 <span class="fa fa-star-o" data-rating="5"></span>
-                                                <input type="hidden" class="form-control @error('rating') is-invalid @enderror" name="rating" class="rating-value" value="">
-                                                @if($errors->has('rating'))
-                                                       <div class="invalid-feedback error-msg">{{$errors->first('rating')}}</div>
-                                                 @endif
+                                                <input type="hidden"  name="rating" class="rating-value" value="">
+                                                
                                             </div>
                                         </div>
                                     </div>  
@@ -154,7 +152,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <textarea type="text" cclass="form-control @error('feedback_text') is-invalid @enderror" row="10" col="50" name="feedback_text" id="feedback_text" placeholder ="Enter Message Here"></textarea>
+                                                <textarea type="text" cclass="form-control @error('feedback_text') is-invalid @enderror" row="10" col="50"  name="feedback_text" id="feedback_text" placeholder ="Enter Message Here"></textarea>
                                                 @if($errors->has('feedback_text'))
                                                   <div class="invalid-feedback error-msg">{{$errors->first('feedback_text')}}</div>
                                                @endif

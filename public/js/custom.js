@@ -113,7 +113,9 @@ $(function () {
 
     $(function() {
         $( "#td_date" ).datepicker({ startDate: new Date()});
+        $( "#handover_date" ).datepicker({ startDate: new Date()});
     });
+
     
     /*sweetalert functionlity */
 
@@ -167,6 +169,12 @@ $(function () {
 
     ClassicEditor
     .create( document.querySelector('#editor'),
+    {
+    })
+    .catch( error => {
+    });
+    ClassicEditor
+    .create( document.querySelector('#feedback_text'),
     {
     })
     .catch( error => {
