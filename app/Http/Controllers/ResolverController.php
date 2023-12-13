@@ -41,19 +41,35 @@ class ResolverController extends Controller
 
     public function store(Request $request)
     {
+        if(session('userType') != null || session('userType') != ''){
+            if(session('userType') == 'admin'){
+                $this->validate($request, [
+                    'name' => 'required',
+                    'location' => 'required',
+                    'mobile' => 'required',
+                    'email' => 'required',
+                    'status' => 'required|in:1,0',
+                   
+                ]);
         
-        $data = new User;
-        $data->user_type = 2;
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->location = $request->location;
-        $data->location = $request->location;
-        $data->mobile = $request->mobile;
-        $data->status = $request->status;
-        $data->password = 123;       
-        $data->save();   
+                $data = new User;
+                $data->user_type = 2;
+                $data->name = $request->name;
+                $data->email = $request->email;
+                $data->location = $request->location;
+                //$data->location = $request->location;
+                $data->mobile = $request->mobile;
+                $data->status = $request->status;
+                $data->password = 123;       
+                $data->save();   
 
-        return redirect()->route('res.index');
+                return redirect()->route('res.index')->with('success','Resolver Created successfully');
+            }else{
+                return redirect()->route('dashboard');
+            }
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function changeStatus(Request $request)
@@ -61,6 +77,17 @@ class ResolverController extends Controller
         $data = User::find($request->id);
         $data->status = $request->status;
         $data->save();
-        return Response::json('your status has been changed successfully');
+         
+        return response()->json(['success' => 'status changed successfully']);
+        //return redirect()->route('res.index')->with('success','status changed successfully');
+    }
+
+    public function assignto(Request $request)
+    {
+        $updateResolver = EventRequest::find($request->id);
+        $updateResolver->resv_id = $request->resv_id;
+        $updateResolver->save();
+        return response()->json(['success' => 'resolver assign successfully']);
+        //return Response::json('resolver assign successfully');
     }
 }

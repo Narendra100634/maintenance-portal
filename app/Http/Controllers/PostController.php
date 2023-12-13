@@ -38,26 +38,31 @@ class PostController extends Controller
         ]);
        
         $data = json_decode($res->getBody(), true);
+        
         if($data['created_email_id'] !== null && $data['status'] == 200 ){
             $resolver = User::where('email', $data['created_email_id'])->first();           
             if(isset($resolver)){
                 if($resolver['user_type']== 1 ){
                     $userType = 'admin';
+                    $userId   =  0;
                 }elseif($resolver['user_type'] == 2){
                     $userType = 'resolver';
+                    $userId   =  $resolver->id;
                 }
             }else{
                 $userType = 'requester';
+                $userId   =  0;
             }    
+            session()->put('userid', $userId);
             session()->put('name', $data['employee_name']);
             session()->put('email', $data['created_email_id']);
             session()->put('phone', $data['phone']);
             session()->put('region', $data['region']);
             session()->put('userType', $userType);
 
-           return redirect()->route('dashboard');
+           return redirect('dashboard')->with('success','You are Successfully Login');
         }else{
-            return view('auth.login'); 
+            return redirect('login')->with('error', 'You Dont have a permission please connect with admin'); 
         }
     }
     public function store()

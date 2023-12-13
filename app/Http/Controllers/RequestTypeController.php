@@ -48,7 +48,7 @@ class RequestTypeController extends Controller
                 $data->name = $request->name;
                 $data->status = $request->status;
                 $data->save();
-                return redirect()->route('reqtype.index');
+                return redirect()->route('reqtype.index')->with('success','Requst Type Created Successfully');
             }else{
                 return redirect()->route('dashboard');
             }
@@ -79,7 +79,7 @@ class RequestTypeController extends Controller
                 $dataUp->name = $request->name;
                 $dataUp->status = $request->status;
                 $dataUp->update();
-                return redirect()->route('reqtype.index'); 
+                return redirect()->route('reqtype.index')->with('success','Requst Type Updated Successfully'); 
             }else{
                 return redirect()->route('dashboard');
             }
