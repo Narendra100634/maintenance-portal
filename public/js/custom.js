@@ -69,7 +69,7 @@ $(function () {
         }else if(statusVal == 'Closed'){
             $('#rating-row').show(); 
             $('#feedback-row').show(); 
-            
+            $('#closerDt').show();
             $('#comment-row').hide(); 
             $('#tdod').hide(); 
             $('#handoverDt').hide(); 
@@ -114,6 +114,7 @@ $(function () {
     $(function() {
         $( "#td_date" ).datepicker({ startDate: new Date()});
         $( "#handover_date" ).datepicker({ startDate: new Date()});
+        $( "#closer_date" ).datepicker({ startDate: new Date()});
     });
 
     

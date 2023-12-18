@@ -95,28 +95,34 @@ class EventRequestController extends Controller
         $data->save();   
             
         $reqType = RequestType::find($data->request_type);
-        $resolveName = User::find($data->resv_id);
+        $resolverData = User::find($data->resv_id);
+        $requestid = EventRequest::find($data->id);
+        
 
         if($data != null){        
             Mail::send('EmailTemplats.newrequest', [
+                'requestid'            =>$requestid->id,
                 'priority'             => $request->priority,
-                'requestType'         => $reqType->name,
+                'requestType'          => $reqType->name,
                 'subject'              => $data->subject,
                 'description'          => $data->description,
-                'requesterEmail'      => $data->req_email,
-                'requesterName'       => $data->req_name,
-                'resolverName'        => $resolveName->name,
+                'requesterEmail'       => $data->req_email,
+                'requesterName'        => $data->req_name,
+                'requesterRegion'      => $data->req_region,
+                'resolverName'         => $resolverData->name,
+                'status'               => $data->status,
+                'requestdate'          =>$data->created_at,
                 // 'Requester Phone'      => $data->req_phone,
                 // 'Requester Region'     => $data->req_region,
                 // 'Status'               => $data->status,
             ],
-                function ($message){
+                function ($message) use($resolverData, $data){
                     $emailFrom = 'karamalert@karamportals.com';
-                    $emlTo  =  'himanshu.singhal@karam.in';                   
+                    $emlTo  =  $resolverData->email;                   
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
-                    // ->cc(['narendra.singh@karam.in'])
-                    ->subject('Event Request');
+                    ->cc([$data->req_email])
+                    ->subject('New ticket has been Assigned to you');
                 }
             ); 
             return redirect()->route('req.allrequest')->with('success','Event Requst created successfully');

@@ -55,11 +55,12 @@
                                 @foreach ($datas as $data )                                                   
                                     <tr> 
                                         <td style="display:none">{{ $loop->iteration }}</td>
-                                        <th scope="row">
-                                        <span class="tbl-content">{{$data->priority ? $data->priority : ''}}</span>
-                                        {{$data->subject ? $data->subject : ''}}<br>
-                                        <a href="#"><b>#</b> {{$data->id ? $data->id : ''}} </a>
-                                        <small>{{ session('region') ? session('region') : '' }}</small></th>
+                                        <td>
+                                        <span><small class="label label-warning">{{$data->priority ? $data->priority : ''}}</small><span><br>
+                                            <span>{{$data->subject ? $data->subject : ''}}</span> <br>
+                                            <span><b>#</b> {{$data->id ? $data->id : ''}}</span><br>
+                                            <span> <small>{{ session('region') ? session('region') : ''}}</small><span>
+                                        </td>
                                         <td>{{$data->status ? $data->status : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($data->created_at))}}</td>  	 
                                         <td>{{$data->name ? $data->name : ''}}</td>

@@ -122,26 +122,25 @@
     <div class="login-page"> 
    
       <div class="form">
-        <p class="login-box-msg"><img class="profile-img" src="img/photo.png" alt="user"></p>
+      @if(Session::has('message'))
+<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ 
+    Session::get('message') }}</p>
+@endif
         
-        @if (Session::has('error'))
-         <p class="text-danger">{{Session::get('error') }}</p>
-        @endif
-        @if (Session::has('success'))
-         <p class="text-success">{{Session::get('success') }}</p>
-        @endif
+        <!-- @if (Session::has('message'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('message') }}
+            </div>
+        @endif -->
 
-        <form class="login-form" action="{{route('login-user')}}" method="post" >
-          @csrf
-          <input type="text" name="email" placeholder="Email" value="{{old('email')}}"/>
-          <span class="text-danger">@error('email'){{message}} @enderror </span>
-          <input type="password" name="password" placeholder="password"/>
-          <span class="text-danger">@error('password'){{message}} @enderror </span>
-
-          
-          <button type="submit">login</button>
-        </form><br>
-        <label><a href="{{ route('forget.password.get') }}">Reset Password</a></label>
+        <form class="login-form" action="{{ route('forget.password.post') }}" method="post" >
+            @csrf
+            <input type="text" id="email_address" class="form-control" name="email" placeholder="Email id" required autofocus>
+            @if ($errors->has('email'))
+                <span class="text-danger">{{ $errors->first('email') }}</span>
+            @endif         
+            <button type="submit" class="btn btn-primary">Send Password Reset Link</button>
+        </form>        
       </div>
     </div>
   </body>

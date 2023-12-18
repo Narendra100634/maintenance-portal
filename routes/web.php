@@ -7,11 +7,13 @@ use App\Http\Controllers\EventRequestController;
 use App\Http\Controllers\RequestTypeController;
 use App\Http\Controllers\ResolverController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ForgotPasswordController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('login', [PostController::class,'login'])->name('login');
 Route::post('login-user', [PostController::class,'loginUser'])->name('login-user');
@@ -50,6 +52,11 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
         Route::get('assignto', [ResolverController::class, 'assignto'])->name('assignto');
     });
     route::post('comment/{id}', [CommentController::class, 'save'])->name('comment');
+
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
 

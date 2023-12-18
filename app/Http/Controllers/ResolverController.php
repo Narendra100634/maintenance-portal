@@ -87,6 +87,25 @@ class ResolverController extends Controller
         $updateResolver = EventRequest::find($request->id);
         $updateResolver->resv_id = $request->resv_id;
         $updateResolver->save();
+
+        // if($updateResolver != null){   
+            
+        //     Mail::send('EmailTemplats.wipstatusrequest', [
+        //         'requestid'            =>$requestData->id,
+        //         'status'               => $event->status,
+        //         'tentative_date'       => $event->tentative_date,
+        //         'comment'              => $comment->comment,
+        //     ],
+        //         function ($message) use($resolverData, $requestData){
+        //             $emailFrom = 'karamalert@karamportals.com';
+        //             $emlTo  =  $resolverData->email;;                   
+        //             $message->from($emailFrom);
+        //             $message->to($emlTo, 'Your Name')
+        //                 ->cc([$requestData->req_email])
+        //             ->subject('Update ticket has been Assigned to you');
+        //         }
+        //     ); 
+        // }
         return response()->json(['success' => 'resolver assign successfully']);
         //return Response::json('resolver assign successfully');
     }

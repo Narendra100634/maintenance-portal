@@ -85,3 +85,9 @@ input {
 .error-msg{
     color: #e70606;
 }
+
+.ScrollStyle
+{
+    max-height: 300px;
+    overflow-y: scroll;
+}

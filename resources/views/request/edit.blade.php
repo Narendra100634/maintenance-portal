@@ -12,47 +12,48 @@
                 <div class="col-md-9">
                     <div class="box">
                         <div class="box-body">
-                            <h4>{{ $editData->subject ? $editData->subject : '' }}</h4>
+                            <h4>{{isset($editData->subject) ? $editData->subject : '' }}</h4>
                             <hr class="body-line">
                             <h4>Description</h4>
-                            <p>{{$editData->description ? $editData->description : '' }}</p>
+                            <p>{{isset($editData->description) ? $editData->description : '' }}</p>
                             @if ($editData->attachment !== null)                                
                                 <h4>Attachment: <a href="{{ url('file-data/'.$editData->attachment) }}" target="_blank" class="body-attach">{{$editData->attachment ? $editData->attachment : ''  }}</a></h4> 
                             @endif
-                            <hr class="body-line">   
+                            <hr class="body-line"> 
+                                <div class="ScrollStyle" >  
                                 @foreach ($comments as  $comment)
-                                    <div class="box-body-content">
+                                    <div class="box-body-content">                              
                                         <h4>{{isset($comment->user_name) ? $comment->user_name : '' }}</h4>
                                         <p>{{isset($comment->created_at) ? $comment->created_at->format('d-m-Y H:i:s') : '' }}</p>
-                                        <p>{{isset($comment->comment) ? $comment->comment : '' }}</p>
+                                        <p>{!! isset($comment->comment) ? $comment->comment : '' !!}</p>
                                         @if ($comment->attachment  != null || $comment->attachment  != "")                                            
                                             <h4>Attachment: <a href="{{ url('file-data/comments/'.$comment->attachment) }}" target="_blank" class="body-attach">{{$comment->attachment ? $comment->attachment : '' }}</a></h4>
                                         @endif
                                     </div> 
+                               
                                 @endforeach
+                                </div>
                                 @if ($editData->status == "Closed")                                    
                                     <div class="box-body-content">
-                                        <h4>{{$editData->req_name ? $editData->req_name : ''}}</h4>                                        
-                                        <p>{{$editData->closer_date ? $editData->closer_date : ''}}</p>                                    
-                                        <p>{{$editData->feedback ? $editData->feedback : ''}}</p>
+                                        <h4>{{isset($editData->req_name) ? $editData->req_name : ''}}</h4>                                        
+                                        <p>{{isset($editData->closer_date) ?  date('d-m-Y', strtotime($editData->closer_date)): ''}}</p>                                    
+                                        <p>{!! isset($editData->feedback) ? $editData->feedback : '' !!}</p>
                                         <div class="star-rating">
                                             <span class="fa fa-star-o" data-rating="1"></span>
                                             <span class="fa fa-star-o" data-rating="2"></span>
                                             <span class="fa fa-star-o" data-rating="3"></span>
                                             <span class="fa fa-star-o" data-rating="4"></span>
                                             <span class="fa fa-star-o" data-rating="5"></span>
-                                            <input type="hidden" class="rating-value" value="{{$editData->rating ? $editData->rating : 0}}" disabled >
+                                            <input type="hidden" class="rating-value" value="{{$editData->rating ? $editData->rating : 0}}" readonly = "readonly" >
                                         </div>
                                     </div> 
                                 @endif
-
                             @if($editData->status != 'Closed')
                                 <h4>Share your feedback</h4>
                                 <hr class="body-line">                            
                                 <form method="POST" action="{{route('comment',Crypt::encrypt($editData->id))}}" class="form-submission watermark min-height form-sbmt" enctype="multipart/form-data">
                                     @csrf
-                                    @if (session('userType') == 'resolver' || (session('userType') == 'requester' && $editData->status == 'Feedback Awaiting' ) )
-                                    
+                                    @if (session('userType') == 'resolver' || (session('userType') == 'requester' && $editData->status == 'Feedback Awaiting' ) )                                    
                                         <div class="row">                                           
                                             <div class="col-md-2">  
                                                 <label for="status" >Set Status<span class="required_min">*</span></label>
@@ -128,8 +129,6 @@
                                             </div>
                                         </div>
                                     </div>  
-
-
                                     @if( (session('userType') == 'requester' && ($editData->status == 'WIP' || $editData->status == 'On Hold' || $editData->status == 'Information Awaiting' || $editData->status == 'Feedback Awaiting' || $editData->status == 'Open')) ||  (session('userType') == 'resolver' && ($editData->status == 'WIP' || $editData->status == 'On Hold' || $editData->status == 'Information Awaiting' || $editData->status == 'Feedback Awaiting' || $editData->status == 'Open')) )
                                         <div class="row" id="comment-row">
                                             <div class="col-md-2">  
@@ -145,7 +144,6 @@
                                             </div>
                                         </div>
                                     @endif
-
                                     <div class="row" id="feedback-row" style="display:none">
                                         <div class="col-md-2">  
                                             <label for="feedback_text" >Feedback<span class="required_min">*</span></label>
@@ -159,8 +157,19 @@
                                             </span>
                                         </div>
                                     </div>
-
-
+                                    <div class="row" id="closerDt" style="display:none">
+                                        <div class="col-md-2">  
+                                            <label for="closer_date" >Closer Date<span class="required_min">*</span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span>
+                                                <input type="text" id="closer_date" class="form-control @error('closer_date') is-invalid @enderror" name="closer_date">
+                                                @if($errors->has('closer_date'))
+                                                    <div class="invalid-feedback error-msg">{{$errors->first('closer_date')}}</div>
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-2">  
                                             <label for= "files" >Attachment<span class="required_min">*</span></label>
@@ -173,8 +182,6 @@
                                             @endif
                                         </span></div>
                                     </div>    
-                                    
-                                    
                                     <div class="row" class="body-submit">
                                         <div class="col-md-2"> 
                                             <button type="submit" class="btn btn-primary btn-body">Submit </button>
@@ -189,33 +196,34 @@
                     <div class="box">
                         <div class="box-body">
                             <div class="request-body"><span>Request Information</span></div>
-                                <h5><b>Request ID :</b> : #{{$editData->id ? $editData->id : ''}}</h5>
-                                <h5><b>Name</b> : {{$editData->req_name ? $editData->req_name : ''}}</h5>
-                                <h5><b>Phone</b> : {{$editData->req_phone ? $editData->req_phone : ''}}</h5>
-                                <h5><b>Email ID</b> : {{$editData->req_email ? $editData->req_email : ''}}</h5>
-                                <h5><b>Location</b> : {{$editData->req_region ? $editData->req_region : ''}}</h5>
-                                <h5><b>Request Type</b> : {{$editData->requestType ? $editData->requestType : '' }}</h5>
-                                <h5><b>Priority</b> : {{$editData->priority ? $editData->priority : ''}}</h5>
-                                <h5><b>Request Date</b> :{{$editData->created_at ? date('d-m-Y', strtotime($editData->created_at)): ''}}</h5>
-                                <h5><b>Tentative Date</b> : {{$editData->tentative_date ? date('d-m-Y', strtotime($editData->tentative_date)): ''}}</h5>
-                                <h5><b>Status</b> : {{$editData->status ? $editData->status : ''}}</h5>
-                                <h5><b>Handover Date</b> :{{$editData->handover_date ?  date('d-m-Y', strtotime($editData->handover_date)): ''}}</h5>
+                                <h5><b>Request ID :</b> : #{{isset($editData->id) ? $editData->id : ''}}</h5>
+                                <h5><b>Name</b> : {{isset($editData->req_name) ? $editData->req_name : ''}}</h5>
+                                <h5><b>Phone</b> : {{isset($editData->req_phone) ? $editData->req_phone : ''}}</h5>
+                                <h5><b>Email ID</b> : {{isset($editData->req_email) ? $editData->req_email : ''}}</h5>
+                                <h5><b>Location</b> : {{isset($editData->req_region) ? $editData->req_region : ''}}</h5>
+                                <h5><b>Request Type</b> : {{isset($editData->requestType) ? $editData->requestType : '' }}</h5>
+                                <h5><b>Priority</b> : {{isset($editData->priority) ? $editData->priority : ''}}</h5>
+                                <h5><b>Request Date</b> :{{isset($editData->created_at) ? date('d-m-Y', strtotime($editData->created_at)): ''}}</h5>
+                                <h5><b>Tentative Date</b> : {{isset($editData->tentative_date) ? date('d-m-Y', strtotime($editData->tentative_date)): ''}}</h5>
+                                <h5><b>Status</b> : {{isset($editData->status) ? $editData->status : ''}}</h5>
+                                <h5><b>Handover Date</b> :{{isset($editData->handover_date) ?  date('d-m-Y', strtotime($editData->handover_date)): ''}}</h5>
+                                @if ($editData->closer_date  != null || $editData->closer_date  != "")                                            
+                                   <h5><b>Closer Date</b> :{{isset($editData->closer_date) ?  date('d-m-Y', strtotime($editData->closer_date)): ''}}</h5>
+                                @endif
                                 <hr class="body-line-content">
                                 <h5><b>Assign To</b> 
                                     @if((session('userType') == 'resolver' ||  session('userType') == 'admin') && $editData->status != 'Closed')
                                         <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#changeresolver-model"><i class="fa fa-pencil"></i> Change</button>
                                     @endif
                                 </h5>
-                                <h5>{{$editData->resvname ? ucfirst($editData->resvname) : ''}}</h5>
+                                <h5>{{isset($editData->resvname) ? ucfirst($editData->resvname) : ''}}</h5>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
        </div>
-    </section>    
-
-
+    </section>
     <!-- Model chenge resolver -->
     <div class="modal fade bd-example-modal-sm" id="changeresolver-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
@@ -245,5 +253,4 @@
         </div>
     </div>     
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-   
-@endsection
+   @endsection
