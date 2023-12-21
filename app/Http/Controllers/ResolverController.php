@@ -12,6 +12,8 @@ use App\Models\User;
 Use Session;
 use db;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
 
 class ResolverController extends Controller
 { 
@@ -44,10 +46,10 @@ class ResolverController extends Controller
         if(session('userType') != null || session('userType') != ''){
             if(session('userType') == 'admin'){
                 $this->validate($request, [
-                    'name' => 'required',
-                    'location' => 'required',
-                    'mobile' => 'required',
-                    'email' => 'required',
+                    'name' => 'required |unique:users',
+                    'location' => 'required |unique:users',
+                    'mobile' => 'required |unique:users',
+                    'email' => 'required |unique:users',
                     'status' => 'required|in:1,0',
                    
                 ]);
@@ -57,7 +59,6 @@ class ResolverController extends Controller
                 $data->name = $request->name;
                 $data->email = $request->email;
                 $data->location = $request->location;
-                //$data->location = $request->location;
                 $data->mobile = $request->mobile;
                 $data->status = $request->status;
                 $data->password = 123;       
@@ -65,13 +66,44 @@ class ResolverController extends Controller
 
                 return redirect()->route('res.index')->with('success','Resolver Created successfully');
             }else{
+               return redirect('login')->with('error', 'Employee dose not exist.');
+            }
+        }else{
+            return redirect()->route('login');
+        }
+    }
+    public function edit(Request $request, $id)
+    {  
+        if(session('userType') != null || session('userType') != ''){
+            $editData = User::find(Crypt::decrypt($id));
+            return view('resolver.edit', compact('editData'));
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        if(session('userType') != null || session('userType') != ''){
+            if(session('userType') == 'admin'){
+                $this->validate($request, [
+                    'status' => 'required|in:1,0',
+                ]);
+                $dataUp = User::find(Crypt::decrypt($id));
+                $dataUp->email = $request->email;
+                $dataUp->name = $request->name;
+                $dataUp->location = $request->location;
+                $dataUp->mobile = $request->mobile;
+                $dataUp->status = $request->status;
+                $dataUp->update();
+                return redirect()->route('res.index')->with('success','User Updated Successfully'); 
+            }else{
                 return redirect()->route('dashboard');
             }
         }else{
             return redirect()->route('login');
         }
     }
-
     public function changeStatus(Request $request)
     {
         $data = User::find($request->id);
@@ -79,7 +111,6 @@ class ResolverController extends Controller
         $data->save();
          
         return response()->json(['success' => 'status changed successfully']);
-        //return redirect()->route('res.index')->with('success','status changed successfully');
     }
 
     public function assignto(Request $request)
@@ -88,25 +119,25 @@ class ResolverController extends Controller
         $updateResolver->resv_id = $request->resv_id;
         $updateResolver->save();
 
-        // if($updateResolver != null){   
+        $resolverEmail = User::find($updateResolver->resv_id);
+        
+       if($request->resv_id != null){   
             
-        //     Mail::send('EmailTemplats.wipstatusrequest', [
-        //         'requestid'            =>$requestData->id,
-        //         'status'               => $event->status,
-        //         'tentative_date'       => $event->tentative_date,
-        //         'comment'              => $comment->comment,
-        //     ],
-        //         function ($message) use($resolverData, $requestData){
-        //             $emailFrom = 'karamalert@karamportals.com';
-        //             $emlTo  =  $resolverData->email;;                   
-        //             $message->from($emailFrom);
-        //             $message->to($emlTo, 'Your Name')
-        //                 ->cc([$requestData->req_email])
-        //             ->subject('Update ticket has been Assigned to you');
-        //         }
-        //     ); 
-        // }
+            Mail::send('EmailTemplats.assignuser', [
+                'requestid'            =>$updateResolver->id,
+                'resolvername'         =>$resolverEmail->name,
+            ],
+                function ($message) use($resolverEmail, $updateResolver){
+                    $emailFrom = 'karamalert@karamportals.com';
+                    $emlTo  =  $resolverEmail->email;                   
+                    $message->from($emailFrom);
+                    $message->to($emlTo, 'Your Name')
+                        ->cc([$updateResolver->req_email])
+                    ->subject('Your ticket has been Assigned to you');
+                }
+            ); 
+        } 
         return response()->json(['success' => 'resolver assign successfully']);
-        //return Response::json('resolver assign successfully');
+
     }
 }

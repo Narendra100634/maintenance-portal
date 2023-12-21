@@ -60,7 +60,7 @@ class PostController extends Controller
             session()->put('region', $data['region']);
             session()->put('userType', $userType);
 
-           return redirect('dashboard')->with('success','You are Successfully Login');
+           return redirect('dashboard');
         }else{
             return redirect('login')->with('error', 'You Dont have a permission please connect with admin'); 
         }

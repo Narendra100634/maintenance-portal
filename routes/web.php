@@ -28,7 +28,7 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
         Route::get('edit/{id}', [EventRequestController::class,'edit'])->name('req.edit');
         Route::post('update/{id}', [EventRequestController::class,'update'])->name('req.update');
 
-        Route::get('allrequest', [EventRequestController::class,'allrequest'])->name('req.allrequest');
+        Route::get('allrequest/{name?}', [EventRequestController::class,'allrequest'])->name('req.allrequest');
         Route::get('myactive', [EventRequestController::class,'myactive'])->name('req.myactive');
         Route::get('myclose', [EventRequestController::class,'myclose'])->name('req.myclose');
     });
@@ -48,7 +48,9 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
         Route::get('create', [ResolverController::class,'create'])->name('res.create');
         route::post('store', [ResolverController::class, 'store'])->name('res.store');
         route::get('usersList/{id}', [ResolverController::class, 'userList'])->name('userList');
-        Route::get('changeStatus', [ResolverController::class, 'changeStatus'])->name('changeStatus');
+        Route::get('edit/{id}', [ResolverController::class,'edit'])->name('res.edit');
+        Route::post('update/{id}', [ResolverController::class,'update'])->name('res.update');
+        //Route::get('changeStatus', [ResolverController::class, 'changeStatus'])->name('changeStatus');
         Route::get('assignto', [ResolverController::class, 'assignto'])->name('assignto');
     });
     route::post('comment/{id}', [CommentController::class, 'save'])->name('comment');

@@ -27,7 +27,7 @@
                 <td>Rating</td>    
                 <td>
                     @if ($rating == 5)            
-                        <span style=" font-size: 25px; color: #ffb20d; content : '\2605'">★★★★★</span> -->
+                        <span style=" font-size: 25px; color: #ffb20d; content : '\2605'">★★★★★</span>
                     @elseif ($rating == 4)
                         <span style="font-size: 25px; color: #ffb20d; content : '\2605'">★★★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★</span>
                     @elseif ($rating == 3)

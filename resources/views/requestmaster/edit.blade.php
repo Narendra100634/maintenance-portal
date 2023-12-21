@@ -3,7 +3,7 @@
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">Request Details</h1></div>
-            <div class="col-md-6 text-right"></div>
+            <div class="col-md-6 text-right"><a href="{{route('reqtype.index')}}"><button class="btn btn-danger ">Back</button></a></div>
         </div>   
     </section>
     <section class="content">
@@ -17,14 +17,16 @@
                                 <div class="col-md-2">  
                                     <label>Request Name<span class="required_min">*</span></label>
                                 </div>
-                                <span>
+                                
                                     <div class="col-md-5">
-                                        <input type="text" id="name" name="name" value="{{$editData->name}}" class="form-control @if($errors->has('name')) is-invalid @endif" />
-                                        @if($errors->has('name'))
-                                            <div class="invalid-feedback error-msg">{{$errors->first('name')}}</div>
-                                        @endif
+                                        <span>
+                                            <input type="text" id="name" name="name" value="{{$editData->name}}" class="form-control @if($errors->has('name')) is-invalid @endif" />
+                                            @if($errors->has('name'))
+                                                <div class="invalid-feedback error-msg">{{$errors->first('name')}}</div>
+                                            @endif
+                                        </span>
                                     </div>                                               
-                                </span>
+                               
                             </div>   
                             <div class="row">
                                 <div class="col-md-2">  

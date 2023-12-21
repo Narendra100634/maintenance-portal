@@ -16,12 +16,9 @@ class CommentController extends Controller
 {
     public function save(Request $request, $id)
     {   
-
         $this->validate($request, [
-            
-            'files' => 'mimes:jpeg,jpg,png,pdf,doc,docx|max:2048',
+           'files' => 'mimes:jpeg,jpg,png,pdf,doc,docx|max:2048',
         ]);
-
         if(session('userType') == 'resolver' &&  ($request->status == 'Open' || $request->status == 'WIP' || $request->status == 'On Hold' ||$request->status == 'Information Awaiting' || $request->status == 'Feedback Awaiting')){
              
             $event = EventRequest::find(Crypt::decrypt($id));
@@ -69,9 +66,6 @@ class CommentController extends Controller
                 }
             ); 
         }   
-
-       
-
         if($request->comment_text != null){
 
             if($request->hasfile('files')){ 
@@ -86,14 +80,9 @@ class CommentController extends Controller
             $comment->comment = $request->comment_text;
             $comment->attachment = isset($file_name) ? $file_name : '';
             $comment->save();
-
-     
-
-            //$reqType = RequestType::find($data->request_type);
             $requestData = EventRequest::find(Crypt::decrypt($id));
             $resolverData = User::find($requestData->resv_id);
-            
-    
+            //$adminemail ='admin@karam.in';
             if($requestData != null){   
                
                 if($requestData->status == 'WIP'){
@@ -106,7 +95,7 @@ class CommentController extends Controller
                     ],
                         function ($message) use($resolverData, $requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;;                   
+                            $emlTo  =  $resolverData->email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc([$requestData->req_email])
@@ -124,7 +113,7 @@ class CommentController extends Controller
                     ],
                         function ($message) use($resolverData, $requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;;                   
+                            $emlTo  =  $resolverData->email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc([$requestData->req_email])
@@ -142,7 +131,7 @@ class CommentController extends Controller
                     ],
                         function ($message) use($resolverData, $requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;;                   
+                            $emlTo  =  $resolverData->email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc([$requestData->req_email])
@@ -160,7 +149,7 @@ class CommentController extends Controller
                     ],
                         function ($message) use($resolverData, $requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;;                   
+                            $emlTo  =  $resolverData->email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc([$requestData->req_email])
@@ -169,28 +158,12 @@ class CommentController extends Controller
                     ); 
                 }
                 elseif($requestData->status == 'Closed'){
-                    dd(1);
-                
-                    // Mail::send('EmailTemplats.closestatusrequest', [
-                    //     'requestid'            =>$requestData->id,
-                    //     'status'               => $requestData->status,
-                    //     'closer_date'          => $requestData->closer_date,
-                    //     'rating'               => $requestData->rating,
-                    //     'feedback'             => $requestData->feedback,
-                    // ],
-                    //     function ($message) use($resolverData, $requestData){
-                    //         $emailFrom = 'karamalert@karamportals.com';
-                    //         $emlTo  =  $resolverData->email;                 
-                    //         $message->from($emailFrom);
-                    //         $message->to($emlTo, 'Your Name')
-                    //          ->cc([$requestData->req_email])
-                    //         ->subject('Update ticket has been Assigned to you');
-                    //     }
-                    // ); 
+ 
                 }
             } 
 
         }       
-        return redirect()->route('req.allrequest')->with('success','Event Requst Updated Successfully');
+        // return redirect()->route('req.allrequest')->with('success',' Requst Updated Successfully');
+        return back()->with('success',' Requst Updated Successfully');
     }
 }

@@ -30,10 +30,18 @@
                                     <tr>
                                         <td style="display:none">{{ $loop->iteration }}</td>
                                         <td>
-                                        <span><small class="label label-warning">{{$data->priority ? $data->priority : ''}}</small><span><br>
+                                        <span>
+                                            @if ($data->priority === 'Low')
+                                             <small class="low">{{$data->priority ? $data->priority : ''}}</small>
+                                            @elseif ($data->priority === 'Medium')
+                                             <small class="medium">{{$data->priority ? $data->priority : ''}}</small>
+                                            @else
+                                             <small class="high">{{$data->priority ? $data->priority : ''}}</small>
+                                            @endif
+                                        </span><br>
                                             <span>{{$data->subject ? $data->subject : ''}}</span> <br>
                                             <span><b>#</b> {{$data->id ? $data->id : ''}}</span><br>
-                                            <span> <small>{{ session('region') ? session('region') : ''}}</small><span>
+                                            <span> <small>{{ session('region') ? session('region') : ''}}</small></span>
                                         </td>
                                         <td>{{$data->status ? $data->status : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($data->created_at))}}</td>  	 

@@ -3,7 +3,7 @@
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">Request Details</h1></div>
-            <div class="col-md-6 text-right"></div>
+            <div class="col-md-6 text-right"><a href="{{route('reqtype.index')}}"><button class="btn btn-danger ">Back</button></a></div>
         </div>   
     </section>
     <section class="content">
@@ -33,8 +33,7 @@
                                     <div class="col-md-5">
                                         <span>
                                             <select class="form-control @if($errors->has('status')) is-invalid @endif" name="status" id="status" required>
-                                                <option value="" selected disabled>Select Status</option>
-                                                <option value="1">Active</option>
+                                                <option value="1" selected>Active</option>
                                                 <option value="0">InActive</option> 
                                             </select>
                                             @if($errors->has('status'))

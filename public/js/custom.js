@@ -29,11 +29,19 @@ $(function () {
                type: 'GET',
                url: _url,
                data: {_token: token},
-               success: function (resp) {
+                success: function (resp) {
                    console.log(resp);
                     $("#resName").val(resp['employee_name']);
                     $("#resLocation").val(resp['region']);                        
-                    $("#resMobile").val(resp['phone']);  
+                    $("#resMobile").val(resp['phone']);
+                    if(resp['status'] == 200){
+                        $('#submit').removeAttr('disabled');
+                        $("#check-user").text('');
+                    }else{
+                        $("#check-user").text('Employee does not exist.');
+                        $('#submit').attr('disabled','disabled');
+                        $('.invalid-feedback').css("display", "none");
+                    }
                 }
             });
         } else {
@@ -52,8 +60,9 @@ $(function () {
             url: urls+'resolver/assignto',
             data: {'resv_id': userData, 'id': reqId},
             success: function(data){
-                location.reload();
-                console.log(data);
+                window.location.href = "http://localhost:8000/dashboard";
+                
+                
             }
         });
     }
@@ -62,6 +71,7 @@ $(function () {
 
     $('#status').on('change', function() {
         var statusVal =  this.value;
+        console.log(statusVal);
         if(statusVal == 'Feedback Awaiting'){
             $('#tdod').hide(); 
             $('#handoverDt').show(); 
@@ -73,13 +83,18 @@ $(function () {
             $('#comment-row').hide(); 
             $('#tdod').hide(); 
             $('#handoverDt').hide(); 
-        }else if(statusVal != 'Feedback Awaiting'){
-            // $('#handoverDt').hide(); 
-            // $('#tdod').show(); 
+        }else if(statusVal == 'Comment'){
+            $('#comment-row').show(); 
+            $('#rating-row').hide(); 
+            $('#feedback-row').hide(); 
+            $('#closerDt').hide();
+            $('#tdod').hide(); 
             $('#handoverDt').hide(); 
-            $('#tdod').show(); 
-            console.log(1234);
 
+        }else if(statusVal == 'Feedback Awaiting'){
+            $('#handoverDt').show(); 
+            $('#tdod').hide(); 
+            console.log(1234);
         }
     });
 
@@ -117,55 +132,6 @@ $(function () {
         $( "#closer_date" ).datepicker({ startDate: new Date()});
     });
 
-    
-    /*sweetalert functionlity */
-
-    $(function() {
-        
-        $('.toggle-class').change(function() {
-            var status = $(this).prop('checked') == true ? 1 : 0; 
-            var user_id = $(this).data('id'); 	
-        	if(user_id !=""){		
-                swal.fire({	
-                    title: 'Are you sure you want to update Status?',	
-                    icon: 'warning',	
-                    showCancelButton: true,	
-                    confirmButtonColor: '#343a40',	
-                    cancelButtonColor: '#d33',	
-                    confirmButtonText: 'Yes, update it!',
-                    timer: 30000	
-                }).then(function (e) {	
-                
-                    if (e.value === true) {	
-                        let _url = urls+'resolver/changeStatus';	
-                        $.ajax({	
-                            type: 'GET',
-                            url: _url,	
-                            data: {'status': status, 'id': user_id},
-                            success: function (data) {	                        
-                                if (data.success) {	                           
-                                    swal.fire("Done!", data.message, "success");	
-                                    location.reload();	
-                                } else {	
-                                    swal.fire("Error!", 'Sumething went wrong.', "error");	
-                                }	
-                            },	
-                            error: function (data) {	
-                                swal.fire("Error!", 'Sumething went wrong.', "error");	
-                            }	
-                        });	
-                    } else {	
-                        e.dismiss;	
-                    }	
-                }, function (dismiss) {	
-                    return false;	
-                })	
-            }else{	
-                alert('Please fill all the field !');	
-            }	
-        })
-   })
-
    /* ck editor js functionlity */
 
     ClassicEditor
@@ -180,3 +146,15 @@ $(function () {
     })
     .catch( error => {
     });
+
+
+    $(function() {
+        $('#date').datepicker({
+          dateFormat: 'dd-M-yy',
+          minDate: 1
+        });
+        
+        $('.date-icon').on('click', function() {
+          $('#date').focus();
+        })
+      });
