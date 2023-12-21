@@ -23,6 +23,8 @@
         padding: 8% 0 0;
         margin: auto;
       }
+      a{color: #333333;font-size:16px;}
+  a:hover{color: #333333;font-size:16px;}
       .form {
         position: relative;
         z-index: 1;
@@ -141,7 +143,7 @@
           
           <button type="submit">login</button>
         </form><br>
-        <label><a href="{{ route('forget.password.get') }}">Reset Password</a></label>
+        <label><a href="{{ route('forget.password.get') }}">Forgot Password</a></label>
       </div>
     </div>
   </body>

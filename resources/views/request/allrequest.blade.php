@@ -3,7 +3,7 @@
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">All Requests List</h1></div>
-            @if (session('userType') == 'requester')
+            @if (session('userType') == 'requester' && (Request::segment(3) == 'all') )
                 <div class="col-md-6 text-right"><a href="{{route('req.create')}}"><button class="btn btn-danger">Create Request</button></a></div>
             @endif
         </div>   
@@ -32,10 +32,18 @@
                                     <tr>
                                         <td style="display:none">{{ $loop->iteration }}</td>
                                         <td>
-                                        <span><small class="label label-warning">{{$data->priority ? $data->priority : ''}}</small><span><br>
+                                        <span>
+                                            @if ($data->priority === 'Low')
+                                             <small class="badge badge-warning low">{{$data->priority ? $data->priority : ''}}</small>
+                                            @elseif ($data->priority === 'Medium')
+                                             <small class="badge badge-warning medium">{{$data->priority ? $data->priority : ''}}</small>
+                                            @else
+                                             <small class="badge badge-warning high">{{$data->priority ? $data->priority : ''}}</small>
+                                            @endif
+                                            <span>#{{$data->id ? $data->id : ''}}</span> 
+                                            <span> <small>{{ session('region') ? session('region') : ''}}</small></span>
+                                        </span><br>
                                             <span>{{$data->subject ? $data->subject : ''}}</span> <br>
-                                            <span><b>#</b> {{$data->id ? $data->id : ''}}</span><br>
-                                            <span> <small>{{ session('region') ? session('region') : ''}}</small><span>
                                         </td>
                                         <td>{{$data->status ? $data->status : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($data->created_at))}}</td>  	 

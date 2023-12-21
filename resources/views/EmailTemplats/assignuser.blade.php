@@ -8,12 +8,12 @@
 </head>
 <body>   
     <h3>Dear Concern</h3>
-    <h3>New ticket has been assigned to New User. Ticket information is given below: # <b>{{isset($requestid) ? $requestid : ''}}</b></h3><br>
+    <h3>New ticket has been assigned to New User. Ticket information is given below: # {{isset($requestid) ? $requestid : ''}}</h3>
     <table border="1" cellpadding="10" style="border-collapse: collapse;">
         <tbody> 
             <tr>    
                 <td>Assign To</td>    
-                <td>{{isset($requestdate) ? date('d-m-Y', strtotime($requestdate)) : ''}}</td>    
+                <td>{{isset($resolvername) ? $resolvername : ''}}</td>    
             </tr>
            
         </tbody>    

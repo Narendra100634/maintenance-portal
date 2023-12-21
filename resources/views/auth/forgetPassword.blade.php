@@ -120,26 +120,19 @@
       .profile-img{border-radius:100%;}
     </style>
     <div class="login-page"> 
-   
       <div class="form">
-      @if(Session::has('message'))
-<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ 
-    Session::get('message') }}</p>
-@endif
-        
-        <!-- @if (Session::has('message'))
-            <div class="alert alert-success" role="alert">
-                {{ Session::get('message') }}
-            </div>
-        @endif -->
-
+        @if(Session::has('message'))
+          <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ 
+            Session::get('message') }}
+          </p>
+        @endif
         <form class="login-form" action="{{ route('forget.password.post') }}" method="post" >
             @csrf
-            <input type="text" id="email_address" class="form-control" name="email" placeholder="Email id" required autofocus>
-            @if ($errors->has('email'))
-                <span class="text-danger">{{ $errors->first('email') }}</span>
-            @endif         
-            <button type="submit" class="btn btn-primary">Send Password Reset Link</button>
+            <input type="text" id="email_address" class="form-control @if($errors->has('email')) is-invalid @endif" value="{{ old('email') }}" name="email" placeholder="Email id" required>
+            @if($errors->has('email'))
+              <div class="invalid-feedback error-msg">{{$errors->first('email')}}</div>
+            @endif
+            <button type="submit" class="btn btn-primary">Reset Password</button>
         </form>        
       </div>
     </div>
