@@ -13,7 +13,7 @@ class RequestTypeController extends Controller
         if(session('userType') != null || session('userType') != '' ){
             if(session('userType') == 'admin'){
                 $datas = RequestType::orderBy('id', 'DESC')->get();
-                return view('requestMaster.index', compact('datas'));
+                return view('requestmaster.index', compact('datas'));
             }else{
                 return Redirect::back();
             }
@@ -27,7 +27,7 @@ class RequestTypeController extends Controller
     {
         if(session('userType') != null || session('userType') != '' ){
             if(session('userType') == 'admin'){
-                return view('requestMaster.create');
+                return view('requestmaster.create');
             }else{
                 return Redirect::back();
             }
@@ -61,7 +61,7 @@ class RequestTypeController extends Controller
     {  
         if(session('userType') != null || session('userType') != ''){
             $editData = RequestType::find(Crypt::decrypt($id));
-            return view('requestMaster.edit', compact('editData'));
+            return view('requestmaster.edit', compact('editData'));
         }else{
             return redirect()->route('login');
         }
