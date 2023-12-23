@@ -232,10 +232,8 @@
                                     @endif
                                 </h5>
                                 <h5><span class="right-label">Request Date:</span> <span>{{isset($editData->created_at) ? date('d-m-Y', strtotime($editData->created_at)): ''}}</span></h5>
-                                @if(isset($editData->tentative_date))    
-                                    @if($editData->tentative_date == null)                                
-                                        <h5><span class="right-label">Tentative Date:</span> <span>{{isset($editData->tentative_date) ? date('d-m-Y', strtotime($editData->tentative_date)): ''}}</span></h5>
-                                    @endif
+                                @if ($editData->tentative_date  != null || $editData->tentative_date  != "")
+                                <h5><span class="right-label">Tentative Date:</span> <span>{{isset($editData->tentative_date) ?  date('d-m-Y', strtotime($editData->tentative_date)): ''}}</span></h5>
                                 @endif
                                 <h5><span class="right-label">Status :</span>
                                     @if($editData->status == 'Open')
