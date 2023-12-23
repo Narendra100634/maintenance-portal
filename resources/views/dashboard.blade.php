@@ -3,7 +3,10 @@
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">Dashboard</h1></div>
-            <div class="col-md-6 text-right"></div>
+            <!-- <div class="col-md-6 text-right"></div> -->
+            @if (session('userType') == 'requester')
+                <div class="col-md-6 text-right"><a href="{{route('req.create')}}"><button class="btn btn-danger">Create Request</button></a></div>
+            @endif
         </div>   
     </section>
     <section class="content">
@@ -72,7 +75,7 @@
                                         <td>{{$data->name ? $data->name : ''}}</td>
                                         <td>{{ $data->req_name ?  $data->req_name : ''}}</td>
                                         <td>{{$data->resName ? ucfirst($data->resName) : ''}}</td>
-                                        <td>{{date('d-m-Y', strtotime($data->tentative_date))}}</td>
+                                        <td>{{$data->tentative_date ? date('d-m-Y', strtotime($data->tentative_date)) :'-'}}</td>
                                         <td><a href="{{route('req.edit', Crypt::encrypt($data->id) )}}" title="Edit" class="x1"><i class="fa fa-pencil"></i></a></td>
                                     </tr>
                                 @endforeach
