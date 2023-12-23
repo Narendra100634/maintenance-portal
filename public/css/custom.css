@@ -397,4 +397,6 @@ textarea.form-control{height: 110px;}
             -webkit-box-orient: vertical;}
 .error-msg-alert{text-align:center;}
 .dataTables_scrollHeadInner, div.dataTables_scrollHead table.table-bordered,.dataTables_scrollBody table{width:100%!important;}
-            
+.karam-logo{position: absolute;
+  top: 30px;
+  left: 30px;}
