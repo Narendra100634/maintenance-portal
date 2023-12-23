@@ -62,7 +62,7 @@ class PostController extends Controller
 
            return redirect('dashboard');
         }else{
-            return redirect('/')->with('error', 'Invalid Email id or Password'); 
+            return redirect('/')->with('error', 'Invalid Email or Password'); 
         }
     }
     public function store()

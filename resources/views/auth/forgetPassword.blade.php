@@ -20,7 +20,7 @@
     <div class="card-body login-card-body"> 
       <div class="form">
         @if(Session::has('message'))
-          <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ 
+          <p class="error-msg error-msg-alert alert {{ Session::get('alert-class', 'alert-info') }}">{{ 
             Session::get('message') }}
           </p>
         @endif

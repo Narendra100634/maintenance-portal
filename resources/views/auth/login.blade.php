@@ -22,10 +22,10 @@
                     <p class="login-box-msg"><img class="profile-img" src="{{asset('img/photo.png')}}" alt="user"></p>
       <div class="form">
       @if (Session::has('error'))
-         <p class="text-danger">{{Session::get('error') }}</p>
+         <p class="error-msg error-msg-alert text-danger text-center">{{Session::get('error') }}</p>
         @endif
         @if (Session::has('success'))
-         <p class="text-success">{{Session::get('success') }}</p>
+         <p class="error-msg-alert text-success">{{Session::get('success') }}</p>
         @endif
 
         <form class="login-form" action="{{route('login-user')}}" method="post" >
