@@ -103,6 +103,8 @@ input {
 {
     max-height: 300px;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 input[type='radio']:checked:after {

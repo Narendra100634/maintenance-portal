@@ -31,7 +31,6 @@
                                             <h5><i class="fa fa-paperclip" aria-hidden="true"></i> Attachment: <a href="{{ url('file-data/comments/'.$comment->attachment) }}" target="_blank" class="body-attach">{{$comment->attachment ? $comment->attachment : '' }}</a></h5>
                                         @endif
                                     </div> 
-                               
                                 @endforeach
                                 </div>
                                 @if ($editData->status == "Closed")                                    
@@ -46,10 +45,8 @@
                                             <input type="hidden" class="rating-value" value="{{$editData->rating ? $editData->rating : 0}}" readonly = "readonly" >
                                         </div>                                        
                                         <p>{!! isset($editData->feedback) ? $editData->feedback : '' !!}</p>
-                                       
                                     </div> 
                                 @endif
-                               
                             @if($editData->status != 'Closed')
                             <div class="share-feedback">
                                 @if( (session('userType') == 'resolver' && ($editData->status == 'Open' || $editData->status == 'WIP' || $editData->status == 'On Hold' || $editData->status == 'Information Awaiting' || $editData->status == 'Feedback Awaiting')) ||  
@@ -209,7 +206,7 @@
                                             </div>
                                         </div> 
                                     </form> 
-                            </div>
+                                </div>
                             @endif                           
                         </div>
                     </div>
@@ -240,7 +237,6 @@
                                         <h5><span class="right-label">Tentative Date:</span> <span>{{isset($editData->tentative_date) ? date('d-m-Y', strtotime($editData->tentative_date)): ''}}</span></h5>
                                     @endif
                                 @endif
-                                
                                 <h5><span class="right-label">Status :</span>
                                     @if($editData->status == 'Open')
                                      <span class="Status open"> {{isset($editData->status) ? $editData->status : ''}}</span>

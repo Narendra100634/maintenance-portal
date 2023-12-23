@@ -33,7 +33,6 @@ class CommentController extends Controller
                 $newDate1 = Carbon::createFromFormat('m/d/Y', $date1)->format('Y-m-d');
                 $event->handover_date = $newDate1 ? $newDate1 :'';
             }
-            
             $event->update();
         }elseif(session('userType') == 'requester' &&  $request->status == 'Closed'){
            
@@ -43,10 +42,8 @@ class CommentController extends Controller
             $date2 = $request->closer_date;
             $newDate2 = Carbon::createFromFormat('m/d/Y', $date2)->format('Y-m-d');
             $event->closer_date = $newDate2 ? $newDate2 :'';
-            //$event->closer_date = isset($request->closer_date) ? $request->closer_date :'';
             $event->feedback = isset($request->feedback_text) ? $request->feedback_text :'';
             $event->update();
-
             $resolverData = User::find($event->resv_id);
 
             Mail::send('EmailTemplats.closestatusrequest', [
@@ -163,7 +160,6 @@ class CommentController extends Controller
             } 
 
         }       
-        // return redirect()->route('req.allrequest')->with('success',' Requst Updated Successfully');
         return back()->with('success',' Requst Updated Successfully');
     }
 }

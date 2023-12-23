@@ -45,7 +45,6 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
         route::get('usersList/{id}', [ResolverController::class, 'userList'])->name('userList');
         Route::get('edit/{id}', [ResolverController::class,'edit'])->name('res.edit');
         Route::post('update/{id}', [ResolverController::class,'update'])->name('res.update');
-        //Route::get('changeStatus', [ResolverController::class, 'changeStatus'])->name('changeStatus');
         Route::get('assignto', [ResolverController::class, 'assignto'])->name('assignto');
     });
     route::post('comment/{id}', [CommentController::class, 'save'])->name('comment');
