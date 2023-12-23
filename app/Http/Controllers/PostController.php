@@ -27,7 +27,7 @@ class PostController extends Controller
         }
 
     }
-    public function User(Request $request)
+    public function loginUser(Request $request)
     {     
         $client = new Client();
         $res = $client->request('POST', 'https://karamportals.com/api/', [
