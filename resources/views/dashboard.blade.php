@@ -45,7 +45,7 @@
                                     <th>Request Type</th>
                                     <th>Requester</th>
                                     <th>Assign To</th>
-                                    <th>Tentative Target Date</th>
+                                    <th>Tentative Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
