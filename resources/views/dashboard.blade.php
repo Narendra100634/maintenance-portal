@@ -12,8 +12,6 @@
                 <div class="small-box bg-aqua">
                     <div class="inner text-center"><h3>{{isset($total) ? $total : 0}}</h3>
                     <p class="text-center">Total Tickets</p></div>
-                    <!-- <div class="icon"><i class="ion ion-bag"></i></div>
-                    <a href="#" class="small-box-footer"> More info <i class="fa fa-arrow-circle-right"></i></a> -->
                 </div>
             </div>
            
@@ -21,8 +19,6 @@
                 <div class="small-box bg-green">
                     <div class="inner text-center"><h3>{{isset($totalactive) ? $totalactive : 0}}</h3>
                     <p class="text-center">My Active Tickets </p></div>
-                    <!-- <div class="icon"><i class="ion ion-stats-bars"></i></div>
-                    <a href="#" class="small-box-footer"> More info <i class="fa fa-arrow-circle-right"></i></a> -->
                 </div>
             </div>
            
@@ -31,8 +27,6 @@
                     <div class="inner text-center"><h3>{{isset($totalclose) ? $totalclose : 0}} </h3>
                     <p class="text-center">My Closed Tickets</p>
                 </div>
-                    <!-- <div class="icon"><i class="ion ion-person-add"></i></div>
-                    <a href="#" class="small-box-footer"> More info <i class="fa fa-arrow-circle-right"></i></a> -->
                 </div>
             </div>
             

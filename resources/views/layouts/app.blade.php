@@ -61,11 +61,6 @@
             </div>
             @include('layouts.footer')          
         </div>
-
-
-
-
-
     <!-- jQuery 2.1.4 -->
     <script src="{{asset('/js/3.7.1-jquery.min.js')}}"></script>
     <script src="{{asset('/js/3.4.1-bootstrap.min.js')}}"></script>
@@ -78,7 +73,6 @@
     <script type="text/javascript" src="{{asset('/js/custom.js')}}"></script>
     <link href=" {{asset('/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
     <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
-    <!-- <script src="{{ asset('/js/ckeditor.js') }}"></script> -->
     <script src="{{ asset('/js/iziToast.min.js') }}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
