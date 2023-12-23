@@ -129,6 +129,7 @@ class EventRequestController extends Controller
     public function store(Request $request)
     {
         $resolverData = User::where('user_type', 2)->where('res_priority',1)->where('location', '=', session('region') )->first();
+        
         $this->validate($request, [
             'priority' => 'required',
             'request_type' => 'required',
