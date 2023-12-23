@@ -10,12 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ForgotPasswordController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('login', [PostController::class,'login'])->name('login');
+Route::get('/', [PostController::class,'login'])->name('login');
 Route::post('login-user', [PostController::class,'loginUser'])->name('login-user');
 Route::get('store/posts', [PostController::class,'store']);
 Route::get('logout', [PostController::class,'logout'])->name('logout');

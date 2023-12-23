@@ -36,7 +36,7 @@
                 <td>{{isset($description) ? $description : ''}}</td>    
             </tr>
             <tr >    
-                <td>Requester name</td>    
+                <td>Requester Name</td>    
                 <td>{{isset($requesterName) ? $requesterName : ''}}</td>    
             </tr>
             <tr bgcolor="#f2f1f1">    
