@@ -18,7 +18,7 @@ class RequestTypeController extends Controller
                 return Redirect::back();
             }
         }else{
-          return redirect()->route('login');
+          return redirect()->route('/');
         }
         
     }
@@ -32,7 +32,7 @@ class RequestTypeController extends Controller
                 return Redirect::back();
             }
         }else{
-            return redirect()->route('login');
+            return redirect()->route('/');
         }    
     }
 
@@ -53,7 +53,7 @@ class RequestTypeController extends Controller
                 return redirect()->route('dashboard');
             }
         }else{
-            return redirect()->route('login');
+            return redirect()->route('/');
         }
     }
 
@@ -63,7 +63,7 @@ class RequestTypeController extends Controller
             $editData = RequestType::find(Crypt::decrypt($id));
             return view('requestmaster.edit', compact('editData'));
         }else{
-            return redirect()->route('login');
+            return redirect()->route('/');
         }
     }
 
@@ -84,7 +84,7 @@ class RequestTypeController extends Controller
                 return redirect()->route('dashboard');
             }
         }else{
-            return redirect()->route('login');
+            return redirect()->route('/');
         }
     }
 

@@ -66,10 +66,10 @@ class ResolverController extends Controller
 
                 return redirect()->route('res.index')->with('success','Resolver Created successfully');
             }else{
-               return redirect('login')->with('error', 'Employee dose not exist.');
+               return redirect('/')->with('error', 'Employee dose not exist.');
             }
         }else{
-            return redirect()->route('login');
+            return redirect()->route('/');
         }
     }
     public function edit(Request $request, $id)
@@ -78,7 +78,7 @@ class ResolverController extends Controller
             $editData = User::find(Crypt::decrypt($id));
             return view('resolver.edit', compact('editData'));
         }else{
-            return redirect()->route('login');
+            return redirect()->route('/');
         }
     }
 
@@ -101,7 +101,7 @@ class ResolverController extends Controller
                 return redirect()->route('dashboard');
             }
         }else{
-            return redirect()->route('login');
+            return redirect()->route('/');
         }
     }
     public function changeStatus(Request $request)
