@@ -77,6 +77,7 @@ $(function () {
             $('#handoverDt').show(); 
             console.log(123);
         }else if(statusVal == 'Closed'){
+            $('.red').show();
             $('#rating-row').show(); 
             $('#feedback-row').show(); 
             $('#closerDt').show();

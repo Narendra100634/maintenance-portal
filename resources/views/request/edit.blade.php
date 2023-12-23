@@ -8,7 +8,6 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-md-12">
                 <div class="col-md-8">
                     <div class="box">
                         <div class="box-body">
@@ -220,13 +219,13 @@
                         <div class="box-body-right">
                             <div class="request-body">Request Information</div>
                             <div class="body-right-content">
-                                <h5><span class="right-label">Request ID :</span><span> #{{isset($editData->id) ? $editData->id : ''}}</span></h5>
-                                <h5><span class="right-label">Name :</span><span> {{isset($editData->req_name) ? $editData->req_name : ''}}</span></h5>
-                                <h5><span class="right-label">Phone :</span><span> {{isset($editData->req_phone) ? $editData->req_phone : ''}}</span></h5>
-                                <h5><span class="right-label">Email ID :</span><span>{{isset($editData->req_email) ? $editData->req_email : ''}}</span></h5>
-                                <h5><span class="right-label">Location : </span><span>{{isset($editData->req_region) ? $editData->req_region : ''}}</span></h5>
-                                <h5><span class="right-label">Request Type :</span><span> {{isset($editData->requestType) ? $editData->requestType : '' }}</span></h5>
-                                <h5><span class="right-label">Priority :</span>
+                                <h5><span class="right-label">Request ID:</span><span> #{{isset($editData->id) ? $editData->id : ''}}</span></h5>
+                                <h5><span class="right-label">Name:</span><span> {{isset($editData->req_name) ? $editData->req_name : ''}}</span></h5>
+                                <h5><span class="right-label">Phone:</span><span> {{isset($editData->req_phone) ? $editData->req_phone : ''}}</span></h5>
+                                <h5><span class="right-label">Email ID:</span><span>{{isset($editData->req_email) ? $editData->req_email : ''}}</span></h5>
+                                <h5><span class="right-label">Location: </span><span>{{isset($editData->req_region) ? $editData->req_region : ''}}</span></h5>
+                                <h5><span class="right-label">Request Type:</span><span> {{isset($editData->requestType) ? $editData->requestType : '' }}</span></h5>
+                                <h5><span class="right-label">Priority:</span>
                                     @if($editData->priority == 'Low')
                                      <span class="Priority low"> {{isset($editData->priority) ? $editData->priority : ''}}</span>
                                     @elseif ($editData->priority == 'Medium')
@@ -271,7 +270,6 @@
                     </div>
                 </div>
             </div>
-       </div>
     </section>
     <!-- Model chenge resolver -->
     <div class="modal fade bd-example-modal-sm" id="changeresolver-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

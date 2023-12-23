@@ -8,7 +8,7 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-lg-3 col-xs-6">
+            <div class="col-lg-3 col-xs-6 mar-left15">
                 <div class="small-box bg-aqua">
                     <div class="inner text-center"><h3>{{isset($total) ? $total : 0}}</h3>
                     <p class="text-center">Total Tickets</p></div>
@@ -57,24 +57,24 @@
                             </thead>
                             <tbody>
                                 @foreach ($datas as $data )                                                   
-                                    <tr> 
+                                <tr>
                                         <td style="display:none">{{ $loop->iteration }}</td>
                                         <td>
                                         <span>
                                             @if ($data->priority === 'Low')
-                                             <small class="low">{{$data->priority ? $data->priority : ''}}</small>
+                                             <small class="badge badge-warning low">{{$data->priority ? $data->priority : ''}}</small>
                                             @elseif ($data->priority === 'Medium')
-                                             <small class="medium">{{$data->priority ? $data->priority : ''}}</small>
+                                             <small class="badge badge-warning medium">{{$data->priority ? $data->priority : ''}}</small>
                                             @else
-                                             <small class="high">{{$data->priority ? $data->priority : ''}}</small>
+                                             <small class="badge badge-warning high">{{$data->priority ? $data->priority : ''}}</small>
                                             @endif
+                                            <span>#{{$data->id ? $data->id : ''}}</span>
+                                            <span> <small>{{ session('region') ? session('region') : ''}}</small></span>
                                         </span><br>
                                             <span>{{$data->subject ? $data->subject : ''}}</span> <br>
-                                            <span><b>#</b> {{$data->id ? $data->id : ''}}</span><br>
-                                            <span> <small>{{ session('region') ? session('region') : ''}}</small></span>
                                         </td>
                                         <td>{{$data->status ? $data->status : ''}}</td>
-                                        <td>{{date('d-m-Y', strtotime($data->created_at))}}</td>  	 
+                                        <td>{{date('d-m-Y', strtotime($data->created_at))}}</td>    
                                         <td>{{$data->name ? $data->name : ''}}</td>
                                         <td>{{ $data->req_name ?  $data->req_name : ''}}</td>
                                         <td>{{$data->resName ? ucfirst($data->resName) : ''}}</td>
