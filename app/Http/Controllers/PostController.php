@@ -23,11 +23,11 @@ class PostController extends Controller
                 return Redirect::back();
             }
         }else{
-            return redirect()->route('login');
+            return redirect()->route('/');
         }
 
     }
-    public function loginUser(Request $request)
+    public function User(Request $request)
     {     
         $client = new Client();
         $res = $client->request('POST', 'https://karamportals.com/api/', [
@@ -62,7 +62,7 @@ class PostController extends Controller
 
            return redirect('dashboard');
         }else{
-            return redirect('login')->with('error', 'You Dont have a permission please connect with admin'); 
+            return redirect('/')->with('error', 'You Dont have a permission please connect with admin'); 
         }
     }
     public function store()
