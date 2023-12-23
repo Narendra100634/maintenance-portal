@@ -62,7 +62,7 @@ class PostController extends Controller
 
            return redirect('dashboard');
         }else{
-            return redirect('/')->with('error', 'You Dont have a permission please connect with admin'); 
+            return redirect('/')->with('error', 'Invalid Email id or Password'); 
         }
     }
     public function store()
