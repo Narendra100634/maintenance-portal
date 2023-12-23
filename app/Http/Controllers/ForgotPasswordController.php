@@ -50,7 +50,7 @@ class ForgotPasswordController extends Controller
           $message = 'We have e-mailed your password reset link!';
           return back()->with('message', $message);
         }else {
-          $message = 'Enter valid email id';
+          $message = 'Enter valid Email';
           return back()->with('message', $message)->withInput();
         }
         
