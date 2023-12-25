@@ -20,9 +20,10 @@ class DashboardController extends Controller
                 ->Where('event_requests.req_email','=', $userEmail)
                 ->whereIn('event_requests.status',['Open'])
                 ->orderby('event_requests.id', 'DESC')->get();
-                $total = EventRequest::get()->count();
-                $totalactive = EventRequest::whereIn('status',['Open','WIP','Feedback Awaiting','On Hold','Information Awaiting'])->count();
-                $totalclose = EventRequest::where('status',['Closed'])->count();
+                $total = EventRequest::where('req_email', $userEmail)->get()->count();
+                $totalactive = EventRequest::where('req_email', $userEmail)->whereIn('status',['Open','WIP','Feedback Awaiting','On Hold','Information Awaiting'])->count();
+                $totalclose = EventRequest::where('req_email', $userEmail)->where('status',['Closed'])->count();
+
             }elseif(session('userType') == 'resolver'){
                 $region = session('region');
                 $resolverData = User::where('location', '=', session('region'))->get();

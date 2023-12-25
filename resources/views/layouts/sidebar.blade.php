@@ -16,8 +16,8 @@
                 <a href="#"><i class="fa fa-file-text"></i><span>Requests</span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu ">
                 <li class=" {{ (Request::segment(3) == 'all') ? 'active' : '' }}"> <a href="{{route('req.allrequest','all')}}"><i class="fa fa-circle-o "></i> <span>All Requests</span></a></li> 
-                <li class=" {{ (Request::segment(3) == 'active') ? 'active' : '' }}"> <a href="{{route('req.allrequest','active')}}"><i class="fa fa-circle-o "></i> <span>My Active Request</span></a></li>
-                <li class="{{ (Request::segment(3) == 'close') ? 'active' : '' }} "> <a href="{{ route('req.allrequest','close') }}"><i class="fa fa-circle-o "></i> <span>My Close Request</span></a></li>
+                <li class=" {{ (Request::segment(3) == 'active') ? 'active' : '' }}"> <a href="{{route('req.allrequest','active')}}"><i class="fa fa-circle-o "></i> <span>My Active Requests</span></a></li>
+                <li class="{{ (Request::segment(3) == 'close') ? 'active' : '' }} "> <a href="{{ route('req.allrequest','close') }}"><i class="fa fa-circle-o "></i> <span>My Close Requests</span></a></li>
                 </ul>
             </li> 
         </ul>                    
