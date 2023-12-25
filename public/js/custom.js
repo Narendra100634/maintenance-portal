@@ -17,7 +17,7 @@ $(function () {
 });
 
    /***************get email address************************/
-   var urls= 'http://localhost:8000/';
+   var urls= 'https://maintenance.karamportals.com/';
    $("#email").blur(function (){
       var email = $(this).val();
       var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
@@ -60,7 +60,7 @@ $(function () {
             url: urls+'resolver/assignto',
             data: {'resv_id': userData, 'id': reqId},
             success: function(data){
-                window.location.href = "http://localhost:8000/dashboard";
+                window.location.href = "https://maintenance.karamportals.com/dashboard";
                 
                 
             }
