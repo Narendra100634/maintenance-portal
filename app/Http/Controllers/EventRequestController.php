@@ -26,7 +26,7 @@ class EventRequestController extends Controller
                 return Redirect::back();
             }
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
     public function allrequest(Request $request, $name=null){
@@ -122,7 +122,7 @@ class EventRequestController extends Controller
             }      
             return view('request.allrequest', compact('datas','resolverData'));
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
    
@@ -207,7 +207,7 @@ class EventRequestController extends Controller
                 return Redirect::back();
             }
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
 
@@ -246,7 +246,7 @@ class EventRequestController extends Controller
             }      
             return view('request.myactive', compact('datas','resolverData'));
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
     public function myclose(Request $request)
@@ -283,7 +283,7 @@ class EventRequestController extends Controller
              }      
              return view('request.myclose', compact('datas','resolverData'));
         }else{
-             return redirect()->route('/');
+             return redirect()->route('login');
         }
     }
     
