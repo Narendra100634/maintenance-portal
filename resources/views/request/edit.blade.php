@@ -16,7 +16,7 @@
                             <hr class="body-line">
                             <h4>Description</h4>
                             <p>{{isset($editData->description) ? $editData->description : '' }}</p>
-                            @if ($editData->attachment !== null || $editData->attachment !== "")                                
+                            @if ($editData->attachment != null || $editData->attachment != "")                                
                                 <h5><i class="fa fa-paperclip" aria-hidden="true"></i> Attachment: <a href="{{ url('file-data/'.$editData->attachment) }}" target="_blank" class="body-attach">{{$editData->attachment ? $editData->attachment : ''  }}</a></h5> 
                             @endif
                          </div>
