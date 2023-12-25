@@ -18,7 +18,7 @@ class RequestTypeController extends Controller
                 return Redirect::back();
             }
         }else{
-          return redirect()->route('/');
+          return redirect()->route('login');
         }
         
     }
@@ -32,7 +32,7 @@ class RequestTypeController extends Controller
                 return Redirect::back();
             }
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }    
     }
 
@@ -53,7 +53,7 @@ class RequestTypeController extends Controller
                 return redirect()->route('dashboard');
             }
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
 
@@ -84,7 +84,7 @@ class RequestTypeController extends Controller
                 return redirect()->route('dashboard');
             }
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
 

@@ -71,7 +71,7 @@ class ForgotPasswordController extends Controller
           if(isset($checkEmail->email)){
             return view('auth.resetPassword', ['token' => $token]);
           }else{
-            return redirect::route('/');
+            return redirect::route('login');
           }        
         }
   
@@ -104,7 +104,7 @@ class ForgotPasswordController extends Controller
               return redirect::route('/')->with('success', 'Your password has been changed!');
 
             }else {              
-              return redirect::route('/');
+              return redirect::route('login');
             }
 
           }

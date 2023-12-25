@@ -78,7 +78,7 @@ class ResolverController extends Controller
             $editData = User::find(Crypt::decrypt($id));
             return view('resolver.edit', compact('editData'));
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
 
@@ -101,7 +101,7 @@ class ResolverController extends Controller
                 return redirect()->route('dashboard');
             }
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
     public function changeStatus(Request $request)
