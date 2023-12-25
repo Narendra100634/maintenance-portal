@@ -1,3 +1,5 @@
+let baseurl = 'https://maintenance.karamportals.com/';
+
 /* bootstrap datatable */
 $(function () {
     $("#example1").DataTable({
@@ -17,7 +19,7 @@ $(function () {
 });
 
    /***************get email address************************/
-   var urls= 'https://maintenance.karamportals.com/';
+   var urls= baseurl;
    $("#email").blur(function (){
       var email = $(this).val();
       var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
@@ -60,7 +62,7 @@ $(function () {
             url: urls+'resolver/assignto',
             data: {'resv_id': userData, 'id': reqId},
             success: function(data){
-                window.location.href = "https://maintenance.karamportals.com/dashboard";
+                window.location.href = baseurl+"dashboard";
                 
                 
             }
