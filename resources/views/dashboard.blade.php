@@ -14,22 +14,36 @@
             <div class="col-lg-3 col-xs-6 mar-left15">
                 <div class="small-box bg-aqua">
                     <div class="inner text-center"><h3>{{isset($total) ? $total : 0}}</h3>
-                    <p class="text-center">Total Tickets</p></div>
+                    @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
+                     <p class="text-center">My Total Tickets</p>
+                    @elseif (session('userType') == 'admin')
+                     <p class="text-center">Total Tickets</p>
+                    @endif
+                   </div>
                 </div>
             </div>
            
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner text-center"><h3>{{isset($totalactive) ? $totalactive : 0}}</h3>
-                    <p class="text-center">My Active Tickets </p></div>
+                    @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
+                     <p class="text-center">My Active Tickets</p>
+                    @elseif (session('userType') == 'admin')
+                     <p class="text-center">Total Active</p>
+                    @endif
+                   </div>
                 </div>
             </div>
            
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow"> 
                     <div class="inner text-center"><h3>{{isset($totalclose) ? $totalclose : 0}} </h3>
-                    <p class="text-center">My Closed Tickets</p>
-                </div>
+                    @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
+                     <p class="text-center">My Closed Tickets</p>
+                    @elseif (session('userType') == 'admin')
+                     <p class="text-center">Total Closed</p>
+                    @endif
+                   </div>
                 </div>
             </div>
             
