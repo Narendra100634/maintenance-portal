@@ -54,7 +54,7 @@ class DashboardController extends Controller
             }      
             return view('dashboard', compact('datas','resolverData','total','totalactive','totalclose'));
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
     public function edit(Request $request, $id)
