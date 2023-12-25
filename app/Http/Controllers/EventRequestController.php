@@ -201,7 +201,7 @@ class EventRequestController extends Controller
                 ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
                 ->where('event_requests.id', '=',Crypt::decrypt($id))
                 ->first();
-                $comments  = Comment::where('event_id','=', $editData->id)->orderBy('id', 'ASC')->get();
+                $comments  = Comment::where('event_id','=', $editData->id)->orderBy('id', 'DESC')->get();
                 return view('request.edit', compact('editData','comments','resolverDatas'));
             }else{
                 return Redirect::back();

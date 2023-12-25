@@ -23,6 +23,7 @@
                             <hr class="body-line"> 
                                 <div class="ScrollStyle" >  
                                 @foreach ($comments as  $comment)
+                                    
                                     <div class="box-body-content">                              
                                         <h4>{{isset($comment->user_name) ? $comment->user_name : '' }}</h4>
                                         <p class="date-format">{{isset($comment->created_at) ? $comment->created_at->format('d-m-Y H:i:s') : '' }}</p>
