@@ -120,11 +120,21 @@ class ResolverController extends Controller
         $updateResolver->save();
 
         $resolverEmail = User::find($updateResolver->resv_id);
-        
+        $reqType = RequestType::find($updateResolver->request_type);
+        //$eventid = $updateResolver->id;
        if($request->resv_id != null){   
             
             Mail::send('EmailTemplats.assignuser', [
                 'requestid'            =>$updateResolver->id,
+                'priority'             => $updateResolver->priority,
+                'requestType'          => $reqType->name,
+                'subject'              => $updateResolver->subject,
+                'description'          => $updateResolver->description,
+                'requesterEmail'       => $updateResolver->req_email,
+                'requesterName'        => $updateResolver->req_name,
+                'requesterRegion'      => $updateResolver->req_region,
+                'status'               => $updateResolver->status,
+                'requestdate'          =>$updateResolver->created_at,
                 'resolvername'         =>$resolverEmail->name,
             ],
                 function ($message) use($resolverEmail, $updateResolver){
@@ -133,7 +143,7 @@ class ResolverController extends Controller
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                         ->cc([$updateResolver->req_email])
-                    ->subject('Your ticket has been Assigned to you');
+                    ->subject('[KARAM - Maintenance] New service request ticket Created Ticket ID #'.$updateResolver->id);
                 }
             ); 
         } 

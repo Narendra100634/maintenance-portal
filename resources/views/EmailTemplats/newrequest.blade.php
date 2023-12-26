@@ -7,54 +7,46 @@
     <title>Document</title>
 </head>
 <body>   
-    <h3>Dear Concern</h3>
-    <h3>New ticket has been assigned to you. Ticket information is given below: # <b>{{isset($requestid) ? $requestid : ''}}</b></h3><br>
+    <h3>Dear User</h3>
+    <h3>New service request ticket has been Created. Ticket information is given below:</h3><br>
     <table border="1" cellpadding="10" style="border-collapse: collapse;">
         <tbody> 
+            <tr bgcolor="#f2f1f1">    
+                <td>Ticket Id</td>    
+                <td>#{{isset($requestid) ? $requestid : ''}}</td>    
+            </tr>
             <tr>    
                 <td>Request Date</td>    
-                <td>{{isset($requestdate) ? date('d-m-Y', strtotime($requestdate)) : ''}}</td>    
-            </tr>
-            <tr bgcolor="#f2f1f1">    
-                <td>Status</td>    
-                <td>{{isset($status) ? $status : ''}}</td>    
-            </tr>
-            <tr >    
-                <td>Priority</td>    
-                <td>{{isset($priority) ? $priority : ''}}</td>    
-            </tr>
-            <tr bgcolor="#f2f1f1">    
-                <td>Request Type</td>    
-                <td>{{isset($requestType) ? $requestType : ''}}</td>    
-            </tr>            
-            <tr>    
-                <td>Subject</td>    
-                <td>{{isset($subject) ? $subject : ''}}</td>    
-            </tr>
-            <tr bgcolor="#f2f1f1">    
-                <td>Description</td>    
-                <td>{{isset($description) ? $description : ''}}</td>    
-            </tr>
-            <tr >    
-                <td>Requester Name</td>    
-                <td>{{isset($requesterName) ? $requesterName : ''}}</td>    
-            </tr>
-            <tr bgcolor="#f2f1f1">    
-                <td>Requester Email</td>    
-                <td>{{isset($requesterEmail) ? $requesterEmail : ''}}</td>    
-            </tr>
-            <tr>    
-                <td>Requester Region</td>    
-                <td>{{isset($requesterRegion) ? $requesterRegion : ''}}</td>    
+                <td>{{isset($requestdate) ? date('d-m-Y H:i:s', strtotime($requestdate)) : ''}}</td>    
             </tr>
             <tr bgcolor="#f2f1f1">    
                 <td>Resolver Name</td>    
                 <td>{{isset($resolverName) ? $resolverName : ''}}</td>    
             </tr>
+            <tr>    
+                <td>Status</td>    
+                <td>{{isset($status) ? $status : ''}}</td>    
+            </tr>
+            <tr bgcolor="#f2f1f1">    
+                <td>Priority</td>    
+                <td>{{isset($priority) ? $priority : ''}}</td>    
+            </tr>
+            <tr>    
+                <td>Request Type</td>    
+                <td>{{isset($requestType) ? $requestType : ''}}</td>    
+            </tr>            
+            <tr bgcolor="#f2f1f1">    
+                <td>Ticket Title</td>    
+                <td>{{isset($subject) ? $subject : ''}}</td>    
+            </tr>
+            <tr>    
+                <td>Ticket Details</td>    
+                <td>{{isset($description) ? $description : ''}}</td>    
+            </tr>
         </tbody>    
     </table>
     <br><br><br>
     <span>Regards,</span><br>
-    <span>Karam Team</span>
+    <span>{{isset($requesterName) ? $requesterName : ''}}</span>
 </body>
 </html>
