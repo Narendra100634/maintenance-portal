@@ -20,8 +20,13 @@ class ResolverController extends Controller
     public function index()
     {
         
-        $datas = User::orderBy('id', 'DESC')->get();
-        return view('resolver.index', compact('datas'));
+        if(session('userType') != null || session('userType') != ''){
+            $datas = User::orderBy('id', 'DESC')->get();
+            return view('resolver.index', compact('datas'));
+        }else{
+            return redirect()->route('login');
+        }
+
     }
 
     public function create()
@@ -69,7 +74,7 @@ class ResolverController extends Controller
                return redirect('/')->with('error', 'Employee dose not exist.');
             }
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
     public function edit(Request $request, $id)
