@@ -63,7 +63,7 @@ class RequestTypeController extends Controller
             $editData = RequestType::find(Crypt::decrypt($id));
             return view('requestmaster.edit', compact('editData'));
         }else{
-            return redirect()->route('/');
+            return redirect()->route('login');
         }
     }
 
