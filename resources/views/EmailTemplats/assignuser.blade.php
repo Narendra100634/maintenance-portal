@@ -7,19 +7,46 @@
     <title>Document</title>
 </head>
 <body>   
-    <h3>Dear Concern</h3>
-    <h3>New ticket has been assigned to New User. Ticket information is given below: # {{isset($requestid) ? $requestid : ''}}</h3>
+    <h3>Dear User</h3>
+    <h3>New service request ticket has been Created. Ticket information is given below:</h3><br>
     <table border="1" cellpadding="10" style="border-collapse: collapse;">
         <tbody> 
+            <tr bgcolor="#f2f1f1">    
+                <td>Ticket Id</td>    
+                <td>#{{isset($requestid) ? $requestid : ''}}</td>    
+            </tr>
             <tr>    
-                <td>Assign To</td>    
+                <td>Request Date</td>    
+                <td>{{isset($requestdate) ? date('d-m-Y H:i:s', strtotime($requestdate)) : ''}}</td>    
+            </tr>
+            <tr bgcolor="#f2f1f1">    
+                <td>Resolver Name</td>    
                 <td>{{isset($resolvername) ? $resolvername : ''}}</td>    
             </tr>
-           
+            <tr>    
+                <td>Status</td>    
+                <td>{{isset($status) ? $status : ''}}</td>    
+            </tr>
+            <tr bgcolor="#f2f1f1">    
+                <td>Priority</td>    
+                <td>{{isset($priority) ? $priority : ''}}</td>    
+            </tr>
+            <tr>    
+                <td>Request Type</td>    
+                <td>{{isset($requestType) ? $requestType : ''}}</td>    
+            </tr>            
+            <tr bgcolor="#f2f1f1">    
+                <td>Ticket Title</td>    
+                <td>{{isset($subject) ? $subject : ''}}</td>    
+            </tr>
+            <tr>    
+                <td>Ticket Details</td>    
+                <td>{{isset($description) ? $description : ''}}</td>    
+            </tr>
         </tbody>    
     </table>
     <br><br><br>
     <span>Regards,</span><br>
-    <span>Karam Team</span>
+    <span>{{isset($resolvername) ? $resolvername : ''}}</span>
 </body>
 </html>

@@ -45,13 +45,21 @@ class CommentController extends Controller
             $event->feedback = isset($request->feedback_text) ? $request->feedback_text :'';
             $event->update();
             $resolverData = User::find($event->resv_id);
+            $reqType = RequestType::find($event->request_type);
 
             Mail::send('EmailTemplats.closestatusrequest', [
-                'requestid'            =>$event->id,
+                'requestid'            => $event->id,
                 'status'               => $event->status,
+                'tentative_date'       => $event->tentative_date,
+                'handover_date'        => $event->handover_date,
                 'closer_date'          => $event->closer_date,
                 'rating'               => $event->rating,
                 'feedback'             => $event->feedback,
+                'requestdate'          => $event->created_at,
+                'priority'             => $event->priority,
+                'requestType'          => $reqType->name,
+                'subject'              => $event->subject,
+                'resolverName'         => $resolverData->name,
             ],
                 function ($message) use($resolverData, $event){
                     $emailFrom = 'karamalert@karamportals.com';
@@ -59,7 +67,7 @@ class CommentController extends Controller
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                      ->cc([$event->req_email])
-                    ->subject('Update ticket has been Assigned to you');
+                    ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$event->id);
                 }
             ); 
         }   
@@ -77,8 +85,11 @@ class CommentController extends Controller
             $comment->comment = $request->comment_text;
             $comment->attachment = isset($file_name) ? $file_name : '';
             $comment->save();
+
+            
             $requestData = EventRequest::find(Crypt::decrypt($id));
             $resolverData = User::find($requestData->resv_id);
+            $reqType = RequestType::find($requestData->request_type);
             //$adminemail ='admin@karam.in';
             if($requestData != null){   
                
@@ -89,6 +100,11 @@ class CommentController extends Controller
                         'status'               => $requestData->status,
                         'tentative_date'       => $requestData->tentative_date,
                         'comment'              => $comment->comment,
+                        'requestdate'          => $requestData->created_at,
+                        'priority'             => $requestData->priority,
+                        'requestType'          => $reqType->name,
+                        'subject'              => $requestData->subject,
+                        'resolverName'         => $resolverData->name,
                     ],
                         function ($message) use($resolverData, $requestData){
                             $emailFrom = 'karamalert@karamportals.com';
@@ -96,7 +112,7 @@ class CommentController extends Controller
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc([$requestData->req_email])
-                            ->subject('Update ticket has been Assigned to you');
+                            ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
                 }
@@ -107,6 +123,11 @@ class CommentController extends Controller
                         'status'               => $requestData->status,
                         'tentative_date'       => $requestData->tentative_date,
                         'comment'              => $comment->comment,
+                        'requestdate'          => $requestData->created_at,
+                        'priority'             => $requestData->priority,
+                        'requestType'          => $reqType->name,
+                        'subject'              => $requestData->subject,
+                        'resolverName'         => $resolverData->name,
                     ],
                         function ($message) use($resolverData, $requestData){
                             $emailFrom = 'karamalert@karamportals.com';
@@ -114,7 +135,7 @@ class CommentController extends Controller
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc([$requestData->req_email])
-                            ->subject('Update ticket has been Assigned to you');
+                            ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
                 }
@@ -123,8 +144,14 @@ class CommentController extends Controller
                     Mail::send('EmailTemplats.feedbackstatusrequest', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
+                        'tentative_date'       => $requestData->tentative_date,
                         'handover_date'       => $requestData->handover_date,
                         'comment'              => $comment->comment,
+                        'requestdate'          => $requestData->created_at,
+                        'priority'             => $requestData->priority,
+                        'requestType'          => $reqType->name,
+                        'subject'              => $requestData->subject,
+                        'resolverName'         => $resolverData->name,
                     ],
                         function ($message) use($resolverData, $requestData){
                             $emailFrom = 'karamalert@karamportals.com';
@@ -132,7 +159,7 @@ class CommentController extends Controller
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc([$requestData->req_email])
-                            ->subject('Update ticket has been Assigned to you');
+                            ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
                 }
@@ -143,6 +170,11 @@ class CommentController extends Controller
                         'status'               => $requestData->status,
                         'tentative_date'       => $requestData->tentative_date,
                         'comment'              => $comment->comment,
+                        'requestdate'          => $requestData->created_at,
+                        'priority'             => $requestData->priority,
+                        'requestType'          => $reqType->name,
+                        'subject'              => $requestData->subject,
+                        'resolverName'         => $resolverData->name,
                     ],
                         function ($message) use($resolverData, $requestData){
                             $emailFrom = 'karamalert@karamportals.com';
@@ -150,7 +182,7 @@ class CommentController extends Controller
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc([$requestData->req_email])
-                            ->subject('Update ticket has been Assigned to you');
+                            ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
                 }

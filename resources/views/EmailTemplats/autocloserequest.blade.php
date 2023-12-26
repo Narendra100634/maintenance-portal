@@ -8,13 +8,12 @@
 </head>
 <body>   
 <h3>Dear User</h3>
-<h3>Service request ticket response has been received. Ticket information is given below:
-</h3><br>
+<h3>Service request ticket response has been received. Ticket information is given below:</h3><br>
     <table border="1" cellpadding="10" style="border-collapse: collapse;">
         <tbody>
            <tr bgcolor="#f2f1f1">    
                 <td>Ticket Id</td>    
-                <td>#{{isset($requestid) ? $requestid : ''}}</td>    
+                <td> #{{isset($requestid) ? $requestid : ''}}</td>    
             </tr>
             <tr>    
                 <td>Request Date</td>    
