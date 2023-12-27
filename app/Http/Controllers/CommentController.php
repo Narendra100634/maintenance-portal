@@ -62,12 +62,13 @@ class CommentController extends Controller
                 'resolverName'         => $resolverData->name,
                 'requesterName'        => $event->req_name,
             ],
-                function ($message) use($resolverData){
+                function ($message) use($resolverData, $event){
                     $emailFrom = 'karamalert@karamportals.com';
                     $emlTo  =   $resolverData->email;                 
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
-                     ->cc('arushi.nigam@karam.in')
+                    ->cc([$event->req_email])
+                     ->bcc('arushi.nigam@karam.in')
                     ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$event->id);
                 }
             ); 
