@@ -160,7 +160,7 @@ class EventRequestController extends Controller
         $reqType = RequestType::find($data->request_type);
         $resolverData = User::find($data->resv_id);
         $requestid = EventRequest::find($data->id);
-        $evntid = $data->id;
+        //$evntid = $data->id;
 
         if($data != null){        
             Mail::send('EmailTemplats.newrequest', [
@@ -182,7 +182,7 @@ class EventRequestController extends Controller
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                     ->cc([$data->req_email])
-                    ->subject('[KARAM - Maintenance] New service request ticket Created Ticket ID #'.$evntid);
+                    ->subject('[KARAM - Maintenance] New service request ticket Created Ticket ID #'.$data->id);
                 }
             ); 
             return redirect()->route('req.allrequest')->with('success','Service Requst created successfully');
