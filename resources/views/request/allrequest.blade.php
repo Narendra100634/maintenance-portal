@@ -50,7 +50,7 @@
                                         <td>{{$data->name ? $data->name : ''}}</td>
                                         <td>{{ $data->req_name ?  $data->req_name : ''}}</td>
                                         <td>{{$data->resName ? ucfirst($data->resName) : ''}}</td>
-                                        <td>{{$data->tentative_date ? date('d-m-Y', strtotime($data->tentative_date)) :''}}</td>
+                                        <td>{{$data->tentative_date ? date('d-m-Y', strtotime($data->tentative_date)) :'-'}}</td>
                                         <td><a href="{{route('req.edit', Crypt::encrypt($data->id) )}}" title="Edit" class="x1"><i class="fa fa-pencil"></i></a></td>
                                     </tr>
                                 @endforeach

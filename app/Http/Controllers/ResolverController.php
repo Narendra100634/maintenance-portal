@@ -148,6 +148,7 @@ class ResolverController extends Controller
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                         ->cc([$updateResolver->req_email])
+                        ->bcc('arushi.nigam@karam.in')
                     ->subject('[KARAM - Maintenance] New service request ticket Created Ticket ID #'.$updateResolver->id);
                 }
             ); 
