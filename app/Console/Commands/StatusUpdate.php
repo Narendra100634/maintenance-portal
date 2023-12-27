@@ -27,6 +27,15 @@ class StatusUpdate extends Command
      */
     public function handle()
     {
-        
+        $currentdate =  Carbon::now()->format('Y-m-d');
+        $allevents = EventRequest::where('status','Feedback Awaiting')->get();
+        foreach ($allevents as $event){
+            $eventdate = Carbon::parse($event->handover_date);
+            $date = $eventdate->diffInDays($currentdate);
+            if($date > 0){
+                EventRequest::where('id',$event->id)->update(['status' => 'Closed']);
+            }
+        }
+        $this->info('Successfully run to cron job scheduler');
     }
 }

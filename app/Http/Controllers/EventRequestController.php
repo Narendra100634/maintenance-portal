@@ -182,10 +182,11 @@ class EventRequestController extends Controller
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                     ->cc([$data->req_email])
+                    ->bcc('arushi.nigam@karam.in')
                     ->subject('[KARAM - Maintenance] New service request ticket Created Ticket ID #'.$data->id);
                 }
             ); 
-            return redirect()->route('req.allrequest')->with('success','Service Requst created successfully');
+            return redirect()->route('req.allrequest')->with('success','Service Request created successfully');
         }
     }
     public function edit(Request $request, $id)

@@ -47,6 +47,6 @@
     </table>
     <br><br><br>
     <span>Regards,</span><br>
-    <span>{{isset($requesterName) ? $requesterName : ''}}</span>
+   KARAM Maintenance Team
 </body>
 </html>

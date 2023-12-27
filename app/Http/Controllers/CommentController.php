@@ -60,13 +60,14 @@ class CommentController extends Controller
                 'requestType'          => $reqType->name,
                 'subject'              => $event->subject,
                 'resolverName'         => $resolverData->name,
+                'requesterName'        => $event->req_name,
             ],
-                function ($message) use($resolverData, $event){
+                function ($message) use($resolverData){
                     $emailFrom = 'karamalert@karamportals.com';
-                    $emlTo  =  $resolverData->email;                 
+                    $emlTo  =   $resolverData->email;                 
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
-                     ->cc([$event->req_email])
+                     ->cc('arushi.nigam@karam.in')
                     ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$event->id);
                 }
             ); 
@@ -106,12 +107,12 @@ class CommentController extends Controller
                         'subject'              => $requestData->subject,
                         'resolverName'         => $resolverData->name,
                     ],
-                        function ($message) use($resolverData, $requestData){
+                        function ($message) use($requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;                   
+                            $emlTo  =  $requestData->req_email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
-                             ->cc([$requestData->req_email])
+                             ->cc('arushi.nigam@karam.in')
                             ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
@@ -129,12 +130,12 @@ class CommentController extends Controller
                         'subject'              => $requestData->subject,
                         'resolverName'         => $resolverData->name,
                     ],
-                        function ($message) use($resolverData, $requestData){
+                        function ($message) use($requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;                   
+                            $emlTo  =  $requestData->req_email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
-                             ->cc([$requestData->req_email])
+                             ->cc('arushi.nigam@karam.in')
                             ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
@@ -153,12 +154,12 @@ class CommentController extends Controller
                         'subject'              => $requestData->subject,
                         'resolverName'         => $resolverData->name,
                     ],
-                        function ($message) use($resolverData, $requestData){
+                        function ($message) use($requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;                   
+                            $emlTo  =  $requestData->req_email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
-                             ->cc([$requestData->req_email])
+                             ->cc('arushi.nigam@karam.in')
                             ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
@@ -176,12 +177,12 @@ class CommentController extends Controller
                         'subject'              => $requestData->subject,
                         'resolverName'         => $resolverData->name,
                     ],
-                        function ($message) use($resolverData, $requestData){
+                        function ($message) use($requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;                   
+                            $emlTo  =  $requestData->req_email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
-                             ->cc([$requestData->req_email])
+                             ->cc('arushi.nigam@karam.in')
                             ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
@@ -192,6 +193,6 @@ class CommentController extends Controller
             } 
 
         }       
-        return back()->with('success',' Requst Updated Successfully');
+        return back()->with('success',' Request Updated Successfully');
     }
 }

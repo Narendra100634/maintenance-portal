@@ -72,6 +72,6 @@
     </table>
     <br><br><br>
     <span>Regards,</span><br>
-    <span>Karam Team</span>   
+    <span>{{isset($requesterName) ? $requesterName : ''}}</span>   
 </body>
 </html>
