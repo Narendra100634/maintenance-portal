@@ -96,7 +96,7 @@ class CommentController extends Controller
             if($requestData != null){  
                 
                 if($request->status == 'WIP' && $request->status != 'Comment'){    
-                    
+                   
                     Mail::send('EmailTemplats.wipstatusrequest', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -117,8 +117,8 @@ class CommentController extends Controller
                             ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
-                }elseif($request->status == 'Information Awaiting' && $request->status != 'Comment'){
-                    
+                }elseif($request->status == 'Information Awaiting' && $request->status != 'Comment'){                   
+                   
                     Mail::send('EmailTemplats.informationstatusrequest', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -165,7 +165,7 @@ class CommentController extends Controller
                     ); 
                 }
                 elseif($request->status == 'On Hold' && $request->status != 'Comment'){
-                    
+                   
                     Mail::send('EmailTemplats.onholdstatusrequest', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -188,7 +188,14 @@ class CommentController extends Controller
                     ); 
                 }
                 elseif($request->status == 'Comment' ){
-                   
+                    
+                    if(session('userType') == 'resolver'){
+                        $resolverData = User::find($requestData->resv_id);
+                        $regards  = $resolverData->name;
+                        
+                    }else{
+                        $regards  =  $requestData->req_name;
+                    } 
                     Mail::send('EmailTemplats.commentEmail', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -198,19 +205,33 @@ class CommentController extends Controller
                         'priority'             => $requestData->priority,
                         'requestType'          => $reqType->name,
                         'subject'              => $requestData->subject,
-                        'regards'              => $resolverData->name,
+                        'regards'              => $regards,
                     ],
                         function ($message) use($requestData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $requestData->req_email;                   
+                            if(session('userType') == 'resolver'){
+                                $emlTo  =  $requestData->req_email;
+                            }else{
+                                $resolverData = User::find($requestData->resv_id);
+                                $emlTo  = $resolverData->email;
+                            }                                              
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc('arushi.nigam@karam.in')
                             ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
-                }else{
-                    
+                }else{    
+
+                    if(session('userType') == 'requester'){
+                        $regards = $requestData->req_name;
+                    }else if(session('userType') == 'admin'){
+                        $admin = User::find(1);
+                        $regards  = $admin->name;
+                    }else{
+                        $reaolverName = User::find($requestData->resv_id);
+                        $regards  = $reaolverName->name;
+                    }
                     Mail::send('EmailTemplats.commentRequesterEmail', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -220,11 +241,14 @@ class CommentController extends Controller
                         'priority'             => $requestData->priority,
                         'requestType'          => $reqType->name,
                         'subject'              => $requestData->subject,
-                        'regards'              => $requestData->req_name,
+                        'regards'              => $regards,
                     ],
                         function ($message) use($requestData,$resolverData){
                             $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $resolverData->email;                   
+                            $emlTo  =  $resolverData->email;    
+                            if(session('userType') == 'admin'){
+                                $message->to($requestData->req_email, 'Your Name');
+                            }
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc('arushi.nigam@karam.in')
