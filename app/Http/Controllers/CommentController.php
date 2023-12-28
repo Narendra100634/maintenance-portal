@@ -25,12 +25,12 @@ class CommentController extends Controller
             $event->status = $request->status;
             if($request->status != 'Feedback Awaiting'){
                 $date = $request->tentative_date;
-                $newDate = Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+                $newDate = Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d H:i:s');
                 $event->tentative_date = $newDate ? $newDate :'NULL';
             }
             if($request->status == 'Feedback Awaiting'){
                 $date1 = $request->handover_date;
-                $newDate1 = Carbon::createFromFormat('m/d/Y', $date1)->format('Y-m-d');
+                $newDate1 = Carbon::createFromFormat('m/d/Y', $date1)->format('Y-m-d H:i:s');
                 $event->handover_date = $newDate1 ? $newDate1 :'';
             }
             $event->update();
@@ -39,7 +39,7 @@ class CommentController extends Controller
             $event->status = $request->status;
             $event->rating = isset($request->rating) ? $request->rating :'';
             $date2 = $request->closer_date;
-            $newDate2 = Carbon::createFromFormat('m/d/Y', $date2)->format('Y-m-d');
+            $newDate2 = Carbon::createFromFormat('m/d/Y', $date2)->format('Y-m-d H:i:s');
             $event->closer_date = $newDate2 ? $newDate2 :'';
             $event->feedback = isset($request->feedback_text) ? $request->feedback_text :'';
             $event->update();
@@ -110,7 +110,7 @@ class CommentController extends Controller
                     ],
                         function ($message) use($requestData,  $resolverData){
                             $emailFrom = 'karamalert@karamportals.com';                  
-                            $emlTo  =  $resolverData->email;                   
+                            $emlTo  =  $requestData->req_email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc('arushi.nigam@karam.in')

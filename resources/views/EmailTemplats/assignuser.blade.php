@@ -47,6 +47,6 @@
     </table>
     <br><br><br>
     <span>Regards,</span><br>
-    <span>{{isset($requesterName) ? $requesterName : ''}}</span>
+    <span>{{isset($firstResolver) ? $firstResolver : ''}}</span>
 </body>
 </html>
