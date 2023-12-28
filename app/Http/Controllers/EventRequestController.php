@@ -181,7 +181,7 @@ class EventRequestController extends Controller
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                     ->cc([$data->req_email])
-                    ->bcc('arushi.nigam@karam.in')
+                    ->cc('arushi.nigam@karam.in')
                     ->subject('[KARAM - Maintenance] New service request ticket Created Ticket ID #'.$data->id);
                 }
             ); 

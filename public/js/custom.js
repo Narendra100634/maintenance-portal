@@ -94,7 +94,16 @@ $(function () {
             $('#tdod').hide(); 
             $('#handoverDt').hide(); 
 
-        }else if(statusVal == 'Feedback Awaiting'){
+        }else if(statusVal != 'Comment'){
+            $('#comment-row').show(); 
+            $('#rating-row').hide(); 
+            $('#feedback-row').hide(); 
+            $('#closerDt').hide();
+            $('#tdod').show(); 
+            $('#handoverDt').hide(); 
+
+        }
+        else if(statusVal == 'Feedback Awaiting'){
             $('#handoverDt').show(); 
             $('#tdod').hide(); 
             console.log(1234);

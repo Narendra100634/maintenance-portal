@@ -120,6 +120,9 @@ class ResolverController extends Controller
 
     public function assignto(Request $request)
     {
+        $firstRes = EventRequest::find($request->id);
+        $firstResolver = User::find($firstRes->resv_id);
+
         $updateResolver = EventRequest::find($request->id);
         $updateResolver->resv_id = $request->resv_id;
         $updateResolver->save();
@@ -136,7 +139,7 @@ class ResolverController extends Controller
                 'subject'              => $updateResolver->subject,
                 'description'          => $updateResolver->description,
                 'requesterEmail'       => $updateResolver->req_email,
-                'requesterName'        => $updateResolver->req_name,
+                'firstResolver'        => $firstResolver->name,
                 'requesterRegion'      => $updateResolver->req_region,
                 'status'               => $updateResolver->status,
                 'requestdate'          =>$updateResolver->created_at,
