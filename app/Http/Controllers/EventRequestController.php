@@ -160,7 +160,6 @@ class EventRequestController extends Controller
         $reqType = RequestType::find($data->request_type);
         $resolverData = User::find($data->resv_id);
         $requestid = EventRequest::find($data->id);
-        //$evntid = $data->id;
 
         if($data != null){        
             Mail::send('EmailTemplats.newrequest', [

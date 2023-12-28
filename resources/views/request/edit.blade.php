@@ -71,6 +71,7 @@
                                                         <select class="form-control" name="status" id="status" required>
                                                             <option value="" selected disabled>Select Status</option>
                                                             @if (session('userType') == 'resolver' )
+                                                                <option value="Comment">Comment</option>
                                                                 @if(session('userType') == 'resolver' && $editData->status == 'On Hold' || $editData->status == 'Open' || $editData->status == 'Information Awaiting' )
                                                                     <option value="WIP">WIP</option>
                                                                 @endif 

@@ -20,7 +20,7 @@ class CommentController extends Controller
            'files' => 'mimes:jpeg,jpg,png,pdf,doc,docx|max:2048',
         ]);
         if(session('userType') == 'resolver' &&  ($request->status == 'Open' || $request->status == 'WIP' || $request->status == 'On Hold' ||$request->status == 'Information Awaiting' || $request->status == 'Feedback Awaiting')){
-             
+           
             $event = EventRequest::find(Crypt::decrypt($id));
             $event->status = $request->status;
             if($request->status != 'Feedback Awaiting'){
@@ -35,7 +35,6 @@ class CommentController extends Controller
             }
             $event->update();
         }elseif(session('userType') == 'requester' &&  $request->status == 'Closed'){
-           
             $event = EventRequest::find(Crypt::decrypt($id));
             $event->status = $request->status;
             $event->rating = isset($request->rating) ? $request->rating :'';
@@ -67,14 +66,15 @@ class CommentController extends Controller
                     $emlTo  =   $resolverData->email;                 
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
-                    ->cc([$event->req_email])
-                     ->bcc('arushi.nigam@karam.in')
+                    //->cc([$event->req_email])
+                     ->cc('arushi.nigam@karam.in')
                     ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$event->id);
                 }
             ); 
-        }   
-        if($request->comment_text != null){
+        }  
 
+        if($request->comment_text != null){
+            
             if($request->hasfile('files')){ 
                 $file = $request->file('files');
                 $file_name =$file->getClientOriginalName();  
@@ -92,11 +92,11 @@ class CommentController extends Controller
             $requestData = EventRequest::find(Crypt::decrypt($id));
             $resolverData = User::find($requestData->resv_id);
             $reqType = RequestType::find($requestData->request_type);
-            //$adminemail ='admin@karam.in';
-            if($requestData != null){   
-               
-                if($requestData->status == 'WIP'){
+            
+            if($requestData != null){  
                 
+                if($request->status == 'WIP' && $request->status != 'Comment'){    
+                    
                     Mail::send('EmailTemplats.wipstatusrequest', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -106,20 +106,19 @@ class CommentController extends Controller
                         'priority'             => $requestData->priority,
                         'requestType'          => $reqType->name,
                         'subject'              => $requestData->subject,
-                        'resolverName'         => $resolverData->name,
+                        'regards'              => $comment->user_name,
                     ],
-                        function ($message) use($requestData){
-                            $emailFrom = 'karamalert@karamportals.com';
-                            $emlTo  =  $requestData->req_email;                   
+                        function ($message) use($requestData,  $resolverData){
+                            $emailFrom = 'karamalert@karamportals.com';                  
+                            $emlTo  =  $resolverData->email;                   
                             $message->from($emailFrom);
                             $message->to($emlTo, 'Your Name')
                              ->cc('arushi.nigam@karam.in')
                             ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
                         }
                     ); 
-                }
-                elseif($requestData->status == 'Information Awaiting'){
-                
+                }elseif($request->status == 'Information Awaiting' && $request->status != 'Comment'){
+                    
                     Mail::send('EmailTemplats.informationstatusrequest', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -141,8 +140,8 @@ class CommentController extends Controller
                         }
                     ); 
                 }
-                elseif($requestData->status == 'Feedback Awaiting'){
-                
+                elseif($request->status == 'Feedback Awaiting' && $request->status != 'Comment'){
+                    
                     Mail::send('EmailTemplats.feedbackstatusrequest', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -165,8 +164,8 @@ class CommentController extends Controller
                         }
                     ); 
                 }
-                elseif($requestData->status == 'On Hold'){
-                
+                elseif($request->status == 'On Hold' && $request->status != 'Comment'){
+                    
                     Mail::send('EmailTemplats.onholdstatusrequest', [
                         'requestid'            =>$requestData->id,
                         'status'               => $requestData->status,
@@ -188,8 +187,50 @@ class CommentController extends Controller
                         }
                     ); 
                 }
-                elseif($requestData->status == 'Closed'){
- 
+                elseif($request->status == 'Comment' ){
+                   
+                    Mail::send('EmailTemplats.commentEmail', [
+                        'requestid'            =>$requestData->id,
+                        'status'               => $requestData->status,
+                        'tentative_date'       => $requestData->tentative_date,
+                        'comment'              => $comment->comment,
+                        'requestdate'          => $requestData->created_at,
+                        'priority'             => $requestData->priority,
+                        'requestType'          => $reqType->name,
+                        'subject'              => $requestData->subject,
+                        'regards'              => $resolverData->name,
+                    ],
+                        function ($message) use($requestData){
+                            $emailFrom = 'karamalert@karamportals.com';
+                            $emlTo  =  $requestData->req_email;                   
+                            $message->from($emailFrom);
+                            $message->to($emlTo, 'Your Name')
+                             ->cc('arushi.nigam@karam.in')
+                            ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
+                        }
+                    ); 
+                }else{
+                    
+                    Mail::send('EmailTemplats.commentRequesterEmail', [
+                        'requestid'            =>$requestData->id,
+                        'status'               => $requestData->status,
+                        'tentative_date'       => $requestData->tentative_date,
+                        'comment'              => $comment->comment,
+                        'requestdate'          => $requestData->created_at,
+                        'priority'             => $requestData->priority,
+                        'requestType'          => $reqType->name,
+                        'subject'              => $requestData->subject,
+                        'regards'              => $requestData->req_name,
+                    ],
+                        function ($message) use($requestData,$resolverData){
+                            $emailFrom = 'karamalert@karamportals.com';
+                            $emlTo  =  $resolverData->email;                   
+                            $message->from($emailFrom);
+                            $message->to($emlTo, 'Your Name')
+                             ->cc('arushi.nigam@karam.in')
+                            ->subject('[KARAM - Maintenance] Service request ticket response received Ticket ID #'.$requestData->id);
+                        }
+                    );
                 }
             } 
 
