@@ -8,7 +8,7 @@
 </head>
 <body>   
     <h3>Dear User</h3>
-    <h3>New service request ticket has been Created. Ticket information is given below:</h3><br>
+    <h3>New service request ticket has been assigned. Ticket information is given below:</h3><br>
     <table border="1" cellpadding="10" style="border-collapse: collapse;">
         <tbody> 
             <tr bgcolor="#f2f1f1">    

@@ -1,10 +1,10 @@
 let baseurl = 'https://maintenance.karamportals.com/';
+// let baseurl = 'http://localhost:8000/';
 
 /* bootstrap datatable */
 $(function () {
     $("#example1").DataTable({
         scrollX: true,
-        // scrollY: 200
     });
     $('#example2').DataTable({
         "paging": true,
