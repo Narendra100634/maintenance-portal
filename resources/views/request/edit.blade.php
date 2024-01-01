@@ -100,7 +100,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <span>
-                                                    <input id="td_date" type="text"  class="form-control @error('tentative_date') is-invalid @enderror" name="tentative_date" />
+                                                    <input id="td_date" type="text"  class="form-control @error('tentative_date') is-invalid @enderror" name="tentative_date" required />
                                                 
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                             
@@ -118,7 +118,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                 <span>
-                                                    <input id="handover_date" type="text"  class="form-control @error('handover_date') is-invalid @enderror" name="handover_date" />
+                                                    <input id="handover_date" type="text"  class="form-control @error('handover_date') is-invalid @enderror" name="handover_date" required />
                                                    
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                                    
@@ -140,7 +140,7 @@
                                                     <span class="fa fa-star-o" data-rating="3"></span>
                                                     <span class="fa fa-star-o" data-rating="4"></span>
                                                     <span class="fa fa-star-o" data-rating="5"></span>
-                                                    <input type="hidden"  name="rating" class="rating-value" value="">
+                                                    <input type="hidden"  name="rating" class="rating-value" value="" required>
                                                     
                                                 </div>
                                             </div>
@@ -151,7 +151,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                  <span>
-                                                    <input id="closer_date" type="text"  class="form-control @error('closer_date') is-invalid @enderror" name="closer_date" />
+                                                    <input id="closer_date" type="text"  class="form-control @error('closer_date') is-invalid @enderror" name="closer_date" required/>
                                                    
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                                
@@ -168,7 +168,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <span>
-                                                        <textarea type="text" class="form-control @error('comment_text') is-invalid @enderror" row="10" col="10" id="editor" name="comment_text" placeholder ="Enter Message Here"></textarea>
+                                                        <textarea type="text" class="form-control @error('comment_text') is-invalid @enderror" row="10" col="10" id="editor" name="comment_text" placeholder ="Enter Message Here" required></textarea>
                                                         @if($errors->has('comment_text'))
                                                         <div class="invalid-feedback error-msg">{{$errors->first('comment_text')}}</div>
                                                         @endif
@@ -182,7 +182,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <span>
-                                                    <textarea type="text" cclass="form-control @error('feedback_text') is-invalid @enderror" row="10" col="10"  name="feedback_text" id="feedback_text" placeholder ="Enter Message Here"></textarea>
+                                                    <textarea type="text" cclass="form-control @error('feedback_text') is-invalid @enderror" row="10" col="10"  name="feedback_text" id="feedback_text" placeholder ="Enter Message Here" required></textarea>
                                                     @if($errors->has('feedback_text'))
                                                     <div class="invalid-feedback error-msg">{{$errors->first('feedback_text')}}</div>
                                                 @endif
