@@ -20,7 +20,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <select class="form-control @error('request_type') is-invalid @enderror" name="request_type" id="request_type">
+                                                <select class="form-control @error('request_type') is-invalid @enderror" name="request_type" id="request_type" required>
                                                     <option value="" selected disabled>Select Request</option>
                                                     @foreach ($requests as $request )                                                            
                                                         <option value="{{$request->id}}">{{$request->name}}</option>
@@ -35,7 +35,7 @@
                                     <div class="row">
                                         <div class="col-md-2"><label>Subject<span class="required_min">*</span></label></div>
                                         <div class="col-md-6"><span>
-                                            <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder ="Enter Subject">
+                                            <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder ="Enter Subject" required>
                                             @if($errors->has('subject'))
                                                 <div class="invalid-feedback error-msg">{{$errors->first('subject')}}</div>
                                             @endif
@@ -46,7 +46,7 @@
                                             <label>Description<span class="required_min">*</span></label>
                                         </div>
                                         <div class="col-md-6"><span>
-                                            <textarea type="text" class="form-control @error('description') is-invalid @enderror" row="5" col="10" name="description" placeholder ="Enter Message Here"></textarea>
+                                            <textarea type="text" class="form-control @error('description') is-invalid @enderror" row="5" col="10" name="description" placeholder ="Enter Message Here" required></textarea>
                                             @if($errors->has('description'))
                                                 <div class="invalid-feedback error-msg">{{$errors->first('description')}}</div>
                                             @endif
