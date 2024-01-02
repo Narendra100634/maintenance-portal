@@ -29,7 +29,7 @@
                     @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
                      <p class="text-center">My Active Tickets</p>
                     @elseif (session('userType') == 'admin')
-                     <p class="text-center">Total Active</p>
+                     <p class="text-center">Active Tickets</p>
                     @endif
                    </div>
                 </div>
@@ -41,7 +41,7 @@
                     @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
                      <p class="text-center">My Closed Tickets</p>
                     @elseif (session('userType') == 'admin')
-                     <p class="text-center">Total Closed</p>
+                     <p class="text-center">Closed Tickets</p>
                     @endif
                    </div>
                 </div>
