@@ -82,12 +82,14 @@ $(function () {
             $('.red').show();
             $('#rating-row').show(); 
             $('#feedback-row').show(); 
-            $('#closerDt').show();
+            $('#closerDt').show();      
+            $("#closer_date").attr("required", "true");      
             $('#comment-row').hide(); 
             $('#tdod').hide(); 
             $('#handoverDt').hide(); 
         }else if(statusVal == 'Comment'){
             $('#comment-row').show(); 
+            $("#editor").attr("required", "true");
             $('#rating-row').hide(); 
             $('#feedback-row').hide(); 
             $('#closerDt').hide();
@@ -96,6 +98,7 @@ $(function () {
 
         }else if(statusVal != 'Comment'){
             $('#comment-row').show(); 
+            $("#editor").attr("required", "true");
             $('#rating-row').hide(); 
             $('#feedback-row').hide(); 
             $('#closerDt').hide();
@@ -170,3 +173,4 @@ $(function () {
           $('#date').focus();
         })
       });
+      
