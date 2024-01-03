@@ -73,47 +73,58 @@ $(function () {
 
     $('#status').on('change', function() {
         var statusVal =  this.value;
-        console.log(statusVal);
         if(statusVal == 'Feedback Awaiting'){
+            console.log(333);
             $('#tdod').hide(); 
-            //$('#tdod').removeAttr('required');​​​​​
+            $('#td_date').removeAttr('required');
             $('#handoverDt').show(); 
-            //$("#handoverDt").attr("required", "true"); 
+            $("#handover_date").attr("required",true); 
             console.log(123);
         }else if(statusVal == 'Closed'){
+            console.log(222);
             $('.red').show();
             $('#rating-row').show(); 
             $('#feedback-row').show(); 
+            //$("#feedback_text").attr("required" ,true);
             $('#closerDt').show();      
-           // $("#closer_date").attr("required", "true");      
-            $('#comment-row').hide(); 
+            $("#closer_date").attr("required" ,true);      
+            $('#comment-row').hide();
+            $('#editor').removeAttr('required'); 
             $('#tdod').hide(); 
-           // $('#tdod').removeAttr('required');​​​​​
+            $('#td_date').removeAttr('required');
             $('#handoverDt').hide(); 
+            $('#handover_date').removeAttr('required'); 
         }else if(statusVal == 'Comment'){
+            console.log(111);
             $('#comment-row').show(); 
-           // $("#editor").attr("required", "true");
+            // $("#editor").attr("required" ,true);
             $('#rating-row').hide(); 
             $('#feedback-row').hide(); 
             $('#closerDt').hide();
+            $('#closer_date').removeAttr('required');
             $('#tdod').hide(); 
-            //$('#tdod').removeAttr('required');​​​​​
+            $('#td_date').removeAttr('required');
             $('#handoverDt').hide(); 
-
-        }else if(statusVal != 'Comment'){
-            $('#comment-row').show(); 
-            //$("#editor").attr("required", "true");
-            $('#rating-row').hide(); 
-            $('#feedback-row').hide(); 
-            $('#closerDt').hide();
-            $('#tdod').show(); 
-            $('#handoverDt').hide(); 
+            $('#handover_date').removeAttr('required'); 
 
         }
+        /*else if(statusVal != 'Comment'){
+            // $('#comment-row').show(); 
+            // $("#editor").attr("required" ,true);
+            $('#rating-row').hide(); 
+            $('#feedback-row').hide(); 
+            $('#closerDt').hide();
+            $('#closer_date').removeAttr('required');
+            $('#tdod').show();
+            $("#td_date").attr("required",true); 
+            $('#handoverDt').hide(); 
+            $('#handover_date').removeAttr('required');
+        }*/
         else if(statusVal == 'Feedback Awaiting'){
             $('#handoverDt').show(); 
+            $("#handover_date").attr("required" ,true);
             $('#tdod').hide(); 
-            //$('#tdod').removeAttr('required');​​​​​
+            $('#td_date').removeAttr('required');
             console.log(1234);
         }
     });
@@ -155,13 +166,13 @@ $(function () {
    /* ck editor js functionlity */
 
     ClassicEditor
-    .create( document.querySelector('#editor'),
+    .create( document.querySelector('#editor1'),
     {
     })
     .catch( error => {
     });
     ClassicEditor
-    .create( document.querySelector('#feedback_text'),
+    .create( document.querySelector('#feedback_text1'),
     {
     })
     .catch( error => {
