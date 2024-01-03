@@ -76,33 +76,33 @@ $(function () {
         console.log(statusVal);
         if(statusVal == 'Feedback Awaiting'){
             $('#tdod').hide(); 
-            $('#tdod').removeAttr('required');​​​​​
+            //$('#tdod').removeAttr('required');​​​​​
             $('#handoverDt').show(); 
-            $("#handoverDt").attr("required", "true"); 
+            //$("#handoverDt").attr("required", "true"); 
             console.log(123);
         }else if(statusVal == 'Closed'){
             $('.red').show();
             $('#rating-row').show(); 
             $('#feedback-row').show(); 
             $('#closerDt').show();      
-            $("#closer_date").attr("required", "true");      
+           // $("#closer_date").attr("required", "true");      
             $('#comment-row').hide(); 
             $('#tdod').hide(); 
-            $('#tdod').removeAttr('required');​​​​​
+           // $('#tdod').removeAttr('required');​​​​​
             $('#handoverDt').hide(); 
         }else if(statusVal == 'Comment'){
             $('#comment-row').show(); 
-            $("#editor").attr("required", "true");
+           // $("#editor").attr("required", "true");
             $('#rating-row').hide(); 
             $('#feedback-row').hide(); 
             $('#closerDt').hide();
             $('#tdod').hide(); 
-            $('#tdod').removeAttr('required');​​​​​
+            //$('#tdod').removeAttr('required');​​​​​
             $('#handoverDt').hide(); 
 
         }else if(statusVal != 'Comment'){
             $('#comment-row').show(); 
-            $("#editor").attr("required", "true");
+            //$("#editor").attr("required", "true");
             $('#rating-row').hide(); 
             $('#feedback-row').hide(); 
             $('#closerDt').hide();
@@ -113,7 +113,7 @@ $(function () {
         else if(statusVal == 'Feedback Awaiting'){
             $('#handoverDt').show(); 
             $('#tdod').hide(); 
-            $('#tdod').removeAttr('required');​​​​​
+            //$('#tdod').removeAttr('required');​​​​​
             console.log(1234);
         }
     });
