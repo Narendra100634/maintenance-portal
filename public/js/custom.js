@@ -76,7 +76,9 @@ $(function () {
         console.log(statusVal);
         if(statusVal == 'Feedback Awaiting'){
             $('#tdod').hide(); 
+            $('#tdod').removeAttr('required');​​​​​
             $('#handoverDt').show(); 
+            $("#handoverDt").attr("required", "true"); 
             console.log(123);
         }else if(statusVal == 'Closed'){
             $('.red').show();
