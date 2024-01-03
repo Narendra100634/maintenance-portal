@@ -88,6 +88,7 @@ $(function () {
             $("#closer_date").attr("required", "true");      
             $('#comment-row').hide(); 
             $('#tdod').hide(); 
+            $('#tdod').removeAttr('required');​​​​​
             $('#handoverDt').hide(); 
         }else if(statusVal == 'Comment'){
             $('#comment-row').show(); 
@@ -96,6 +97,7 @@ $(function () {
             $('#feedback-row').hide(); 
             $('#closerDt').hide();
             $('#tdod').hide(); 
+            $('#tdod').removeAttr('required');​​​​​
             $('#handoverDt').hide(); 
 
         }else if(statusVal != 'Comment'){
@@ -111,6 +113,7 @@ $(function () {
         else if(statusVal == 'Feedback Awaiting'){
             $('#handoverDt').show(); 
             $('#tdod').hide(); 
+            $('#tdod').removeAttr('required');​​​​​
             console.log(1234);
         }
     });
