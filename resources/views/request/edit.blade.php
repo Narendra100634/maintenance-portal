@@ -100,7 +100,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <span>
-                                                    <input id="td_date" type="text"  class="form-control @error('tentative_date') is-invalid @enderror" name="tentative_date"  />
+                                                    <input id="td_date" type="text"  class="form-control @error('tentative_date') is-invalid @enderror" name="tentative_date" />
                                                 
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                             
@@ -118,7 +118,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                 <span>
-                                                    <input id="handover_date" type="text"  class="form-control @error('handover_date') is-invalid @enderror" name="handover_date" />
+                                                    <input id="handover_date" type="text"  class="form-control @error('handover_date') is-invalid @enderror" name="handover_date"/>
                                                    
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                                    
@@ -151,7 +151,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                  <span>
-                                                    <input id="closer_date" type="text"  class="form-control @error('closer_date') is-invalid @enderror" name="closer_date" />
+                                                    <input id="closer_date" type="text"  class="form-control @error('closer_date') is-invalid @enderror" name="closer_date"/>
                                                    
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                                
@@ -168,11 +168,13 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <span>
-                                                        <textarea type="text" class="form-control @error('comment_text') is-invalid @enderror" row="10" col="10" id="editor" name="comment_text" placeholder ="Enter Message Here" ></textarea>
+                                                        <textarea rows="10" class="form-control @error('comment_text') is-invalid @enderror" name="comment_text" id="editor" Placeholder="Enter Message Here"></textarea>
+                                                        <!-- <textarea type="text" class="form-control @error('comment_text') is-invalid @enderror" row="10" col="10" id="editor" name="comment_text" placeholder ="Enter Message Here" required></textarea> -->
                                                         @if($errors->has('comment_text'))
                                                         <div class="invalid-feedback error-msg">{{$errors->first('comment_text')}}</div>
                                                         @endif
                                                     </span>
+                                                   
                                                 </div>
                                             </div>
                                         @endif
@@ -300,6 +302,8 @@
             </div>
         </div>
     </div>     
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script>
+    <script>ClassicEditor.create( document.querySelector( '#editor' ) )</script>
+    <script>ClassicEditor.create( document.querySelector( '#feedback_text' ) )</script>
    
    @endsection
