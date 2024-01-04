@@ -85,7 +85,7 @@ $(function () {
             $('.red').show();
             $('#rating-row').show(); 
             $('#feedback-row').show(); 
-            //$("#feedback_text").attr("required" ,true);
+            $("#feedback_text").attr("required" ,true);
             $('#closerDt').show();      
             $("#closer_date").attr("required" ,true);      
             $('#comment-row').hide();
@@ -107,19 +107,60 @@ $(function () {
             $('#handoverDt').hide(); 
             $('#handover_date').removeAttr('required'); 
 
-        }
-        /*else if(statusVal != 'Comment'){
-            // $('#comment-row').show(); 
+        }else if(statusVal == 'WIP'){
+            console.log(111);
+            $('#comment-row').show(); 
             // $("#editor").attr("required" ,true);
             $('#rating-row').hide(); 
             $('#feedback-row').hide(); 
             $('#closerDt').hide();
             $('#closer_date').removeAttr('required');
-            $('#tdod').show();
-            $("#td_date").attr("required",true); 
+            $('#tdod').show(); 
+            $('#td_date').removeAttr('required');
             $('#handoverDt').hide(); 
-            $('#handover_date').removeAttr('required');
-        }*/
+            $('#handover_date').removeAttr('required'); 
+
+        }
+        else if(statusVal == 'On Hold'){
+            console.log(111);
+            $('#comment-row').show(); 
+            // $("#editor").attr("required" ,true);
+            $('#rating-row').hide(); 
+            $('#feedback-row').hide(); 
+            $('#closerDt').hide();
+            $('#closer_date').removeAttr('required');
+            $('#tdod').show(); 
+            $('#td_date').removeAttr('required');
+            $('#handoverDt').hide(); 
+            $('#handover_date').removeAttr('required'); 
+
+        }
+        else if(statusVal == 'Information Awaiting'){
+            console.log(111);
+            $('#comment-row').show(); 
+            // $("#editor").attr("required" ,true);
+            $('#rating-row').hide(); 
+            $('#feedback-row').hide(); 
+            $('#closerDt').hide();
+            $('#closer_date').removeAttr('required');
+            $('#tdod').show(); 
+            $('#td_date').removeAttr('required');
+            $('#handoverDt').hide(); 
+            $('#handover_date').removeAttr('required'); 
+
+        }
+        // else if(statusVal != 'Comment'){
+        //     // $('#comment-row').show(); 
+        //     // $("#editor").attr("required" ,true);
+        //     $('#rating-row').hide(); 
+        //     $('#feedback-row').hide(); 
+        //     $('#closerDt').hide();
+        //     $('#closer_date').removeAttr('required');
+        //     $('#tdod').show();
+        //     $("#td_date").attr("required",true); 
+        //     $('#handoverDt').hide(); 
+        //     $('#handover_date').removeAttr('required');
+        // }
         else if(statusVal == 'Feedback Awaiting'){
             $('#handoverDt').show(); 
             $("#handover_date").attr("required" ,true);
@@ -165,28 +206,16 @@ $(function () {
 
    /* ck editor js functionlity */
 
-    ClassicEditor
-    .create( document.querySelector('#editor1'),
-    {
-    })
-    .catch( error => {
-    });
-    ClassicEditor
-    .create( document.querySelector('#feedback_text1'),
-    {
-    })
-    .catch( error => {
-    });
-
-
-    $(function() {
-        $('#date').datepicker({
-          dateFormat: 'dd-M-yy',
-          minDate: 1
-        });
-        
-        $('.date-icon').on('click', function() {
-          $('#date').focus();
-        })
-      });
+    // ClassicEditor
+    // .create( document.querySelector('#editor1'),
+    // {
+    // })
+    // .catch( error => {
+    // });
+    // ClassicEditor
+    // .create( document.querySelector('#feedback_text1'),
+    // {
+    // })
+    // .catch( error => {
+    // });
       
