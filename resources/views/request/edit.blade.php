@@ -100,7 +100,8 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <span>
-                                                    <input id="td_date" type="text"  class="form-control @error('tentative_date') is-invalid @enderror" name="tentative_date" />
+                                                    
+                                                    <input id="td_date" type="text"  class="form-control @error('tentative_date') is-invalid @enderror" name="tentative_date" autocomplete="off" />
                                                 
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                             
@@ -118,7 +119,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                 <span>
-                                                    <input id="handover_date" type="text"  class="form-control @error('handover_date') is-invalid @enderror" name="handover_date"/>
+                                                    <input id="handover_date" type="text"  class="form-control @error('handover_date') is-invalid @enderror" name="handover_date" autocomplete="off"/>
                                                    
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                                    
@@ -151,7 +152,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                  <span>
-                                                    <input id="closer_date" type="text"  class="form-control @error('closer_date') is-invalid @enderror" name="closer_date"/>
+                                                    <input id="closer_date" type="text"  class="form-control @error('closer_date') is-invalid @enderror" name="closer_date" autocomplete="off"/>
                                                    
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                                
@@ -305,5 +306,4 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script>
     <script>ClassicEditor.create( document.querySelector( '#editor' ) )</script>
     <script>ClassicEditor.create( document.querySelector( '#feedback_text' ) )</script>
-   
    @endsection
