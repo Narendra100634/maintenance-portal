@@ -1,5 +1,5 @@
     let baseurl = 'https://maintenance.karamportals.com/';
-    //let baseurl = 'http://localhost:8000/';
+   // let baseurl = 'http://localhost:8000/';
 
     /* bootstrap datatable */
     $(function () {
@@ -193,9 +193,6 @@
     $(document).ready(function() {
 
     });
-     /* check jquery version */
-    //console.log( 'You are running jQuery version: ' + $.fn.jquery );
-
      /* daterange functionlity */
 
     $(function() {
@@ -206,67 +203,19 @@
 
    /* ck editor js functionlity */
 
-    // ClassicEditor
-    // .create( document.querySelector('#editor1'),
-    // {
-    // })
-    // .catch( error => {
-    // });
-    // ClassicEditor
-    // .create( document.querySelector('#feedback_text1'),
-    // {
-    // })
-    // .catch( error => {
-    // });
-    // var allEditors = document.querySelectorAll('.ck_editor_txt');
-    // for (var i = 0; i < allEditors.length; ++i) {
-    //   ClassicEditor.create(allEditors[i]);
-    // }
-    // $("#form-submission").submit(function(e) {
-    //     var content = $('.ck_editor_txt').val();
-    //     html = $(content).text();
-    //     if ($.trim(html) == '') {
-    //         alert("Please enter message");
-    //         e.preventDefault();
-    //     } else {
-    //         alert("Success");
-    //     }
-    // });
-
-    var allEditors = document.querySelector('#feedback_text');
-    
-       
+   var allEditors = document.querySelector('#feedback_text');
 
         ClassicEditor.create(allEditors);
         $("#ckeditorForm").submit(function(e) {
 
-            // $('#status').on('change', function() {
-            //     var statusVal1 =  this.value;
-            // });
-            
-            //var content  = ($("#feedback_text").val() == "") || ($("#editor").val() == "");
             var content = $('#feedback_text').val();
             html = $(content).text();
             if ($.trim(html) == '') {
                 alert("Please enter message");
-                //console.log(statusVal1);
                 e.preventDefault();
             } else {
                 alert("Success");
             }          
         });
-
-        
-
-        // var allEditors1 = document.querySelector('#editor');
-        // ClassicEditor.create(allEditors1);
-        // var content = $('#editor').val();
-        //     html = $(content).text();
-        //     if ($.trim(html) == '') {
-        //         alert("Please enter message");
-        //         e.preventDefault();
-        //     } else {
-        //         alert("Success");
-        //     }
 
         

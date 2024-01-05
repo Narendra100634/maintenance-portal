@@ -161,6 +161,7 @@ class EventRequestController extends Controller
         $reqType = RequestType::find($data->request_type);
         $resolverData = User::find($data->resv_id);
         $requestid = EventRequest::find($data->id);
+        $adminEmail = User::where('user_type', 1)->first();
 
         if($data != null){        
             Mail::send('EmailTemplats.newrequest', [
@@ -176,13 +177,13 @@ class EventRequestController extends Controller
                 'status'               => $data->status,
                 'requestdate'          =>$data->created_at,
             ],
-                function ($message) use($resolverData, $data){
+                function ($message) use($resolverData, $data, $adminEmail){
                     $emailFrom = 'karamalert@karamportals.com';
                     $emlTo  =  $resolverData->email;                   
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                     ->cc([$data->req_email])
-                    ->cc('arushi.nigam@karam.in')
+                    ->cc([$adminEmail->email])
                     ->subject('[KARAM - Maintenance] New service request ticket Created Ticket ID #'.$data->id);
                 }
             ); 
