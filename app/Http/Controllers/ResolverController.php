@@ -21,7 +21,8 @@ class ResolverController extends Controller
     {
         
         if(session('userType') != null || session('userType') != ''){
-            $datas = User::orderBy('id', 'DESC')->get();
+           $datas = User::where('user_type',2)->orderBy('id', 'DESC')->get();
+        
             return view('resolver.index', compact('datas'));
         }else{
             return redirect()->route('login');
@@ -130,7 +131,7 @@ class ResolverController extends Controller
 
         $resolverEmail = User::find($updateResolver->resv_id);
         $reqType = RequestType::find($updateResolver->request_type);
-        //$eventid = $updateResolver->id;
+        $adminEmail = User::where('user_type', 1)->first();
        if($request->resv_id != null){   
             
             Mail::send('EmailTemplats.assignuser', [
@@ -146,13 +147,14 @@ class ResolverController extends Controller
                 'requestdate'          =>$updateResolver->created_at,
                 'resolvername'         =>$resolverEmail->name,
             ],
-                function ($message) use($resolverEmail, $updateResolver){
+                function ($message) use($resolverEmail, $updateResolver, $adminEmail){
                     $emailFrom = 'karamalert@karamportals.com';
                     $emlTo  =  $resolverEmail->email;                   
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                         ->cc([$updateResolver->req_email])
-                        ->cc('arushi.nigam@karam.in')
+                        ->cc([$adminEmail->email])
+
                     ->subject('[KARAM - Maintenance] Service request ticket re-assigned Ticket #'.$updateResolver->id);
                 }
             ); 
