@@ -1,22 +1,22 @@
-let baseurl = 'https://maintenance.karamportals.com/';
-// let baseurl = 'http://localhost:8000/';
+    let baseurl = 'https://maintenance.karamportals.com/';
+    //let baseurl = 'http://localhost:8000/';
 
-/* bootstrap datatable */
-$(function () {
-    $("#example1").DataTable({
-        scrollX: true,
+    /* bootstrap datatable */
+    $(function () {
+        $("#example1").DataTable({
+            scrollX: true,
+        });
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "scrollX": true,
+            "scrollY": 200
+        });
     });
-    $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "scrollX": true,
-        "scrollY": 200
-    });
-});
 
    /***************get email address************************/
    var urls= baseurl;
@@ -85,7 +85,7 @@ $(function () {
             $('.red').show();
             $('#rating-row').show(); 
             $('#feedback-row').show(); 
-            $("#feedback_text").attr("required" ,true);
+            //$("#feedback_text").attr("required" ,true);
             $('#closerDt').show();      
             $("#closer_date").attr("required" ,true);      
             $('#comment-row').hide();
@@ -176,13 +176,13 @@ $(function () {
     var $star_rating = $('.star-rating .fa');
 
     var SetRatingStar = function() {
-    return $star_rating.each(function() {
-        if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
-        return $(this).removeClass('fa-star-o').addClass('fa-star');
-        } else {
-        return $(this).removeClass('fa-star').addClass('fa-star-o');
-        }
-    });
+        return $star_rating.each(function() {
+            if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+            return $(this).removeClass('fa-star-o').addClass('fa-star');
+            } else {
+            return $(this).removeClass('fa-star').addClass('fa-star-o');
+            }
+        });
     };
 
     $star_rating.on('click', function() {
@@ -218,4 +218,55 @@ $(function () {
     // })
     // .catch( error => {
     // });
-      
+    // var allEditors = document.querySelectorAll('.ck_editor_txt');
+    // for (var i = 0; i < allEditors.length; ++i) {
+    //   ClassicEditor.create(allEditors[i]);
+    // }
+    // $("#form-submission").submit(function(e) {
+    //     var content = $('.ck_editor_txt').val();
+    //     html = $(content).text();
+    //     if ($.trim(html) == '') {
+    //         alert("Please enter message");
+    //         e.preventDefault();
+    //     } else {
+    //         alert("Success");
+    //     }
+    // });
+
+    var allEditors = document.querySelector('#feedback_text');
+    
+       
+
+        ClassicEditor.create(allEditors);
+        $("#ckeditorForm").submit(function(e) {
+
+            // $('#status').on('change', function() {
+            //     var statusVal1 =  this.value;
+            // });
+            
+            //var content  = ($("#feedback_text").val() == "") || ($("#editor").val() == "");
+            var content = $('#feedback_text').val();
+            html = $(content).text();
+            if ($.trim(html) == '') {
+                alert("Please enter message");
+                //console.log(statusVal1);
+                e.preventDefault();
+            } else {
+                alert("Success");
+            }          
+        });
+
+        
+
+        // var allEditors1 = document.querySelector('#editor');
+        // ClassicEditor.create(allEditors1);
+        // var content = $('#editor').val();
+        //     html = $(content).text();
+        //     if ($.trim(html) == '') {
+        //         alert("Please enter message");
+        //         e.preventDefault();
+        //     } else {
+        //         alert("Success");
+        //     }
+
+        

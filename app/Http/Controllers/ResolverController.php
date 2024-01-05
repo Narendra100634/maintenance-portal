@@ -52,22 +52,23 @@ class ResolverController extends Controller
             if(session('userType') == 'admin'){
                 $this->validate($request, [
                     'name' => 'required |unique:users',
-                    'location' => 'required |unique:users',
-                    'mobile' => 'required |unique:users',
+                    'location' => 'required',
+                    // 'mobile' => 'required |unique:users',
                     'email' => 'required |unique:users',
                     'status' => 'required|in:1,0',
-                   
                 ]);
-        
+
+                $countresolver = User::where('location',$request->location)->count();
                 $data = new User;
                 $data->user_type = 2;
+                $data->res_priority = $countresolver+1;
                 $data->name = $request->name;
                 $data->email = $request->email;
                 $data->location = $request->location;
                 $data->mobile = $request->mobile;
                 $data->status = $request->status;
                 $data->password = 123;       
-                $data->save();   
+                $data->save();
 
                 return redirect()->route('res.index')->with('success','Resolver Created successfully');
             }else{

@@ -35,6 +35,7 @@ class CommentController extends Controller
             }
             $event->update();
         }elseif(session('userType') == 'requester' &&  $request->status == 'Closed'){
+           
             $event = EventRequest::find(Crypt::decrypt($id));
             $event->status = $request->status;
             $event->rating = isset($request->rating) ? $request->rating :'';

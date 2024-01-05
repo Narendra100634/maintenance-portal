@@ -105,11 +105,12 @@ class EventRequestController extends Controller
                     ->orderby('event_requests.id', 'DESC')->get();
                 }elseif($name == 'close'){
                     $resolverData = User::where('location', '=', session('region'))->get();
-                    $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
+                    $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                     ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                     ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
                     ->whereIn('event_requests.status',['Closed'])
                     ->orderby('event_requests.id', 'DESC')->get();
+                    
                 }else{ 
                     $resolverData = User::where('location', '=', session('region'))->get();
                     $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')

@@ -40,7 +40,7 @@ class PostController extends Controller
         $data = json_decode($res->getBody(), true);
         
         if($data['created_email_id'] !== null && $data['status'] == 200 ){
-            $resolver = User::where('email', $data['created_email_id'])->first();           
+            $resolver = User::where('email', $data['created_email_id'])->where('status', 1)->first();           
             if(isset($resolver)){
                 if($resolver['user_type']== 1 ){
                     $userType = 'admin';
