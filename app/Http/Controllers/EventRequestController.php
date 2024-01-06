@@ -19,7 +19,8 @@ class EventRequestController extends Controller
     {   
         if(session('userType') != null || session('userType') != ''){  
             if(session('userType') == 'requester'){
-                $resolverData = User::where('location', '=', session('region'))->get();
+                $resolverData = User::where('location', '=', session('region'))->where('user_type', 2
+                )->get();
                 $requests = RequestType::where('status', 1)->get();
                 return view('request.create', compact('requests','resolverData'));
             }else{
@@ -97,26 +98,57 @@ class EventRequestController extends Controller
             }elseif(session('userType') == 'admin'){
                 
                 if($name == 'active'){
-                    $resolverData = User::where('location', '=', session('region'))->get();
-                    $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
-                    ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
-                    ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
-                    ->whereIn('event_requests.status',['WIP','On Hold','Information Awaiting','Feedback Awaiting'])
-                    ->orderby('event_requests.id', 'DESC')->get();
-                }elseif($name == 'close'){
-                    $resolverData = User::where('location', '=', session('region'))->get();
-                    $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
-                    ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
-                    ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
-                    ->whereIn('event_requests.status',['Closed'])
-                    ->orderby('event_requests.id', 'DESC')->get();
+                    if(session('region') !='All'){
+                       
+                        $resolverData = User::where('location', '=', session('region'))->get();
+                        $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
+                        ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
+                        ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
+                        ->whereIn('event_requests.status',['WIP','On Hold','Information Awaiting','Feedback Awaiting'])
+                        ->where('event_requests.req_region', '=', session('region'))
+                        ->orderby('event_requests.id', 'DESC')->get();
+                    }else{
+                        $resolverData = User::where('location', '=', session('region'))->get();
+                        $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
+                        ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
+                        ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
+                        ->whereIn('event_requests.status',['WIP','On Hold','Information Awaiting','Feedback Awaiting'])
+                        ->orderby('event_requests.id', 'DESC')->get();
+                    }
                     
-                }else{ 
-                    $resolverData = User::where('location', '=', session('region'))->get();
-                    $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
-                    ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
-                    ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
-                    ->orderby('event_requests.id', 'DESC')->get();
+                }elseif($name == 'close'){
+                    if(session('region') !='All'){
+                        $resolverData = User::where('location', '=', session('region'))->get();
+                        $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
+                        ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
+                        ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
+                        ->whereIn('event_requests.status',['Closed'])
+                        ->where('event_requests.req_region', '=', session('region'))
+                        ->orderby('event_requests.id', 'DESC')->get();
+                    }else{
+                        $resolverData = User::where('location', '=', session('region'))->get();
+                        $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
+                        ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
+                        ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
+                        ->whereIn('event_requests.status',['Closed'])
+                        ->orderby('event_requests.id', 'DESC')->get();
+                    }                   
+                    
+                }else{                     
+                    if(session('region') !='All'){
+                        $resolverData = User::where('location', '=', session('region'))->get();
+                        $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
+                        ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
+                        ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
+                        ->where('event_requests.req_region', '=', session('region'))
+                        ->orderby('event_requests.id', 'DESC')->get();
+                    }else{
+                        $resolverData = User::where('location', '=', session('region'))->get();
+                        $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
+                        ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
+                        ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
+                        ->orderby('event_requests.id', 'DESC')->get();
+                    }                    
                 }                
             }else{
                 $datas = '';
@@ -197,7 +229,8 @@ class EventRequestController extends Controller
             if(session('userType') == 'requester' || session('userType') == 'resolver' || session('userType') == 'admin'){
                 
                 $findLocation = EventRequest::find(Crypt::decrypt($id));
-                $resolverDatas = User::where('location', '=', $findLocation->req_region)->get();               
+                $resolverDatas = User::where('location', '=', $findLocation->req_region)->where('user_type', 2)->get();
+
                 $editData = EventRequest::select('event_requests.*','request_types.name as requestType','users.name as resvname')
                 ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                 ->leftJoin('users','users.id', '=', 'event_requests.resv_id')

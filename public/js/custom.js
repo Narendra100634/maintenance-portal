@@ -1,5 +1,5 @@
     let baseurl = 'https://maintenance.karamportals.com/';
-   // let baseurl = 'http://localhost:8000/';
+    //let baseurl = 'http://localhost:8000/';
 
     /* bootstrap datatable */
     $(function () {
