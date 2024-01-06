@@ -10,7 +10,7 @@
     </section>
     @php
     $location = session('region');
-    echo $location;
+    //echo $location;
     @endphp
     <section class="content">
         <div class="row">
