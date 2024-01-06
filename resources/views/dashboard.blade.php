@@ -3,7 +3,6 @@
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">Dashboard</h1></div>
-            <!-- <div class="col-md-6 text-right"></div> -->
             @if (session('userType') == 'requester')
                 <div class="col-md-6 text-right"><a href="{{route('req.create')}}"><button class="btn btn-danger">Create Request</button></a></div>
             @endif
