@@ -169,7 +169,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <span>
-                                                        <textarea rows="10" col="10" class="ck_editor_txt form-control @error('comment_text') is-invalid @enderror" name="comment_text" id="editor" Placeholder="Enter Message Here"></textarea>
+                                                        <textarea rows="10" col="10" class="form-control @error('comment_text') is-invalid @enderror" name="comment_text" id="editor" Placeholder="Enter Message Here"></textarea>
                                                         <!-- <textarea type="text" class="form-control @error('comment_text') is-invalid @enderror" row="10" col="10" id="editor" name="comment_text" placeholder ="Enter Message Here" required></textarea> -->
                                                         @if($errors->has('comment_text'))
                                                         <div class="invalid-feedback error-msg">{{$errors->first('comment_text')}}</div>
@@ -185,7 +185,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <span>
-                                                    <textarea type="text" class=" ck_editor_txt1 form-control @error('feedback_text') is-invalid @enderror" row="10"  name="feedback_text" id="feedback_text" placeholder ="Enter Message Here" ></textarea>
+                                                    <textarea type="text" class="form-control @error('feedback_text') is-invalid @enderror" row="10"  name="feedback_text" id="feedback_text" placeholder ="Enter Message Here" ></textarea>
                                                     @if($errors->has('feedback_text'))
                                                     <div class="invalid-feedback error-msg">{{$errors->first('feedback_text')}}</div>
                                                 @endif
@@ -305,5 +305,5 @@
     <!-- <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>  -->
     <script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script> 
    <script>ClassicEditor.create( document.querySelector( '#editor' ) )</script>
-    <!--  <script>ClassicEditor.create( document.querySelector( '#feedback_text' ) )</script> --> 
+     <script>ClassicEditor.create( document.querySelector( '#feedback_text' ) )</script> 
    @endsection
