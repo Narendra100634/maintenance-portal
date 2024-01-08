@@ -21,7 +21,7 @@ class EventRequestController extends Controller
             if(session('userType') == 'requester'){
                 $resolverData = User::where('location', '=', session('region'))->where('user_type', 2
                 )->get();
-                $requests = RequestType::where('status', 1)->get();
+                $requests = RequestType::where('status', 1)->orderBy('name', 'ASC')->get();
                 return view('request.create', compact('requests','resolverData'));
             }else{
                 return Redirect::back();
