@@ -203,19 +203,19 @@
 
    /* ck editor js functionlity */
 
-   var allEditors = document.querySelector('#feedback_text');
+//    var allEditors = document.querySelector('#feedback_text');
 
-        ClassicEditor.create(allEditors);
-        $("#ckeditorForm").submit(function(e) {
+//         ClassicEditor.create(allEditors);
+//         $("#ckeditorForm").submit(function(e) {
 
-            var content = $('#feedback_text').val();
-            html = $(content).text();
-            if ($.trim(html) == '') {
-                alert("Please enter message");
-                e.preventDefault();
-            } else {
-                alert("Success");
-            }          
-        });
+//             var content = $('#feedback_text').val();
+//             html = $(content).text();
+//             if ($.trim(html) == '') {
+//                 alert("Please enter message");
+//                 e.preventDefault();
+//             } else {
+//                 alert("Success");
+//             }          
+//         });
 
         
