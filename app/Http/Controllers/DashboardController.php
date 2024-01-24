@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\EventRequest;
 use App\Models\RequestType;
+use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function index(){ 
         
         if(session('userType') != null || session('userType') != ''){        
             if(session('userType') == 'requester'){
+                
                 $userEmail = session('email');
                 $resolverData = User::where('location', '=', session('region'))->get();
                 $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')

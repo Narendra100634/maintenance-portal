@@ -176,25 +176,30 @@ class EventRequestController extends Controller
             $file_name =$file->getClientOriginalName();  
             $dataFile =  $file->move('file-data',$file_name); 
         } 
+        
         $data = new EventRequest;
         $data->priority = $request->priority;
         $data->request_type = $request->request_type;
         $data->subject = $request->subject;
         $data->description = $request->description;
-        $data->req_email = session('email');
-        $data->req_name = session('name');
-        $data->req_phone = session('phone');
-        $data->req_region = session('region');
+        $data->req_email = session('email')  == '' ? '' : session('email');
+        $data->req_name = session('name')  == '' ? '' : session('name');
+        $data->req_phone = session('phone') == '' ? '' : session('phone');
+        $data->req_region = session('region')  == '' ? '' : session('region');
         $data->status = 'Open';
-        $data->resv_id = $resolverData['id'] ?  $resolverData['id']  : '' ;           
+        $data->resv_id = $resolverData['id'] ?  $resolverData['id']  : '' ;       
         $data->attachment = isset($file_name) ? $file_name : '';  
-        $data->save();   
-            
+        $data->save();  
+
         $reqType = RequestType::find($data->request_type);
         $resolverData = User::find($data->resv_id);
         $requestid = EventRequest::find($data->id);
-        $adminEmail = User::where('user_type', 1)->first();
-
+        if($data->req_region == 'KTC' || $data->req_region =='KRO'){
+            $adminEmail = User::where('user_type', 1)->where('location', '=', $data->req_region)->first();
+        }else{
+            $adminEmail = User::where('user_type', 1)->first();
+        }
+        
         if($data != null){        
             Mail::send('EmailTemplats.newrequest', [
                 'requestid'            =>$requestid->id,
@@ -208,7 +213,7 @@ class EventRequestController extends Controller
                 'resolverName'         => $resolverData->name,
                 'status'               => $data->status,
                 'requestdate'          =>$data->created_at,
-            ],
+            ],  
                 function ($message) use($resolverData, $data, $adminEmail){
                     $emailFrom = 'karamalert@karamportals.com';
                     $emlTo  =  $resolverData->email;                   

@@ -36,7 +36,7 @@
           <span class="text-danger">@error('password'){{message}} @enderror </span>
           <button type="submit">Sign In</button>
         </form><br>
-        <label><a href="{{ route('forget.password.get') }}">Forgot Password</a></label>
+        <label><a href="{{ route('forget.password.get') }}">Reset Password</a></label>
       </div>
       </div>
    </div>

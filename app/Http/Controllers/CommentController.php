@@ -10,6 +10,7 @@ use App\Http\Controllers\Redirect;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
+Use Session;
 use Illuminate\Support\Facades\Mail;
 
 class CommentController extends Controller
@@ -36,17 +37,24 @@ class CommentController extends Controller
             $event->update();
         }elseif(session('userType') == 'requester' &&  $request->status == 'Closed'){
            
-            $event = EventRequest::find(Crypt::decrypt($id));
-            $event->status = $request->status;
-            $event->rating = isset($request->rating) ? $request->rating :'';
             $date2 = $request->closer_date;
             $newDate2 = Carbon::createFromFormat('m/d/Y', $date2)->format('Y-m-d H:i:s');
+
+            $event = EventRequest::find(Crypt::decrypt($id));
+            $event->status = $request->status;
+            $event->rating = isset($request->rating) ? $request->rating :'';            
             $event->closer_date = $newDate2 ? $newDate2 :'';
             $event->feedback = isset($request->feedback_text) ? $request->feedback_text :'';
             $event->update();
+
             $resolverData = User::find($event->resv_id);
             $reqType = RequestType::find($event->request_type);
-            $adminEmail = User::where('user_type', 1)->first();
+           // $adminEmail = User::where('user_type', 1)->first();
+            if($event->req_region == 'KTC' || $event->req_region =='KRO'){
+                $adminEmail = User::where('user_type', 1)->where('location', '=', $event->req_region)->first();
+            }else{
+                $adminEmail = User::where('user_type', 1)->first();
+            }
 
             Mail::send('EmailTemplats.closestatusrequest', [
                 'requestid'            => $event->id,
@@ -93,13 +101,18 @@ class CommentController extends Controller
             $requestData = EventRequest::find(Crypt::decrypt($id));
             $resolverData = User::find($requestData->resv_id);
             $reqType = RequestType::find($requestData->request_type);
-            $adminEmail = User::where('user_type', 1)->first();
+            //$adminEmail = User::where('user_type', 1)->first();
+            if($requestData->req_region == 'KTC' || $requestData->req_region =='KRO'){
+                $adminEmail = User::where('user_type', 1)->where('location', '=', $requestData->req_region)->first();
+            }else{
+                $adminEmail = User::where('user_type', 1)->first();
+            }
             if($requestData != null){  
                 
                 if($request->status == 'WIP' && $request->status != 'Comment'){    
                    
                     Mail::send('EmailTemplats.wipstatusrequest', [
-                        'requestid'            =>$requestData->id,
+                        'requestid'            => $requestData->id,
                         'status'               => $requestData->status,
                         'tentative_date'       => $requestData->tentative_date,
                         'comment'              => $comment->comment,
