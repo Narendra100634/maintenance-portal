@@ -217,5 +217,13 @@
 //                 alert("Success");
 //             }          
 //         });
-
+	$('#create_request').click(function() {
+		$(this).attr('disabled', 'disabled');
+		$(this).parents('form').submit();
+	});
+	 
+	$('#edit-request').click(function() {
+		$(this).attr('disabled', 'disabled');
+		$(this).parents('form').submit();
+	}); 
         

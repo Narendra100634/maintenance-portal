@@ -14,7 +14,7 @@
   <body class="hold-transition login-page">
   <div class="karam-logo"><img class="" src="{{ asset('img/logo.png') }}" alt="karam-logo"></div>
   <div class="login-logo">
-  Forgot your Password?
+  Reset your Password?
             </div>
             <div class="card">
     <div class="card-body login-card-body"> 

@@ -48,24 +48,8 @@
                 <td>{{isset($subject) ? $subject : ''}}</td>    
             </tr>
             <tr>    
-                <td >Feedback</td>    
+                <td >Feedbacks</td>    
                 <td>{!! isset($feedback) ? $feedback : '' !!}</td>    
-            </tr>
-            <tr bgcolor="#f2f1f1">    
-                <td>Rating</td>    
-                <td>
-                    @if ($rating == 5)            
-                        <span style=" font-size: 25px; color: #ffb20d; content : '\2605'">★★★★★</span>
-                    @elseif ($rating == 4)
-                        <span style="font-size: 25px; color: #ffb20d; content : '\2605'">★★★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★</span>
-                    @elseif ($rating == 3)
-                        <span  style=" color: #ffb20d; content : '\2605'">★★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★</span>
-                    @elseif ($rating == 2)
-                        <span style=" color: #ffb20d; content : '\2605'">★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★★</span>
-                    @else
-                        <span style=" color: #ffb20d; content : '\2605'">★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★★★</span> 
-                    @endif
-                </td>    
             </tr>
        </tbody>    
     </table>
