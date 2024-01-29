@@ -132,7 +132,7 @@ class ResolverController extends Controller
         $resolverEmail = User::find($updateResolver->resv_id);
         $reqType = RequestType::find($updateResolver->request_type);
         //$adminEmail = User::where('user_type', 1)->first();
-        if($updateResolver->req_region == 'KTC' || $updateResolver->req_region =='KRO'){
+        if($updateResolver->req_region == 'KTC'){
             $adminEmail = User::where('user_type', 1)->where('location', '=', $updateResolver->req_region)->first();
         }else{
             $adminEmail = User::where('user_type', 1)->first();

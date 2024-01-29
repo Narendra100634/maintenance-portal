@@ -46,7 +46,7 @@ class StatusUpdate extends Command
             $resolverData = User::where('id','=',$event->resv_id)->first();
             $reqType = RequestType::find($event->request_type);
             //$adminEmail = User::where('user_type', 1)->first();
-            if($event->req_region == 'KTC' || $event->req_region =='KRO'){
+            if($event->req_region == 'KTC'){
                 $adminEmail = User::where('user_type', 1)->where('location', '=', $event->req_region)->first();
             }else{
                 $adminEmail = User::where('user_type', 1)->first();
