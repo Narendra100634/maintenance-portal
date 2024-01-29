@@ -19,8 +19,11 @@ class EventRequestController extends Controller
     {   
         if(session('userType') != null || session('userType') != ''){  
             if(session('userType') == 'requester'){
-                $resolverData = User::where('location', '=', session('region'))->where('user_type', 2
-                )->get();
+                if((session('region') == "DRO")){
+                    $resolverData = User::where('location', '=', 'KTC')->where('user_type', 2)->whereIn('location',['KTC','DRO'])->get();
+                }else{
+                 $resolverData = User::where('location', '=', session('region'))->where('user_type', 2)->get();
+                }
                 $requests = RequestType::where('status', 1)->orderBy('name', 'ASC')->get();
                 return view('request.create', compact('requests','resolverData'));
             }else{
@@ -182,10 +185,10 @@ class EventRequestController extends Controller
         $data->request_type = $request->request_type;
         $data->subject = $request->subject;
         $data->description = $request->description;
-        $data->req_email = session('email')  == '' ? '' : session('email');
-        $data->req_name = session('name')  == '' ? '' : session('name');
-        $data->req_phone = session('phone') == '' ? '' : session('phone');
-        $data->req_region = session('region')  == '' ? '' : session('region');
+        $data->req_email = session('email');
+        $data->req_name = session('name');
+        $data->req_phone = session('phone');
+        $data->req_region = session('region');
         $data->status = 'Open';
         $data->resv_id = $resolverData['id'] ?  $resolverData['id']  : '' ;       
         $data->attachment = isset($file_name) ? $file_name : '';  
@@ -194,7 +197,7 @@ class EventRequestController extends Controller
         $reqType = RequestType::find($data->request_type);
         $resolverData = User::find($data->resv_id);
         $requestid = EventRequest::find($data->id);
-        if($data->req_region == 'KTC' || $data->req_region =='KRO'){
+        if($data->req_region == 'KTC'){
             $adminEmail = User::where('user_type', 1)->where('location', '=', $data->req_region)->first();
         }else{
             $adminEmail = User::where('user_type', 1)->first();
@@ -216,7 +219,7 @@ class EventRequestController extends Controller
             ],  
                 function ($message) use($resolverData, $data, $adminEmail){
                     $emailFrom = 'karamalert@karamportals.com';
-                    $emlTo  =  $resolverData->email;                   
+                    $emlTo  =  $resolverData->email;               
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                     ->cc([$data->req_email])
