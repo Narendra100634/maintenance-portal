@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Mail;
 
 class EventRequestController extends Controller
 {
-    public function index()
-    {   
+    public function index(){   
         if(session('userType') != null || session('userType') != ''){  
             if(session('userType') == 'requester'){
                 if((session('region') == "DRO")){
@@ -33,14 +32,16 @@ class EventRequestController extends Controller
             return redirect()->route('login');
         }
     }
+
     public function allrequest(Request $request, $name=null){
+        
 
         if(session('userType') != null || session('userType') != ''){   
             if(session('userType') == 'requester'){
                 if($name == 'active'){
 
                     $userEmail = session('email');
-                    $resolverData = User::where('location', '=', session('region'))->get();
+                     $resolverData = User::where('location', '=', session('region'))->get();
                     $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                     ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                     ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
@@ -67,48 +68,71 @@ class EventRequestController extends Controller
                 }
 
             }elseif(session('userType') == 'resolver'){
-
                 if($name == 'active'){
                     $region = session('region');
+                   
                     $resolverData = User::where('location', '=', session('region'))->get();
+                    if($region == 'KTC'){
+                        $region = [$region,'DRO'];
+                    }else{
+                        $region = [session('region')];
+                    }
                     $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                     ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                     ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
-                    ->Where('event_requests.req_region', '=',$region)
+                    ->WhereIn('event_requests.req_region',$region)
                     ->Where('event_requests.resv_id', '=',session('userid'))
                     ->whereIn('event_requests.status',['WIP','On Hold','Information Awaiting','Feedback Awaiting'])
                     ->orderby('event_requests.id', 'DESC')->get();
                 }elseif($name == 'close'){
                     $region = session('region');
                     $resolverData = User::where('location', '=', session('region'))->get();
+                    if($region == 'KTC'){
+                        $region = [$region,'DRO'];
+                    }else{
+                        $region = [session('region')];
+                    }
                     $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                     ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                     ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
-                    ->Where('event_requests.req_region', '=',$region)
+                    ->WhereIn('event_requests.req_region',$region)
                     ->Where('event_requests.resv_id', '=',session('userid'))
                     ->whereIn('event_requests.status',['Closed'])
                     ->orderby('event_requests.id', 'DESC')->get();
-                }else{               
+                }else{   
+                              
                     $region = session('region');
                     $resolverData = User::where('location', '=', session('region'))->get();
+
+                    if($region == 'KTC'){
+                        $region = [$region,'DRO'];
+                    }else{
+                        $region = [session('region')];
+                    }
+                   
                     $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                     ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                     ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
-                    ->Where('event_requests.req_region', '=',$region)
+                    ->WhereIn('event_requests.req_region',$region)
                     ->Where('event_requests.resv_id', '=',session('userid'))
-                    ->orderby('event_requests.id', 'DESC')->get();
+                    ->orderby('event_requests.id', 'DESC')->get();                    
                 }
             }elseif(session('userType') == 'admin'){
-                
+                $region = session('region');
+                if($region == 'KTC'){
+                    $region = [$region,'DRO'];
+                }else{
+                    $region = [session('region')];
+                }
                 if($name == 'active'){
+                    
                     if(session('region') !='All'){
-                       
                         $resolverData = User::where('location', '=', session('region'))->get();
                         $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                         ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                         ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
                         ->whereIn('event_requests.status',['WIP','On Hold','Information Awaiting','Feedback Awaiting'])
-                        ->where('event_requests.req_region', '=', session('region'))
+                        ->whereIn('event_requests.req_region',$region)
                         ->orderby('event_requests.id', 'DESC')->get();
                     }else{
                         $resolverData = User::where('location', '=', session('region'))->get();
@@ -120,16 +144,19 @@ class EventRequestController extends Controller
                     }
                     
                 }elseif($name == 'close'){
+
                     if(session('region') !='All'){
                         $resolverData = User::where('location', '=', session('region'))->get();
+                        
                         $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                         ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                         ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
                         ->whereIn('event_requests.status',['Closed'])
-                        ->where('event_requests.req_region', '=', session('region'))
+                        ->whereIn('event_requests.req_region',$region)
                         ->orderby('event_requests.id', 'DESC')->get();
                     }else{
                         $resolverData = User::where('location', '=', session('region'))->get();
+                      
                         $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                         ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                         ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
@@ -137,13 +164,14 @@ class EventRequestController extends Controller
                         ->orderby('event_requests.id', 'DESC')->get();
                     }                   
                     
-                }else{                     
+                }else{  
+
                     if(session('region') !='All'){
                         $resolverData = User::where('location', '=', session('region'))->get();
                         $datas = EventRequest::select('event_requests.id','event_requests.req_email','event_requests.req_name','event_requests.resv_id','event_requests.priority','event_requests.subject','event_requests.status','event_requests.description','event_requests.attachment','event_requests.rating','event_requests.feedback','event_requests.tentative_date','event_requests.handover_date','event_requests.closer_date','request_types.name','event_requests.created_at','users.name as resName')
                         ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                         ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
-                        ->where('event_requests.req_region', '=', session('region'))
+                        ->whereIn('event_requests.req_region',$region)
                         ->orderby('event_requests.id', 'DESC')->get();
                     }else{
                         $resolverData = User::where('location', '=', session('region'))->get();
@@ -164,7 +192,13 @@ class EventRequestController extends Controller
    
     public function store(Request $request)
     {
-        $resolverData = User::where('user_type', 2)->where('res_priority',1)->where('location', '=', session('region') )->first();
+        if((session('region') == "DRO")){
+            $resolverData = User::where('user_type', 2)->where('res_priority',1)->where('location', '=', 'KTC')->whereIn('location',['KTC','DRO'])->first();
+            //$resolverData = User::where('location', '=', 'KTC')->where('user_type', 2)->whereIn('location',['KTC','DRO'])->get();
+        }else{
+            $resolverData = User::where('user_type', 2)->where('res_priority',1)->where('location', '=', session('region') )->first();
+        }
+        // $resolverData = User::where('user_type', 2)->where('res_priority',1)->where('location', '=', session('region') )->first();
         
         $this->validate($request, [
             'priority' => 'required',
