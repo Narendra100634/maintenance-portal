@@ -23,7 +23,7 @@
                                                 <select class="form-control @error('request_type') is-invalid @enderror" name="request_type" id="request_type" required>
                                                     <option value="" selected disabled>Select Request</option>
                                                     @foreach ($requests as $request )                                                            
-                                                        <option value="{{$request->id}}">{{ucfirst(trans($request->name))}}</option>
+                                                        <option value="{{$request->id}}">{{ucwords($request->name)}}</option>
                                                     @endforeach                                                        
                                                 </select>
                                                 @if($errors->has('request_type'))
