@@ -15,39 +15,48 @@
     <section class="content">
         <div class="row">
             <div class="col-lg-3 col-xs-6 mar-left15">
-                <div class="small-box bg-aqua">
-                    <div class="inner text-center"><h3>{{isset($total) ? $total : 0}}</h3>
-                    @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
-                     <p class="text-center">My Total Tickets</p>
-                    @elseif (session('userType') == 'admin')
-                     <p class="text-center">Total Tickets</p>
-                    @endif
-                   </div>
-                </div>
+                <a href="{{route('req.allrequest','all')}}">
+                    <div class="small-box bg-aqua">
+                        <div class="inner text-center">
+                            <h3>{{isset($total) ? $total : 0}}</h3>
+                            @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
+                            <p class="text-center">My Total Tickets</p>
+                            @elseif (session('userType') == 'admin')
+                            <p class="text-center">Total Tickets</p>
+                            @endif
+                        </div>
+                    </div>
+                </a>
             </div>
            
             <div class="col-lg-3 col-xs-6">
-                <div class="small-box bg-green">
-                    <div class="inner text-center"><h3>{{isset($totalactive) ? $totalactive : 0}}</h3>
-                    @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
-                     <p class="text-center">My Active Tickets</p>
-                    @elseif (session('userType') == 'admin')
-                     <p class="text-center">Active Tickets</p>
-                    @endif
-                   </div>
-                </div>
+                <a href="{{route('req.allrequest','active')}}">
+                    <div class="small-box bg-green">
+                        <div class="inner text-center">
+                        <h3>{{isset($totalactive) ? $totalactive : 0}}</h3>
+                        @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
+                        <p class="text-center">My Active Tickets</p>
+                        @elseif (session('userType') == 'admin')
+                        <p class="text-center">Active Tickets</p>
+                        @endif
+                    </div>
+                    </div>
+                </a>
             </div>
            
             <div class="col-lg-3 col-xs-6">
-                <div class="small-box bg-yellow"> 
-                    <div class="inner text-center"><h3>{{isset($totalclose) ? $totalclose : 0}} </h3>
-                    @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
-                     <p class="text-center">My Closed Tickets</p>
-                    @elseif (session('userType') == 'admin')
-                     <p class="text-center">Closed Tickets</p>
-                    @endif
-                   </div>
-                </div>
+                <a href="{{ route('req.allrequest','close') }}">
+                    <div class="small-box bg-yellow"> 
+                        <div class="inner text-center">
+                        <h3>{{isset($totalclose) ? $totalclose : 0}} </h3>
+                        @if (session('userType') == 'requester' || (session('userType') == 'resolver') )
+                        <p class="text-center">My Closed Tickets</p>
+                        @elseif (session('userType') == 'admin')
+                        <p class="text-center">Closed Tickets</p>
+                        @endif
+                    </div>
+                    </div>
+                </a>
             </div>
             
         </div>
