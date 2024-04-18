@@ -8,7 +8,7 @@ use App\Http\Controllers\RequestTypeController;
 use App\Http\Controllers\ResolverController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ForgotPasswordController;
-
+use App\Http\Controllers\ReportController;
 
 Route::get('/', [PostController::class,'login'])->name('login');
 Route::post('login-user', [PostController::class,'loginUser'])->name('login-user');
@@ -47,12 +47,20 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
         Route::post('update/{id}', [ResolverController::class,'update'])->name('res.update');
         Route::get('assignto', [ResolverController::class, 'assignto'])->name('assignto');
     });
+    /* report section */
+    Route::prefix('reports')->group(function () {
+        Route::get('/index', [ReportController::class, 'index'])->name('reports.index');
+        Route::post('/store', [ReportController::class, 'store'])->name('reports.store');            
+    });
+
     route::post('comment/{id}', [CommentController::class, 'save'])->name('comment');
 
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+
 
 
 
