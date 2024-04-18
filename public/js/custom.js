@@ -1,5 +1,6 @@
     let baseurl = 'https://maintenance.karamportals.com/';
     //let baseurl = 'http://localhost:8000/';
+    
 
     /* bootstrap datatable */
     $(function () {
@@ -32,7 +33,6 @@
                url: _url,
                data: {_token: token},
                 success: function (resp) {
-                   console.log(resp);
                     $("#resName").val(resp['employee_name']);
                     $("#resLocation").val(resp['region']);                        
                     $("#resMobile").val(resp['phone']);
@@ -62,9 +62,7 @@
             url: urls+'resolver/assignto',
             data: {'resv_id': userData, 'id': reqId},
             success: function(data){
-                window.location.href = baseurl+"dashboard";
-                
-                
+                window.location.href = baseurl+"dashboard";               
             }
         });
     }
@@ -119,9 +117,7 @@
             $('#td_date').removeAttr('required');
             $('#handoverDt').hide(); 
             $('#handover_date').removeAttr('required'); 
-
-        }
-        else if(statusVal == 'On Hold'){
+        }else if(statusVal == 'On Hold'){
             console.log(111);
             $('#comment-row').show(); 
             // $("#editor").attr("required" ,true);
@@ -133,9 +129,7 @@
             $('#td_date').removeAttr('required');
             $('#handoverDt').hide(); 
             $('#handover_date').removeAttr('required'); 
-
-        }
-        else if(statusVal == 'Information Awaiting'){
+        }else if(statusVal == 'Information Awaiting'){
             console.log(111);
             $('#comment-row').show(); 
             // $("#editor").attr("required" ,true);
@@ -147,7 +141,6 @@
             $('#td_date').removeAttr('required');
             $('#handoverDt').hide(); 
             $('#handover_date').removeAttr('required'); 
-
         }
         // else if(statusVal != 'Comment'){
         //     // $('#comment-row').show(); 
@@ -169,12 +162,8 @@
             console.log(1234);
         }
     });
-
-    /* star rating input filed */
-
-    
+    /* star rating input filed */    
     var $star_rating = $('.star-rating .fa');
-
     var SetRatingStar = function() {
         return $star_rating.each(function() {
             if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
@@ -184,7 +173,6 @@
             }
         });
     };
-
     $star_rating.on('click', function() {
         $star_rating.siblings('input.rating-value').val($(this).data('rating'));
         return SetRatingStar();
@@ -194,20 +182,15 @@
 
     });
      /* daterange functionlity */
-
     $(function() {
         $( "#td_date" ).datepicker({ startDate: new Date()});
         $( "#handover_date" ).datepicker({ startDate: new Date()});
         $( "#closer_date" ).datepicker({ startDate: new Date()});
     });
-
    /* ck editor js functionlity */
-
 //    var allEditors = document.querySelector('#feedback_text');
-
 //         ClassicEditor.create(allEditors);
 //         $("#ckeditorForm").submit(function(e) {
-
 //             var content = $('#feedback_text').val();
 //             html = $(content).text();
 //             if ($.trim(html) == '') {
@@ -226,4 +209,12 @@
 		$(this).attr('disabled', 'disabled');
 		$(this).parents('form').submit();
 	}); 
-        
+    $(function() {
+        $('#daterange').daterangepicker();
+    })
+    
+     $(document).ready(function() {
+        $(".chosen-select").chosen();
+     });
+
+ 

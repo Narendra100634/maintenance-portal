@@ -27,7 +27,7 @@ class DashboardController extends Controller
                 $totalclose = EventRequest::where('req_email', $userEmail)->where('status',['Closed'])->count();
 
             }elseif(session('userType') == 'resolver'){
-                //dd(2);
+               
                 $region = session('region');
                 $resolverData = User::where('location', '=', session('region'))->get();
                 if($region == 'KTC'){
@@ -48,9 +48,9 @@ class DashboardController extends Controller
                 $totalclose = EventRequest::where('event_requests.resv_id', '=',session('userid'))
                 ->whereIn('event_requests.status',['Closed'])->count();
             }elseif(session('userType') == 'admin'){
-                //dd(3);
+                
                 $region = session('region');
-                //dd($region);
+                
                 if($region == 'KTC'){
                     $region = [$region,'DRO'];
                 }else{

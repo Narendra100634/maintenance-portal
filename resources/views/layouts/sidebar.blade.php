@@ -15,11 +15,16 @@
             <li class="treeview {{ ( (Request::segment(3) == 'all') || (Request::segment(3) == 'active') || (Request::segment(3) == 'close') )  ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-file-text"></i><span>Requests</span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu ">
-                <li class=" {{ (Request::segment(3) == 'all') ? 'active' : '' }}"> <a href="{{route('req.allrequest','all')}}"><i class="fa fa-circle-o "></i> <span>All Requests</span></a></li> 
-                <li class=" {{ (Request::segment(3) == 'active') ? 'active' : '' }}"> <a href="{{route('req.allrequest','active')}}"><i class="fa fa-circle-o "></i> <span>My Active Requests</span></a></li>
-                <li class="{{ (Request::segment(3) == 'close') ? 'active' : '' }} "> <a href="{{ route('req.allrequest','close') }}"><i class="fa fa-circle-o "></i> <span>My Close Requests</span></a></li>
+                    <li class=" {{ (Request::segment(3) == 'all') ? 'active' : '' }}"> <a href="{{route('req.allrequest','all')}}"><i class="fa fa-circle-o "></i> <span>All Requests</span></a></li> 
+                    <li class=" {{ (Request::segment(3) == 'active') ? 'active' : '' }}"> <a href="{{route('req.allrequest','active')}}"><i class="fa fa-circle-o "></i> <span>My Active Requests</span></a></li>
+                    <li class="{{ (Request::segment(3) == 'close') ? 'active' : '' }} "> <a href="{{ route('req.allrequest','close') }}"><i class="fa fa-circle-o "></i> <span>My Close Requests</span></a></li>
                 </ul>
+            </li>
+            @if (session('userType') == 'resolver' || session('userType') == 'admin') 
+            <li class="{{Request::is('reports/index') ? 'active' : '' }}"><a href="{{ route('reports.index') }}" class="nav-link "><i class="fa fa-file"></i><span>Report</span>
+                </a>
             </li> 
+            @endif
         </ul>                    
     </section>
 </aside>         
