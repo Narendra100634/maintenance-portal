@@ -86,7 +86,7 @@ class ReportController extends Controller
             $result .= ",";
             $result .= '"'.addslashes("Request Date").'"';
             $result .= ",";
-            $result .= '"'.addslashes("Requst Type").'"';
+            $result .= '"'.addslashes("Request Type").'"';
             $result .= ",";
             $result .= '"'.addslashes("Requster Email").'"';
             $result .= ",";
@@ -94,7 +94,7 @@ class ReportController extends Controller
             $result .= ",";
             $result .= '"'.addslashes("Requster Phone").'"';
             $result .= ",";
-            $result .= '"'.addslashes("Requst Region").'"';
+            $result .= '"'.addslashes("Request Region").'"';
             $result .= ",";
             $result .= '"'.addslashes("Resolver Name").'"';
             $result .= ",";

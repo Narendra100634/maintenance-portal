@@ -215,13 +215,11 @@
         var today = new Date(); 
         var start = today.setDate(today.getDate() - (7));        
         console.log(start);        
-        $('#daterange').daterangepicker({
-           
+        $('#daterange').daterangepicker({           
             endDate:start,
             startDate:today
         });
-    })
-    
+    })   
     
      $(document).ready(function() {
         $(".chosen-select").chosen();
