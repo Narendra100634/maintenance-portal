@@ -210,8 +210,18 @@
 		$(this).parents('form').submit();
 	}); 
     $(function() {
-        $('#daterange').daterangepicker();
+        // var minDate = new Date(); //alert(minDate.getDate() - (7));    
+        //  minDate.setDate(minDate.getDate() - (7)); 
+        var today = new Date(); 
+        var start = today.setDate(today.getDate() - (7));        
+        console.log(start);        
+        $('#daterange').daterangepicker({
+           
+            endDate:start,
+            startDate:today
+        });
     })
+    
     
      $(document).ready(function() {
         $(".chosen-select").chosen();
