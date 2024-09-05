@@ -263,7 +263,10 @@
                                 <hr class="body-line-content">
                                 <h5>Assign To
                                     @if((session('userType') == 'resolver' ||  session('userType') == 'admin') && $editData->status != 'Closed')
+                                     
+                                    
                                         <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#changeresolver-model"><i class="fa fa-pencil"></i> Change</button>
+                                    
                                     @endif
                                 </h5>
                                 <h5><span>{{isset($editData->resvname) ? ucfirst($editData->resvname) : ''}}</span></h5>

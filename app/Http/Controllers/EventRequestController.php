@@ -257,6 +257,7 @@ class EventRequestController extends Controller
                     $message->to($emlTo, 'Your Name')
                     ->cc([$data->req_email])
                     ->cc([$adminEmail->email])
+                    ->cc('trainee.shilpa@karam.in')
                     ->subject('[KARAM - Maintenance] New service request ticket Created Ticket ID #'.$data->id);
                 }
             ); 
@@ -270,11 +271,12 @@ class EventRequestController extends Controller
             if(session('userType') == 'requester' || session('userType') == 'resolver' || session('userType') == 'admin'){
                 
                 $findLocation = EventRequest::find(Crypt::decrypt($id));
-                $resolverDatas = User::where('location', '=', $findLocation->req_region)->where('user_type', 2)->get();
+                $resolverDatas = User::where('location', '=', $findLocation->req_region)->where('user_type', 2)->where('status',1)->get();
 
                 $editData = EventRequest::select('event_requests.*','request_types.name as requestType','users.name as resvname')
                 ->leftJoin('request_types','request_types.id', '=', 'event_requests.request_type')
                 ->leftJoin('users','users.id', '=', 'event_requests.resv_id')
+                ->where('users.status', 1)
                 ->where('event_requests.id', '=',Crypt::decrypt($id))
                 ->first();
                 $comments  = Comment::where('event_id','=', $editData->id)->orderBy('id', 'DESC')->get();
