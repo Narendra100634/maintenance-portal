@@ -8,6 +8,10 @@
             @endif
         </div>   
     </section>
+    @php
+    $location = session('region');
+    //echo $location;
+    @endphp
     <section class="content">
         <div class="row">
             <div class="col-lg-3 col-xs-6 mar-left15">
