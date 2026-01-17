@@ -1,4 +1,5 @@
 <footer class="main-footer">
-    <div class="pull-right hidden-xs"><b>Version</b> 1.2.0</div>
-    <span>© Copyrights KARAM Safety Pvt. Ltd. 2023. All rights reserved.</span>
+    <div class="pull-right hidden-xs"><b>Version</b> 1.0.0</div>
+    <span>© {{ date('Y') }}, All rights reserved by KARAM Safety Pvt. Ltd.</span>
+
 </footer>

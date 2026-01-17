@@ -20,8 +20,14 @@ class ResolverController extends Controller
     public function index()
     {
         
-        $datas = User::orderBy('id', 'DESC')->get();
-        return view('resolver.index', compact('datas'));
+        if(session('userType') != null || session('userType') != ''){
+           $datas = User::where('user_type',2)->orderBy('id', 'DESC')->get();
+        
+            return view('resolver.index', compact('datas'));
+        }else{
+            return redirect()->route('login');
+        }
+
     }
 
     public function create()
@@ -47,26 +53,27 @@ class ResolverController extends Controller
             if(session('userType') == 'admin'){
                 $this->validate($request, [
                     'name' => 'required |unique:users',
-                    'location' => 'required |unique:users',
-                    'mobile' => 'required |unique:users',
+                    'location' => 'required',
+                    // 'mobile' => 'required |unique:users',
                     'email' => 'required |unique:users',
                     'status' => 'required|in:1,0',
-                   
                 ]);
-        
+
+                $countresolver = User::where('location',$request->location)->count();
                 $data = new User;
                 $data->user_type = 2;
+                $data->res_priority = $countresolver+1;
                 $data->name = $request->name;
                 $data->email = $request->email;
                 $data->location = $request->location;
                 $data->mobile = $request->mobile;
                 $data->status = $request->status;
                 $data->password = 123;       
-                $data->save();   
+                $data->save();
 
                 return redirect()->route('res.index')->with('success','Resolver Created successfully');
             }else{
-               return redirect('login')->with('error', 'Employee dose not exist.');
+               return redirect('/')->with('error', 'Employee dose not exist.');
             }
         }else{
             return redirect()->route('login');
@@ -115,25 +122,45 @@ class ResolverController extends Controller
 
     public function assignto(Request $request)
     {
+        $firstRes = EventRequest::find($request->id);
+        $firstResolver = User::find($firstRes->resv_id);
+
         $updateResolver = EventRequest::find($request->id);
         $updateResolver->resv_id = $request->resv_id;
         $updateResolver->save();
 
         $resolverEmail = User::find($updateResolver->resv_id);
-        
+        $reqType = RequestType::find($updateResolver->request_type);
+        //$adminEmail = User::where('user_type', 1)->first();
+        if($updateResolver->req_region == 'KTC'){
+            $adminEmail = User::where('user_type', 1)->where('location', '=', $updateResolver->req_region)->first();
+        }else{
+            $adminEmail = User::where('user_type', 1)->first();
+        }
        if($request->resv_id != null){   
             
             Mail::send('EmailTemplats.assignuser', [
                 'requestid'            =>$updateResolver->id,
+                'priority'             => $updateResolver->priority,
+                'requestType'          => $reqType->name,
+                'subject'              => $updateResolver->subject,
+                'description'          => $updateResolver->description,
+                'requesterEmail'       => $updateResolver->req_email,
+                'firstResolver'        => $firstResolver->name,
+                'requesterRegion'      => $updateResolver->req_region,
+                'status'               => $updateResolver->status,
+                'requestdate'          =>$updateResolver->created_at,
                 'resolvername'         =>$resolverEmail->name,
             ],
-                function ($message) use($resolverEmail, $updateResolver){
+                function ($message) use($resolverEmail, $updateResolver, $adminEmail){
                     $emailFrom = 'karamalert@karamportals.com';
                     $emlTo  =  $resolverEmail->email;                   
                     $message->from($emailFrom);
                     $message->to($emlTo, 'Your Name')
                         ->cc([$updateResolver->req_email])
-                    ->subject('Your ticket has been Assigned to you');
+                        ->cc([$adminEmail->email])
+
+                    ->subject('[KARAM - Maintenance] Service request ticket re-assigned Ticket #'.$updateResolver->id);
                 }
             ); 
         } 

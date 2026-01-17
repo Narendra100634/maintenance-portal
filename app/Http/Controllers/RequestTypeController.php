@@ -71,10 +71,19 @@ class RequestTypeController extends Controller
     {
         if(session('userType') != null || session('userType') != ''){
             if(session('userType') == 'admin'){
-                $this->validate($request, [
-                    'name' => 'integer|unique:request_types', 
-                    'status' => 'required|in:1,0',
-                ]);
+                
+                $datafetch = RequestType::find(Crypt::decrypt($id));
+                if($datafetch->name == $request->name){
+                    $this->validate($request, [
+                        'name' => 'required', 
+                        'status' => 'required|in:1,0',
+                    ]);
+                }else{
+                    $this->validate($request, [
+                        'name' => 'required|unique:request_types,name', 
+                        'status' => 'required|in:1,0',
+                    ]);
+                }                              
                 $dataUp = RequestType::find(Crypt::decrypt($id));
                 $dataUp->name = $request->name;
                 $dataUp->status = $request->status;

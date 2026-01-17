@@ -15,11 +15,11 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-2">  
-                                        <label>Request Name<span class="required_min">*</span></label>
+                                        <label>Request Type<span class="required_min">*</span></label>
                                     </div>
                                     <div class="col-md-5">
                                         <span>
-                                            <input type="text" id="name" class="form-control @if($errors->has('name')) is-invalid @endif" name="name" value="{{old('name')}}" placeholder ="Request Name"/>
+                                            <input type="text" id="name" class="form-control @if($errors->has('name')) is-invalid @endif" name="name" value="{{old('name')}}" placeholder ="Request Name" required/>
                                             @if($errors->has('name'))
                                                 <div class="invalid-feedback error-msg">{{$errors->first('name')}}</div>
                                             @endif

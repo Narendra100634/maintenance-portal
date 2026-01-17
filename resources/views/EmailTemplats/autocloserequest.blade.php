@@ -8,13 +8,12 @@
 </head>
 <body>   
 <h3>Dear User</h3>
-<h3>Service request ticket response has been received. Ticket information is given below:
-</h3><br>
+<h3>Service request ticket response has been received. Ticket information is given below:</h3><br>
     <table border="1" cellpadding="10" style="border-collapse: collapse;">
         <tbody>
            <tr bgcolor="#f2f1f1">    
                 <td>Ticket Id</td>    
-                <td>#{{isset($requestid) ? $requestid : ''}}</td>    
+                <td> #{{isset($requestid) ? $requestid : ''}}</td>    
             </tr>
             <tr>    
                 <td>Request Date</td>    
@@ -49,29 +48,13 @@
                 <td>{{isset($subject) ? $subject : ''}}</td>    
             </tr>
             <tr>    
-                <td >Feedback</td>    
+                <td >Feedbacks</td>    
                 <td>{!! isset($feedback) ? $feedback : '' !!}</td>    
-            </tr>
-            <tr bgcolor="#f2f1f1">    
-                <td>Rating</td>    
-                <td>
-                    @if ($rating == 5)            
-                        <span style=" font-size: 25px; color: #ffb20d; content : '\2605'">★★★★★</span>
-                    @elseif ($rating == 4)
-                        <span style="font-size: 25px; color: #ffb20d; content : '\2605'">★★★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★</span>
-                    @elseif ($rating == 3)
-                        <span  style=" color: #ffb20d; content : '\2605'">★★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★</span>
-                    @elseif ($rating == 2)
-                        <span style=" color: #ffb20d; content : '\2605'">★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★★</span>
-                    @else
-                        <span style=" color: #ffb20d; content : '\2605'">★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★★★</span> 
-                    @endif
-                </td>    
             </tr>
        </tbody>    
     </table>
     <br><br><br>
     <span>Regards,</span><br>
-    <span>{{isset($requesterName) ? $requesterName : ''}}</span>   
+    <span>Karam Team</span>   
 </body>
 </html>

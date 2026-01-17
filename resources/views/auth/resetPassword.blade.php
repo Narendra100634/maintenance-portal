@@ -8,155 +8,41 @@
     <meta name="author" content="">
     <title>KARAM Maintenance Portal Login Page</title>
     <link rel="icon" href="{{asset('/img/favicon.ico')}}" type="image/vnd.microsoft.icon">
-    <link href="{{asset('/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('/css/clean-blog.min.css')}}" rel="stylesheet">
-    <link href="{{asset('/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href="{{asset('/css/custom.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous"/>
   </head>
-  <body>
-        <style>
-        @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
-        .login-page {
-            width: 100%;
-            padding: 8% 0 0;
-            margin: auto;
-        }
-        .form {
-            position: relative;
-            z-index: 1;
-            background: #FFFFFF;
-            max-width: 50%;
-            margin: 0 auto 100px;
-            padding: 45px;
-            text-align: center;
-            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-        }
-        .form input {
-            font-family: "Roboto", sans-serif;
-            outline: 0;
-            background: #f2f2f2;
-            width: 100%;
-            border: 0;
-            margin: 0 0 15px;
-            padding: 15px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        .form button {
-            font-family: "Roboto", sans-serif;
-            text-transform: uppercase;
-            outline: 0;
-            background: #e31e24;
-            /* width: 100%; */
-            border: 0;
-            padding: 5px;
-            color: #FFFFFF;
-            font-size: 14px;
-            -webkit-transition: all 0.3 ease;
-            transition: all 0.3 ease;
-            cursor: pointer;
-            border-radius:5px;
-        }
-        .form button:hover,.form button:active,.form button:focus {
-            background: #e31e24;
-        }
-        .form .message {
-            margin: 15px 0 0;
-            color: #b3b3b3;
-            font-size: 12px;
-        }
-        .form .message a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-        .form .register-form {
-            display: none;
-        }
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        .container:before, .container:after {
-            content: "";
-            display: block;
-            clear: both;
-        }
-        .container .info {
-            margin: 50px auto;
-            text-align: center;
-        }
-        .container .info h1 {
-            margin: 0 0 15px;
-            padding: 0;
-            font-size: 36px;
-            font-weight: 300;
-            color: #1a1a1a;
-        }
-        .container .info span {
-            color: #4d4d4d;
-            font-size: 12px;
-        }
-        .container .info span a {
-            color: #000000;
-            text-decoration: none;
-        }
-        .container .info span .fa {
-            color: #EF3B3A;
-        }
-        body {
-            background: #f7f7f7; /* fallback for old browsers */
-            background: -webkit-linear-gradient(right, #f7f7f7, #ffffff);
-            background: -moz-linear-gradient(right, #f7f7f7, #ffffff);
-            background: -o-linear-gradient(right, #f7f7f7, #ffffff);
-            background: linear-gradient(to left, #f7f7f7, #ffffff);
-            font-family: "Roboto", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;      
-        }
-        .profile-img{border-radius:100%;}
-        </style>
-        <div class="login-page"> 
-            <div class="form">
-                <form action="{{ route('reset.password.post') }}" method="POST">
+  <body class="hold-transition login-page">
+  <div class="karam-logo"><img class="" src="{{ asset('img/logo.png') }}" alt="karam-logo"></div>
+  <div class="login-logo">
+  Reset your Password?
+            </div>
+            <div class="card">
+    <div class="card-body login-card-body"> 
+    <div class="form">
+                <form class="login-form" action="{{ route('reset.password.post') }}" method="POST">
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}">
-                    <div class="form-group row">
-                        <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                        <div class="col-md-6">
-                            <input type="text" id="email_address" class="form-control" value="{{ Crypt::decrypt(Request::get('email'))}}" name="email"  required autofocus>
+                    <input type="text" id="email_address" class="form-control" value="{{ Crypt::decrypt(Request::get('email'))}}" name="email"  required autofocus>
                             @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">New Password</label>
-                        <div class="col-md-6">
-                            <input type="password" id="password" class="form-control" name="password" required autofocus>
+                         <input type="password" id="password" class="form-control" name="password" placeholder="Password" required autofocus>
                             @if ($errors->has('password'))
                                 <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
-                        <div class="col-md-6">
-                            <input type="password" id="password-confirm" class="form-control" name="password_confirmation" required autofocus>
+                        
+                            <input type="password" id="password-confirm" class="form-control" name="password_confirmation" placeholder="Confirm Password" required autofocus>
                             @if ($errors->has('password_confirmation'))
                                 <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
                             @endif
-                        </div>
-                    </div>
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
+                         <button type="submit" class="btn-primary">
                             Reset Password
                         </button>
-                    </div>
+                   
                 </form>
+</div>
+</div>
+</div>
             </div>
         </div>
   </body>

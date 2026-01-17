@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="robots" content="noindex,nofollow">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,142 +9,97 @@
     <meta name="author" content="">
     <title>KARAM Maintenance Portal Login Page</title>
     <link rel="icon" href="{{asset('/img/favicon.ico')}}" type="image/vnd.microsoft.icon">
-    <link href="{{asset('/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('/css/clean-blog.min.css')}}" rel="stylesheet">
-    <link href="{{asset('/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-  </head>
-  <body>
-    <style>
-      @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
-      .login-page {
-        width: 360px;
-        padding: 8% 0 0;
-        margin: auto;
-      }
-      a{color: #333333;font-size:16px;}
-  a:hover{color: #333333;font-size:16px;}
-      .form {
-        position: relative;
-        z-index: 1;
-        background: #FFFFFF;
-        max-width: 360px;
-        margin: 0 auto 100px;
-        padding: 45px;
+    <link href="{{asset('/css/custom.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous"/>
+    <style>                                          
+      .divider {
+        display: flex;
+        align-items: center;
         text-align: center;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        margin: 10px 0;
       }
-      .form input {
-        font-family: "Roboto", sans-serif;
-        outline: 0;
-        background: #f2f2f2;
-        width: 100%;
-        border: 0;
-        margin: 0 0 15px;
-        padding: 15px;
-        box-sizing: border-box;
-        font-size: 14px;
+      .divider::before,.divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #666;
       }
-      .form button {
-        font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
-        outline: 0;
-        background: #e31e24;
-        width: 100%;
-        border: 0;
-        padding: 15px;
-        color: #FFFFFF;
+      .divider span {
+        padding: 5px 6px;
+        border-radius: 50%;
+        background: white;
+        color: #555;
+      }
+
+      .btn-sso {
+        color: #212529;
+        /* font-family:"Poppins"; */
+        background: #ffffff;
+        padding: 10px 15px;
         font-size: 14px;
-        -webkit-transition: all 0.3 ease;
-        transition: all 0.3 ease;
         cursor: pointer;
-        border-radius:5px;
+        border-radius: 5px;
+        border: 1px solid #f0303d;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        gap: 10px;
+        margin-bottom:15px;
+        font-weight: 500;
       }
-      .form button:hover,.form button:active,.form button:focus {
-        background: #e31e24;
+
+      a:hover {
+        color: #333333;
+        font-size: 14px;
       }
-      .form .message {
-        margin: 15px 0 0;
-        color: #b3b3b3;
-        font-size: 12px;
+
+      .btn:hover {
+        padding: 15px 22px;
+        margin: 0px 0px 0px 0px;
       }
-      .form .message a {
-        color: #4CAF50;
+
+      a {
+        border-color: red;
+        color: #333333;
         text-decoration: none;
       }
-      .form .register-form {
-        display: none;
-      }
-      .container {
-        position: relative;
-        z-index: 1;
-        max-width: 300px;
-        margin: 0 auto;
-      }
-      .container:before, .container:after {
-        content: "";
-        display: block;
-        clear: both;
-      }
-      .container .info {
-        margin: 50px auto;
-        text-align: center;
-      }
-      .container .info h1 {
-        margin: 0 0 15px;
-        padding: 0;
-        font-size: 36px;
-        font-weight: 300;
-        color: #1a1a1a;
-      }
-      .container .info span {
-        color: #4d4d4d;
-        font-size: 12px;
-      }
-      .container .info span a {
-        color: #000000;
-        text-decoration: none;
-      }
-      .container .info span .fa {
-        color: #EF3B3A;
-      }
-      body {
-        background: #f7f7f7; /* fallback for old browsers */
-        background: -webkit-linear-gradient(right, #f7f7f7, #ffffff);
-        background: -moz-linear-gradient(right, #f7f7f7, #ffffff);
-        background: -o-linear-gradient(right, #f7f7f7, #ffffff);
-        background: linear-gradient(to left, #f7f7f7, #ffffff);
-        font-family: "Roboto", sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;      
-      }
-      .profile-img{border-radius:100%;}
     </style>
-    <div class="login-page"> 
-   
-      <div class="form">
-        <p class="login-box-msg"><img class="profile-img" src="img/photo.png" alt="user"></p>
-        
-        @if (Session::has('error'))
-         <p class="text-danger">{{Session::get('error') }}</p>
-        @endif
-        @if (Session::has('success'))
-         <p class="text-success">{{Session::get('success') }}</p>
-        @endif
+  </head>
+  <body class="hold-transition login-page">
+    
+      
+      <div class="karam-logo"><img class="" src="{{ asset('img/karam-logo.svg') }}" width="200" height="auto" alt="karam-logo"></div>
+        <div class="card">
+          <div class="card-body login-card-body">
+          <div class="login-logo">Sign In</div> 
+            <p class="login-box-msg"><img class="profile-img" src="{{asset('img/photo.png')}}" alt="user"></p>
+            <div class="form">
+              @if (Session::has('error'))
+                <p class="error-msg error-msg-alert text-danger text-center">{{Session::get('error') }}</p>
+              @endif
+              @if (Session::has('success'))
+                <p class="error-msg-alert text-success">{{Session::get('success') }}</p>
+              @endif
 
-        <form class="login-form" action="{{route('login-user')}}" method="post" >
-          @csrf
-          <input type="text" name="email" placeholder="Email" value="{{old('email')}}"/>
-          <span class="text-danger">@error('email'){{message}} @enderror </span>
-          <input type="password" name="password" placeholder="password"/>
-          <span class="text-danger">@error('password'){{message}} @enderror </span>
-
-          
-          <button type="submit">login</button>
-        </form><br>
-        <label><a href="{{ route('forget.password.get') }}">Forgot Password</a></label>
+              <!-- <form class="login-form" action="{{route('login-user')}}" method="post" >
+                @csrf
+                <input type="text" name="email" placeholder="Email" value="{{old('email')}}"/>
+                <span class="text-danger">@error('email'){{message}} @enderror </span>
+                <input type="password" name="password" placeholder="password"/>
+                <span class="text-danger">@error('password'){{message}} @enderror </span>
+                <button type="submit">Sign In</button>
+              </form>  
+              <div>
+                <label><a href="{{ route('forget.password.get') }}">Reset Password</a></label> 
+              </div>      
+              <div class="divider">
+                <span>or</span>
+              </div>  -->
+              <div class="mt-4 row">               
+                <a href="{{ url('login/azure')}}" class="btn-sso" ><img src="https://learning.karamonline.com/images/microsoft-logo.svg"><span> Login via single sign-on (SSO)</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>

@@ -8,7 +8,6 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-md-12">
                 <div class="col-md-8">
                     <div class="box">
                         <div class="box-body">
@@ -17,13 +16,14 @@
                             <hr class="body-line">
                             <h4>Description</h4>
                             <p>{{isset($editData->description) ? $editData->description : '' }}</p>
-                            @if ($editData->attachment !== null)                                
+                            @if ($editData->attachment != null || $editData->attachment != "")                                
                                 <h5><i class="fa fa-paperclip" aria-hidden="true"></i> Attachment: <a href="{{ url('file-data/'.$editData->attachment) }}" target="_blank" class="body-attach">{{$editData->attachment ? $editData->attachment : ''  }}</a></h5> 
                             @endif
                          </div>
                             <hr class="body-line"> 
                                 <div class="ScrollStyle" >  
                                 @foreach ($comments as  $comment)
+                                    
                                     <div class="box-body-content">                              
                                         <h4>{{isset($comment->user_name) ? $comment->user_name : '' }}</h4>
                                         <p class="date-format">{{isset($comment->created_at) ? $comment->created_at->format('d-m-Y H:i:s') : '' }}</p>
@@ -32,7 +32,6 @@
                                             <h5><i class="fa fa-paperclip" aria-hidden="true"></i> Attachment: <a href="{{ url('file-data/comments/'.$comment->attachment) }}" target="_blank" class="body-attach">{{$comment->attachment ? $comment->attachment : '' }}</a></h5>
                                         @endif
                                     </div> 
-                               
                                 @endforeach
                                 </div>
                                 @if ($editData->status == "Closed")                                    
@@ -47,10 +46,8 @@
                                             <input type="hidden" class="rating-value" value="{{$editData->rating ? $editData->rating : 0}}" readonly = "readonly" >
                                         </div>                                        
                                         <p>{!! isset($editData->feedback) ? $editData->feedback : '' !!}</p>
-                                       
                                     </div> 
                                 @endif
-                               
                             @if($editData->status != 'Closed')
                             <div class="share-feedback">
                                 @if( (session('userType') == 'resolver' && ($editData->status == 'Open' || $editData->status == 'WIP' || $editData->status == 'On Hold' || $editData->status == 'Information Awaiting' || $editData->status == 'Feedback Awaiting')) ||  
@@ -62,7 +59,7 @@
                                 <h4>Share your Feedback</h4>
                                 @endif
                                 <hr class="body-line">                            
-                                    <form method="POST" action="{{route('comment',Crypt::encrypt($editData->id))}}" class="form-submission watermark min-height form-sbmt" enctype="multipart/form-data">
+                                    <form method="POST" id="ckeditorForm" action="{{route('comment',Crypt::encrypt($editData->id))}}" class="form-submission watermark min-height form-sbmt" enctype="multipart/form-data">
                                         @csrf
                                         @if (session('userType') == 'resolver' || (session('userType') == 'requester' && $editData->status == 'Feedback Awaiting' ) )                                    
                                             <div class="row">                                           
@@ -74,6 +71,7 @@
                                                         <select class="form-control" name="status" id="status" required>
                                                             <option value="" selected disabled>Select Status</option>
                                                             @if (session('userType') == 'resolver' )
+                                                                <option value="Comment">Comment</option>
                                                                 @if(session('userType') == 'resolver' && $editData->status == 'On Hold' || $editData->status == 'Open' || $editData->status == 'Information Awaiting' )
                                                                     <option value="WIP">WIP</option>
                                                                 @endif 
@@ -102,7 +100,8 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <span>
-                                                    <input id="td_date" type="text"  class="form-control @error('tentative_date') is-invalid @enderror" name="tentative_date" />
+                                                    
+                                                    <input id="td_date" type="text"  class="form-control @error('tentative_date') is-invalid @enderror" name="tentative_date" autocomplete="off" />
                                                 
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                             
@@ -120,7 +119,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                 <span>
-                                                    <input id="handover_date" type="text"  class="form-control @error('handover_date') is-invalid @enderror" name="handover_date" />
+                                                    <input id="handover_date" type="text"  class="form-control @error('handover_date') is-invalid @enderror" name="handover_date" autocomplete="off"/>
                                                    
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                                    
@@ -133,7 +132,7 @@
                                         @endif
                                         <div class="row" id="rating-row" style="display:none">
                                             <div class="col-md-2">  
-                                                <label for="rating" >Rating<span class="required_min">*</span></label>
+                                                <label>Rating<span class="required_min">*</span></label>
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="star-rating">
@@ -142,7 +141,7 @@
                                                     <span class="fa fa-star-o" data-rating="3"></span>
                                                     <span class="fa fa-star-o" data-rating="4"></span>
                                                     <span class="fa fa-star-o" data-rating="5"></span>
-                                                    <input type="hidden"  name="rating" class="rating-value" value="">
+                                                    <input type="hidden"  name="rating" class="rating-value" value="" required>
                                                     
                                                 </div>
                                             </div>
@@ -153,7 +152,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                  <span>
-                                                    <input id="closer_date" type="text"  class="form-control @error('closer_date') is-invalid @enderror" name="closer_date" />
+                                                    <input id="closer_date" type="text"  class="form-control @error('closer_date') is-invalid @enderror" name="closer_date" autocomplete="off"/>
                                                    
                                                     <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                                                
@@ -166,15 +165,17 @@
                                         @if( (session('userType') == 'requester' || (session('userType') == 'admin' && ($editData->status == 'WIP' || $editData->status == 'On Hold' || $editData->status == 'Information Awaiting' || $editData->status == 'Feedback Awaiting' || $editData->status == 'Open')) ||  (session('userType') == 'resolver' && ($editData->status == 'WIP' || $editData->status == 'On Hold' || $editData->status == 'Information Awaiting' || $editData->status == 'Feedback Awaiting' || $editData->status == 'Open'))) )
                                             <div class="row" id="comment-row">
                                                 <div class="col-md-2">  
-                                                    <label for="comment_text" >Comment<span class="required_min">*</span></label>
+                                                    <label>Comment<span class="required_min">*</span></label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <span>
-                                                        <textarea type="text" class="form-control @error('comment_text') is-invalid @enderror" row="10" col="10" id="editor" name="comment_text" placeholder ="Enter Message Here"></textarea>
+                                                        <textarea rows="10" col="10" class="form-control @error('comment_text') is-invalid @enderror" name="comment_text" id="editor" Placeholder="Enter Message Here"></textarea>
+                                                        <!-- <textarea type="text" class="form-control @error('comment_text') is-invalid @enderror" row="10" col="10" id="editor" name="comment_text" placeholder ="Enter Message Here" required></textarea> -->
                                                         @if($errors->has('comment_text'))
                                                         <div class="invalid-feedback error-msg">{{$errors->first('comment_text')}}</div>
                                                         @endif
                                                     </span>
+                                                   
                                                 </div>
                                             </div>
                                         @endif
@@ -184,17 +185,16 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <span>
-                                                    <textarea type="text" cclass="form-control @error('feedback_text') is-invalid @enderror" row="10" col="10"  name="feedback_text" id="feedback_text" placeholder ="Enter Message Here"></textarea>
+                                                    <textarea type="text" class="form-control @error('feedback_text') is-invalid @enderror" row="10"  name="feedback_text" id="feedback_text" placeholder ="Enter Message Here" ></textarea>
                                                     @if($errors->has('feedback_text'))
                                                     <div class="invalid-feedback error-msg">{{$errors->first('feedback_text')}}</div>
                                                 @endif
                                                 </span>
                                             </div>
                                         </div>
-                                    
                                         <div class="row">
                                             <div class="col-md-2">  
-                                                <label for= "files" >Attachment</label>
+                                                <label>Attachment</label>
                                             </div>
                                             <div class="col-md-5">
                                             <span>
@@ -206,11 +206,11 @@
                                         </div>    
                                         <div class="row" class="body-submit">
                                             <div class="col-md-2"> 
-                                                <button type="submit" class="btn btn-primary btn-body">Submit </button>
+                                                <button type="submit" id="edit-request" class="btn btn-primary btn-body">Submit </button>
                                             </div>
                                         </div> 
                                     </form> 
-                            </div>
+                                </div>
                             @endif                           
                         </div>
                     </div>
@@ -220,13 +220,13 @@
                         <div class="box-body-right">
                             <div class="request-body">Request Information</div>
                             <div class="body-right-content">
-                                <h5><span class="right-label">Request ID :</span><span> #{{isset($editData->id) ? $editData->id : ''}}</span></h5>
-                                <h5><span class="right-label">Name :</span><span> {{isset($editData->req_name) ? $editData->req_name : ''}}</span></h5>
-                                <h5><span class="right-label">Phone :</span><span> {{isset($editData->req_phone) ? $editData->req_phone : ''}}</span></h5>
-                                <h5><span class="right-label">Email ID :</span><span>{{isset($editData->req_email) ? $editData->req_email : ''}}</span></h5>
-                                <h5><span class="right-label">Location : </span><span>{{isset($editData->req_region) ? $editData->req_region : ''}}</span></h5>
-                                <h5><span class="right-label">Request Type :</span><span> {{isset($editData->requestType) ? $editData->requestType : '' }}</span></h5>
-                                <h5><span class="right-label">Priority :</span>
+                                <h5><span class="right-label">Request ID:</span><span> #{{isset($editData->id) ? $editData->id : ''}}</span></h5>
+                                <h5><span class="right-label">Name:</span><span> {{isset($editData->req_name) ? $editData->req_name : ''}}</span></h5>
+                                <h5><span class="right-label">Phone:</span><span> {{isset($editData->req_phone) ? $editData->req_phone : ''}}</span></h5>
+                                <h5><span class="right-label">Email ID:</span><span>{{isset($editData->req_email) ? $editData->req_email : ''}}</span></h5>
+                                <h5><span class="right-label">Location: </span><span>{{isset($editData->req_region) ? $editData->req_region : ''}}</span></h5>
+                                <h5><span class="right-label">Request Type:</span><span> {{isset($editData->requestType) ? $editData->requestType : '' }}</span></h5>
+                                <h5><span class="right-label">Priority:</span>
                                     @if($editData->priority == 'Low')
                                      <span class="Priority low"> {{isset($editData->priority) ? $editData->priority : ''}}</span>
                                     @elseif ($editData->priority == 'Medium')
@@ -236,7 +236,9 @@
                                     @endif
                                 </h5>
                                 <h5><span class="right-label">Request Date:</span> <span>{{isset($editData->created_at) ? date('d-m-Y', strtotime($editData->created_at)): ''}}</span></h5>
-                                <h5><span class="right-label">Tentative Date:</span> <span>{{isset($editData->tentative_date) ? date('d-m-Y', strtotime($editData->tentative_date)): ''}}</span></h5>
+                                @if ($editData->tentative_date  != null || $editData->tentative_date  != "")
+                                <h5><span class="right-label">Tentative Date:</span> <span>{{isset($editData->tentative_date) ?  date('d-m-Y', strtotime($editData->tentative_date)): ''}}</span></h5>
+                                @endif
                                 <h5><span class="right-label">Status :</span>
                                     @if($editData->status == 'Open')
                                      <span class="Status open"> {{isset($editData->status) ? $editData->status : ''}}</span>
@@ -261,7 +263,10 @@
                                 <hr class="body-line-content">
                                 <h5>Assign To
                                     @if((session('userType') == 'resolver' ||  session('userType') == 'admin') && $editData->status != 'Closed')
+                                     
+                                    
                                         <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#changeresolver-model"><i class="fa fa-pencil"></i> Change</button>
+                                    
                                     @endif
                                 </h5>
                                 <h5><span>{{isset($editData->resvname) ? ucfirst($editData->resvname) : ''}}</span></h5>
@@ -271,7 +276,6 @@
                     </div>
                 </div>
             </div>
-       </div>
     </section>
     <!-- Model chenge resolver -->
     <div class="modal fade bd-example-modal-sm" id="changeresolver-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -290,7 +294,7 @@
                 <div class="modal-body">
                     @foreach ($resolverDatas as $resolverData ) 
                         <div class="row">
-                            <div class="col-sm-8"><label for="resolver-name">{{$resolverData->name}}</label></div>
+                            <div class="col-sm-8 float-mobile-left"><label for="resolver-name">{{$resolverData->name}}</label></div>
                             <div class="col-sm-4 radio-btn"><input type="radio" name="resolver-name" id="resolver-name" value="{{$resolverData->id}}"  {{ $resolverData->id == $editData->resv_id ? 'checked' : '' }} ></div>
                         </div>
                     @endforeach
@@ -300,6 +304,9 @@
                 </div>
             </div>
         </div>
-    </div>     
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    </div>   
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>  -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script> 
+   <script>ClassicEditor.create( document.querySelector( '#editor' ) )</script>
+     <script>ClassicEditor.create( document.querySelector( '#feedback_text' ) )</script> 
    @endsection
