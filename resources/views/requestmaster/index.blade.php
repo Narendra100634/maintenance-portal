@@ -1,6 +1,5 @@
-@include('layouts.header')
-@include('layouts.sidebar')
-<div class="content-wrapper">
+@extends('layouts.app')
+@section('content')
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">Manage Request Type</h1></div>
@@ -15,8 +14,7 @@
                         <table id="example1"  class="table table-striped table-bordered display nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>SN.</th> 
-                                    <th>Request Name</strong></th>
+                                    <th>Request Name</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -24,7 +22,6 @@
                             <tbody>
                                 @foreach ($datas as $data )                                               
                                 <tr>
-                                    <th scope="row"> {{$loop->iteration}}</th>
                                     <td>{{ $data->name ? $data->name : '' }}</td>  	 
                                     <td>{{ ($data->status == 1) ? 'Active' : 'Inactive'}}</td>
                                     <td><a href="{{route('reqtype.edit', Crypt::encrypt($data->id) )}}" title="Edit" class="x1"><i class="fa fa-pencil"></i></a></td>
@@ -37,6 +34,5 @@
             </div>
         </div>
     </section>    
-</div>
-@include('layouts.footer')
+@endsection
             

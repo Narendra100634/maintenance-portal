@@ -1,9 +1,8 @@
-@include('layouts.header')
-@include('layouts.sidebar')
-<div class="content-wrapper">
+@extends('layouts.app')
+@section('content')
     <section class="content-header">                   
         <div class="row">
-            <div class="col-md-6"><h1 style="color:#566b75;">My Closed TiCkets</h1></div>
+            <div class="col-md-6"><h1 class="dashboard-heading">My Closed TiCkets</h1></div>
             <div class="col-md-6 text-right"></div>
         </div>   
     </section>
@@ -30,11 +29,20 @@
                                 @foreach ($datas as $data )                                                   
                                     <tr>
                                         <td style="display:none">{{ $loop->iteration }}</td>
-                                        <th scope="row">
-                                        <span class="tbl-content">{{$data->priority ? $data->priority : ''}}</span>
-                                        {{$data->subject ? $data->subject : ''}}<br>
-                                        <a href="#"><b>#</b> {{$data->id ? $data->id : ''}} </a>
-                                        <small>{{ session('region') ? session('region') : ''}}</small></th>
+                                        <td>
+                                        <span>
+                                            @if ($data->priority === 'Low')
+                                             <small class="low">{{$data->priority ? $data->priority : ''}}</small>
+                                            @elseif ($data->priority === 'Medium')
+                                             <small class="medium">{{$data->priority ? $data->priority : ''}}</small>
+                                            @else
+                                             <small class="high">{{$data->priority ? $data->priority : ''}}</small>
+                                            @endif
+                                        </span><br>
+                                            <span>{{$data->subject ? $data->subject : ''}}</span> <br>
+                                            <span><b>#</b> {{$data->id ? $data->id : ''}}</span><br>
+                                            <span> <small>{{ session('region') ? session('region') : ''}}</small></span>
+                                        </td>
                                         <td>{{$data->status ? $data->status : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($data->created_at))}}</td>  	 
                                         <td>{{$data->name ? $data->name : ''}}</td>
@@ -51,6 +59,5 @@
             </div>
         </div>
     </section>    
-</div>
-@include('layouts.footer')
+@endsection
         

@@ -7,13 +7,16 @@ use App\Http\Controllers\EventRequestController;
 use App\Http\Controllers\RequestTypeController;
 use App\Http\Controllers\ResolverController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AzureController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('login', [PostController::class,'login'])->name('login');
+Route::get('/login/azure', [AzureController::class, 'redirectToProvider']);
+Route::get('/login/azure/callback', [AzureController::class, 'handleProviderCallback']);
+
+Route::get('/', [PostController::class,'login'])->name('login');
 Route::post('login-user', [PostController::class,'loginUser'])->name('login-user');
 Route::get('store/posts', [PostController::class,'store']);
 Route::get('logout', [PostController::class,'logout'])->name('logout');
@@ -26,7 +29,7 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
         Route::get('edit/{id}', [EventRequestController::class,'edit'])->name('req.edit');
         Route::post('update/{id}', [EventRequestController::class,'update'])->name('req.update');
 
-        Route::get('allrequest', [EventRequestController::class,'allrequest'])->name('req.allrequest');
+        Route::get('allrequest/{name?}', [EventRequestController::class,'allrequest'])->name('req.allrequest');
         Route::get('myactive', [EventRequestController::class,'myactive'])->name('req.myactive');
         Route::get('myclose', [EventRequestController::class,'myclose'])->name('req.myclose');
     });
@@ -46,13 +49,20 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
         Route::get('create', [ResolverController::class,'create'])->name('res.create');
         route::post('store', [ResolverController::class, 'store'])->name('res.store');
         route::get('usersList/{id}', [ResolverController::class, 'userList'])->name('userList');
-        Route::get('changeStatus', [ResolverController::class, 'changeStatus'])->name('changeStatus');
+        Route::get('edit/{id}', [ResolverController::class,'edit'])->name('res.edit');
+        Route::post('update/{id}', [ResolverController::class,'update'])->name('res.update');
+        Route::get('assignto', [ResolverController::class, 'assignto'])->name('assignto');
     });
+    /* report section */
+    Route::prefix('reports')->group(function () {
+        Route::get('/index', [ReportController::class, 'index'])->name('reports.index');
+        Route::post('/store', [ReportController::class, 'store'])->name('reports.store');            
+    });
+
     route::post('comment/{id}', [CommentController::class, 'save'])->name('comment');
 
-
-
-
-
-
-
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+Route::view('/error', 'error')->name('error');

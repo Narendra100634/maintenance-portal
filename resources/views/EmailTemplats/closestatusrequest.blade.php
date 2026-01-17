@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>   
+<h3>Dear User</h3>
+<h3>Service request ticket response has been received. Ticket information is given below:
+</h3><br>
+    <table border="1" cellpadding="10" style="border-collapse: collapse;">
+        <tbody>
+           <tr bgcolor="#f2f1f1">    
+                <td>Ticket Id</td>    
+                <td>#{{isset($requestid) ? $requestid : ''}}</td>    
+            </tr>
+            <tr>    
+                <td>Request Date</td>    
+                <td>{{isset($requestdate) ? date('d-m-Y H:i:s', strtotime($requestdate)) : ''}}</td>    
+            </tr>
+            <tr bgcolor="#f2f1f1">    
+                <td>Tentative Date</td>    
+                <td>{{isset($tentative_date) ? date('d-m-Y H:i:s', strtotime($tentative_date)) : ''}}</td>    
+            </tr>
+            <tr>    
+                <td>Handover Date</td>    
+                <td>{{isset($handover_date) ? date('d-m-Y H:i:s', strtotime($handover_date)) : ''}}</td>    
+            </tr> 
+            <tr bgcolor="#f2f1f1">    
+                <td>Closer Date</td>    
+                <td>{{ isset($closer_date) ? date('d-m-Y H:i:s', strtotime($closer_date)) : '' }}</td>    
+            </tr>
+             <tr>    
+                <td>Status</td>    
+                <td>{{isset($status) ? $status : ''}}</td>    
+            </tr>
+            <tr bgcolor="#f2f1f1">    
+                <td>Priority</td>    
+                <td>{{isset($priority) ? $priority : ''}}</td>    
+            </tr>
+            <tr>    
+                <td>Request Type</td>    
+                <td>{{isset($requestType) ? $requestType : ''}}</td>    
+            </tr>            
+            <tr bgcolor="#f2f1f1">    
+                <td>Ticket Title</td>    
+                <td>{{isset($subject) ? $subject : ''}}</td>    
+            </tr>
+            <tr>    
+                <td >Feedback</td>    
+                <td>{!! isset($feedback) ? $feedback : '' !!}</td>    
+            </tr>
+            <tr bgcolor="#f2f1f1">    
+                <td>Rating</td>    
+                <td>
+                    @if ($rating == 5)            
+                        <span style=" font-size: 25px; color: #ffb20d; content : '\2605'">★★★★★</span>
+                    @elseif ($rating == 4)
+                        <span style="font-size: 25px; color: #ffb20d; content : '\2605'">★★★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★</span>
+                    @elseif ($rating == 3)
+                        <span  style=" color: #ffb20d; content : '\2605'">★★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★</span>
+                    @elseif ($rating == 2)
+                        <span style=" color: #ffb20d; content : '\2605'">★★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★★</span>
+                    @else
+                        <span style=" color: #ffb20d; content : '\2605'">★</span><span style=" font-size: 25px;color: #bcb5a5; content : '\2605'">★★★★</span> 
+                    @endif
+                </td>    
+            </tr>
+       </tbody>    
+    </table>
+    <br><br><br>
+    <span>Regards,</span><br>
+    <span>{{isset($requesterName) ? $requesterName : ''}}</span>   
+</body>
+</html>

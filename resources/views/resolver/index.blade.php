@@ -1,6 +1,5 @@
-@include('layouts.header')
-@include('layouts.sidebar')          
-<div class="content-wrapper">
+@extends('layouts.app')
+@section('content')
     <section class="content-header">                   
         <div class="row">
             <div class="col-md-6"><h1 class="dashboard-heading">Manange Resolver</h1></div>
@@ -21,17 +20,19 @@
                                     <th>Mobile</th>
                                     <th>Email</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($datas as $data )                                                   
                                     <tr>
                                         <td style="display:none">{{ $loop->iteration }}</td>
-                                        <th scope="row">{{$data->name ? $data->name : ''}}</th>
+                                        <td scope="row">{{$data->name ? $data->name : ''}}</td>
                                         <td>{{$data->location ? $data->location : ''}}</td>
                                         <td>{{$data->mobile ? $data->mobile : ''}}</td>  	 
                                         <td>{{$data->email ? $data->email : ''}}</td>
-                                        <td><input data-id="{{$data->id}}" id="toggle_class" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $data->status ? 'checked' : '' }}></td>
+                                        <td>{{ ($data->status == 1) ? 'Active' : 'Inactive'}}</td>
+                                        <td><a href="{{route('res.edit', Crypt::encrypt($data->id) )}}" title="Edit" class="x1"><i class="fa fa-pencil"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -41,6 +42,5 @@
             </div>
         </div>
     </section>    
-</div>
-@include('layouts.footer')
+    @endsection
             
