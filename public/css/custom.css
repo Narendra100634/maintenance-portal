@@ -25,21 +25,21 @@ table.dataTable thead > tr > th{vertical-align:top;}
    border-radius: 0.25rem;
    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-label { 
+label {
     /* float: left; */
     margin-left: 10px;
     font-size: 16px;
     font-weight: 500;
-    margin-top: 6px; 
+    margin-top: 6px;
     padding-top: 10px;
-} 
-span { 
-    overflow: hidden; 
-    padding: 0px 4px 0px 0px; 
-} 
-input { 
-  width: 70%; 
-} 
+}
+span {
+    overflow: hidden;
+    padding: 0px 4px 0px 0px;
+}
+input {
+  width: 70%;
+}
 .dashboard-heading{
  color: #333333;
 }
@@ -147,34 +147,34 @@ textarea.form-control{height: 110px;}
 ::-webkit-scrollbar {
     width: 10px;
   }
-  
+
   /* Track */
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 2px grey; 
+    box-shadow: inset 0 0 2px grey;
     border-radius: 10px;
   }
-   
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #c0c0c0; 
+    background: #c0c0c0;
     border-radius: 10px;
   }
-  
+
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #9e9e9e; 
+    background: #9e9e9e;
   }.box-body-content
   .Description{padding: 15px;}
   .Description h4{font-size:20px;font-weight: 600;}
   .Description h5{font-size:16px;font-weight: 600;}
   .body-right-content h5 span{font-size:16px;font-weight: 400;}
   .Description h5 i, .box-body-content h5 i{font-size:20px;color: #858585;font-weight: 500;margin-right: 5px;}
-  
+
   .request-body{background: #e7e6e6;font-size: 22px;font-weight: 600;padding:15px 25px;border-radius: 10px 10px 0px 0px;text-align: left;}
   .body-right-content{padding: 25px;}
   .body-right-content h5{font-size:16px;font-weight: 600;padding-bottom: 10px;}
   .Priority{background: #f0303d;padding: 4px 10px;font-size:14px!important;border-radius: 5px;color: #ffffff;margin-left: 0px;}
-  .Status{padding: 4px 10px;font-size:14px!important;border-radius: 5px;margin-left: 0px;} 
+  .Status{padding: 4px 10px;font-size:14px!important;border-radius: 5px;margin-left: 0px;}
   .radio-btn{margin-top: 20px;}
   .modal-title{font-size: 18px;font-weight: 600;}
   .modal-footer .btn{background:#f0303d;color: #ffffff;border: 0px;}
@@ -207,7 +207,7 @@ textarea.form-control{height: 110px;}
       left: 12px;
       color: #aaa;
     }
-    
+
     .date-icon {
       position: absolute;
       top: 15px;
@@ -215,7 +215,7 @@ textarea.form-control{height: 110px;}
       cursor: pointer;
       color: #aaa;
     }
-  
+
     h5 span.right-label { width: 150px; float: left; font-weight: 600;}
     .modal-footer {
         padding: 15px;
@@ -253,7 +253,7 @@ textarea.form-control{height: 110px;}
       }
       a{color: #333333;font-size:16px;}
   a:hover{color: #333333;font-size:16px;}
-     
+
       .form input {
         font-family: "Roboto", sans-serif;
         outline: 0;
@@ -397,9 +397,7 @@ textarea.form-control{height: 110px;}
             -webkit-box-orient: vertical;}
 .error-msg-alert{text-align:center;}
 .dataTables_scrollHeadInner, div.dataTables_scrollHead table.table-bordered,.dataTables_scrollBody table{width:100%;}
-.karam-logo{position: absolute;
-  top: 30px;
-  left: 30px;}
+.karam-logo{text-align: center;padding: 15px 0px;}
   @media only screen and (max-width: 600px) {
     .karam-logo{display: none;}
     div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter{
@@ -421,10 +419,9 @@ textarea.form-control{height: 110px;}
   .body-right-content h5 span{font-size: 14px;}
   .content-header h1 {font-size: 20px;font-weight: 600; }
   .mar-left15{margin-left: 0px;}
-  label {margin-left: 0px;margin-top: 0px;padding-top: 0px;} 
+  label {margin-left: 0px;margin-top: 0px;padding-top: 0px;}
   .small-box>.inner{padding:20px 10px;}
   button.btn.btn-primary.btn-body {margin-left: 0px;}
   .box-body-content{min-height: auto; word-break: break-all;}
   .main-footer {font-size: 12px; text-align: center;}
  }
-    
