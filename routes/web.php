@@ -9,6 +9,12 @@ use App\Http\Controllers\ResolverController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AzureController;
+
+
+
+Route::get('/login/azure', [AzureController::class, 'redirectToProvider']);
+Route::get('/login/azure/callback', [AzureController::class, 'handleProviderCallback']);
 
 Route::get('/', [PostController::class,'login'])->name('login');
 Route::post('login-user', [PostController::class,'loginUser'])->name('login-user');
@@ -59,12 +65,4 @@ Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPassw
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-
-
-
-
-
-
-
-
-
+Route::view('/error', 'error')->name('error');
